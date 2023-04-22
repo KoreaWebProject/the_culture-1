@@ -7,8 +7,10 @@
 	
 	<!-- 어떤 계정으로 연결할 것인지, 어떤 맵퍼를 사용할 것인지 등을 알려줘야 함 -->
 	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="ds"/>
 		<property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath*:config/mybatis/mapper/*.xml"/>  <!-- 어딘가 sql 밑에 .xml파일들 참조 -->
+		<property name="dataSource" ref="ds"/>
+
 	</bean>
 	
 	<!-- 기본생성자가 없어서 오류발생/생성자 인젝션으로 접근해서 참조해야함 -->

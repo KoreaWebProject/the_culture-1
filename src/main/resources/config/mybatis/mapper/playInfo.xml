@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="p">
+<mapper namespace="korea.it.culture.dao.PlayInfoMapper">
 	<!-- 전체 조회 -->
-	<select id="play_list" resultType="play">
-		select * from play order by  DESC
+	<select id="getList" resultType="korea.it.culture.vo.PlayVO">
+		select * from play
 	</select>
 </mapper>
 
