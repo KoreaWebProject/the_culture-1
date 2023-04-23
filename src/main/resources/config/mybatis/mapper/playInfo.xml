@@ -7,6 +7,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getList" resultType="korea.it.culture.vo.PlayVO">
 		select * from play
 	</select>
+
+	<select id="getPlayInfo" parameterType="java.util.Map" resultType="korea.it.culture.vo.PlayInfoVO">
+
+		select *
+		from PLAYINFO
+		where PLAY_ID = #{playId}   /*'#'은 파라미터 타입이 int면 int로 들어오고 string이면 string으로 자동으로 들어옴*/
+
+	</select>
+
 </mapper>
 
 

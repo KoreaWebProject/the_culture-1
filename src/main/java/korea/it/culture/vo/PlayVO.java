@@ -4,6 +4,7 @@ public class PlayVO {
   private String playId, playPrfnm, playFrom, playTo, playLocnm, playPoster, playGenrenm, playPrfstate;
   private int playRef;
 
+
   public String getPlayId() {
     return playId;
   }
