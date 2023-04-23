@@ -1,5 +1,6 @@
 package korea.it.culture.vo;
 
+// TODO: 공연목록(임시)  삭제예정 
 public class PlayVO {
   private String playId, playPrfnm, playFrom, playTo, playLocnm, playPoster, playGenrenm, playPrfstate;
   private int playRef;

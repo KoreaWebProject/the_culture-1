@@ -1,5 +1,7 @@
 package korea.it.culture.vo;
 
+
+//공연 상세 정보
 public class PlayInfoVO {
 
   String locId, playId, playPrfcast, playPrfcrew, playPrfruntime, playPrfage,

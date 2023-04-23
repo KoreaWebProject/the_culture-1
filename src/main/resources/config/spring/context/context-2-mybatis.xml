@@ -3,12 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+
 	<!-- 어떤 계정으로 연결할 것인지, 어떤 맵퍼를 사용할 것인지 등을 알려줘야 함 -->
 	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis-config.xml"/>
-		<property name="mapperLocations" value="classpath*:config/mybatis/**/*.xml"/>  <!-- 어딘가 sql 밑에 .xml파일들 참조 -->
+		<property name="mapperLocations" value="classpath*:config/mybatis/**/*.xml"/>  <!-- 어딘가 sql 밑에 .xml파일들 참조 mybatis-config.xml과 경로 레벨 주의-->
 		<property name="dataSource" ref="ds"/>
 
 	</bean>

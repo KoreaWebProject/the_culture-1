@@ -3,6 +3,7 @@ package korea.it.culture.controller;
 import java.util.*;
 
 import korea.it.culture.service.PlayInfoService;
+import korea.it.culture.vo.LocInfoVO;
 import korea.it.culture.vo.PlayInfoVO;
 import korea.it.culture.vo.PlayVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,8 +48,9 @@ public class HomeController {
 	 * @param model
 	 * @return
 	 * @throws Exception
+	 * todo 삭제예정
 	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "list.do"}, method = RequestMethod.GET)
 	public String getViewList(Model model) throws Exception {
 		System.out.println("con의 getViewList 메서드 진입");
 		List<PlayVO> list = infoService.getList();
@@ -57,7 +59,16 @@ public class HomeController {
 		return "list";
 	}
 
-	@RequestMapping(value = "/info", method = RequestMethod.GET)
+
+	/**
+	 * playId를 list에서 받아와 map에 저장 후 쿼리문 실행  
+	 * 결과값 vo를 model에 add 후 playInfo 로 전송 
+	 * @param model
+	 * @param playId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/info.do", method = RequestMethod.GET)
 	public String ViewInfo(Model model, @RequestParam("playId") String playId) throws Exception{
 		System.out.println("con의 ViewInfo 실행");
 		//조건 값을 저장할 parameter용 map
@@ -70,4 +81,27 @@ public class HomeController {
 		model.addAttribute("info", vo);
 		return "playInfo";
 	}
+
+	/**
+	 * 공연장 정보를 가져오기 위함
+	 * @param model
+	 * @param locId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/loc.do", method = RequestMethod.GET)
+	public String locInfo(Model model, @RequestParam("locId") String locId) throws Exception{
+		System.out.println("con의 locInfo 실행");
+		//조건 값을 저장할 parameter용 map
+		Map<String, Object> paramMap = new HashMap<>();
+		//조건값 삽입
+		paramMap.put("locId", locId);
+		//게시글 데이터 가져오기  (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
+		LocInfoVO vo = infoService.getLocInfo(paramMap);
+
+		model.addAttribute("loc", vo);
+		return "locInfo";
+	}
+
+
 }

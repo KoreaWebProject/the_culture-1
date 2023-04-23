@@ -14,7 +14,7 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
-	
+
 	<!-- 만든 필터를 연결 -->
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>

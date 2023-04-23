@@ -84,7 +84,7 @@
 <c:forEach var="i" items="${list}">
   <h2>${i}번째</h2>
   <li> ${i.playId} </li>
-  <li> <a href='<%=root%>/info?playId=${i.playId}'> ${i.playPrfnm} </a> </li>
+  <li> <a href='<%=root%>/info.do?playId=${i.playId}'> ${i.playPrfnm} </a> </li>
   <li> ${i.playFrom} </li>
   <li> ${i.playTo} </li>
   <li> ${i.playLocnm} </li>

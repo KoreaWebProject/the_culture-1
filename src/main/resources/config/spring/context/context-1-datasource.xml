@@ -7,12 +7,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- db.properties(계정,비번)와 연결하는 작업 -->
 	<!-- 1. namespaces에서 context 체크 -->
 	<context:property-placeholder location="classpath:config/mybatis/db.properties"/>
 
+<!--	mybatis-spring기능을 이용해 spring과 mybatis연결 사용할 mapper의 경로 스캔-->
 	<mybatis-spring:scan base-package="korea.it.culture"/>
 
 
