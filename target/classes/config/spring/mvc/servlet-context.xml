@@ -7,37 +7,33 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
-	<!-- Enables the Spring MVC @Controller programming model -->
+<!--	서블릿 설정을 위한 xml-->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<context:component-scan base-package="korea.it" />
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" /><!-- resolver가 요청을 받으면 앞에 value를 붙여주기 -->
+		<beans:property name="suffix" value=".jsp" /><!-- 뒤에 .jsp 붙여주기  둘이 합치면 원하는 경로 얻을 수 있음-->
+	</beans:bean>
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
-	
-	<context:component-scan base-package="com.korea.db" /> -->
-	
+
 	<!-- 컨트롤러 수동생성 및 dao를 생상자 주입으로 받음 -->
 	<!-- <beans:bean class="com.korea.db.DeptController">
 		<beans:constructor-arg ref="dept_dao"/>
 	</beans:bean> -->
 	
 	<!-- 컨트롤러가 수종생성 되고 있는 경우, @Autowired가 가능하도록 하는 설정 -->
-	<context:annotation-config/>
+<!--	<context:annotation-config/>-->
 	
 	<!-- 컨트롤러 수동생성 및 dao를 setter 주입으로 받음  -->
 	<!-- <beans:bean class="com.korea.visit.VisitController">
 		<beans:property name="visit_dao" ref="visit_daoBean"/>
 	</beans:bean> -->
 	
-	<beans:bean class="korea.it.culture.HomeController">
-		<!-- <beans:property name="play_dao" ref="play_daoBean"/> -->
-	</beans:bean>
+<!--	<beans:bean class="korea.it.culture.controller.HomeController">-->
+<!--		&lt;!&ndash; <beans:property name="play_dao" ref="play_daoBean"/> &ndash;&gt;-->
+<!--	</beans:bean>-->
 	
 </beans:beans>
