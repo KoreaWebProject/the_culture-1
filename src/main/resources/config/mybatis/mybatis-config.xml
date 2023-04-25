@@ -9,15 +9,12 @@
 	</settings>
 	
 	<typeAliases>
-		<!-- <typeAlias type="vo.BoardVo" alias="board"/> -->
-		<typeAlias type="vo.PlayVO" alias="play"/>
+		<typeAlias type="koreait.culture.login.vo.UserVO" alias="user"/>
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="config/mybatis/mapper/play.xml"/>
-		
-		<!-- <mapper resource="config/mybatis/mapper/board_select.xml" />
-		<mapper resource="config/mybatis/mapper/board_insert.xml" />
+		<mapper resource="config/mybatis/mapper/user.xml" />
+		<!-- <mapper resource="config/mybatis/mapper/board_insert.xml" />
 		<mapper resource="config/mybatis/mapper/board_update.xml" />
 		<mapper resource="config/mybatis/mapper/board_delete.xml" /> -->
 	</mappers>

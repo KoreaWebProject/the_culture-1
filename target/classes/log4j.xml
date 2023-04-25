@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="korea.it.culture">
+	<logger name="com.korea.user">
 		<level value="info" />
 	</logger>
 	

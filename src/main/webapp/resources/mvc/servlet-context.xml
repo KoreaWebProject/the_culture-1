@@ -16,22 +16,22 @@
 	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	 <!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	<context:component-scan base-package="com.korea.db" /> -->
+	<context:annotation-config/>
+	<!-- 컨트롤러 수동생성 및 dao를 setter주입으로 받는다-->
+	<!-- <beans:bean class="com.korea.visit.VisitController">
+		<beans:property name="visit_dao" ref="visit_daoBean"/>
 	</beans:bean> -->
 	
-	<context:annotation-config/> 
-	<!-- 컨트롤러 수동생성 및 dao를 setter주입으로 받는다-->
-
- <beans:bean class="koreait.culture.login.controller.UserController">
+	<beans:bean class="com.korea.user.UserController">
 		<beans:property name="user_dao" ref="user_daoBean"/>
 	</beans:bean>
-	 
-	 <!-- Auto Detecting(자동생성) -->
-  <!--  <context:component-scan base-package="korea.it.*"/>
-   <context:component-scan base-package="dao,util,controller"/> -->
 
+	<!-- <beans:bean class="com.korea.visit.JsonMakerController"></beans:bean> -->
 </beans:beans>
 
 

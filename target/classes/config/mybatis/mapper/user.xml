@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u">
+	
+	
+	<!-- 회원가입 -->
+	<insert id="user_insert" parameterType="user">
+		insert into userinfo values(
+			#{user_id},
+			#{user_pw},
+			#{user_name},
+			#{user_birth},
+			#{user_gender},
+			#{user_mail},
+			#{user_zip_code},
+			#{user_addr1},
+			#{user_addr2},
+			#{user_role_id},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="user_login" parameterType="String" resultType="user">
+		select * from userinfo where user_id = #{user_id}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
