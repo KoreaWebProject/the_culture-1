@@ -3,17 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	
-	<!-- 어떤 계정으로 연결할 것인지, 어떤 맵퍼를 사용할 것인지 등을 알려줘야 함 -->
+	<!-- 어떤 계정으로 연결할 것인지, 어떤 맵퍼를 사용할 것인지... -->
 	<bean id="factoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="ds"/>
 		<property name="configLocation" value="classpath:config/mybatis/mybatis-config.xml"/>
 	</bean>
-	
-	<!-- 기본생성자가 없어서 오류발생/생성자 인젝션으로 접근해서 참조해야함 -->
+		
 	<bean id="sqlSessionBean" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="factoryBean"/>
-	</bean>
-	
+	</bean>	
+			
 </beans>

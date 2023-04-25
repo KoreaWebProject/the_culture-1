@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Jackson Maker -->
+	<bean id="jasonHttpMessageConverter"
+		  class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+	
+		<property name="messageConverters">
+			<list>
+				<ref bean="jasonHttpMessageConverter"/>
+			</list>
+		</property>
+		
+	</bean>
+</beans>
