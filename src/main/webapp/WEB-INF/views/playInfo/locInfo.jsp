@@ -19,7 +19,7 @@
     <h4 class="nb_tit1">
 
 
-      ${loc.locName}
+      ${loc.loc_name}
 
 
 
@@ -32,7 +32,7 @@
       <div>
         <dl>
           <dt>좌석수</dt>
-          <dd>${loc.locSeatscale}</dd>
+          <dd>${loc.loc_seatscale}</dd>
         </dl>
       </div>
     </li>
@@ -40,7 +40,7 @@
       <div>
         <dl>
           <dt>주소</dt>
-          <dd>${loc.locAddr}</dd>
+          <dd>${loc.loc_addr}</dd>
         </dl>
       </div>
     </li>
@@ -51,7 +51,7 @@
           <dd style="word-break:break-all;" wrap="hard">
             <!-- Java 모바일 체크 -->
 
-            <a href="${loc.locUrl}" target="_blank" title="새 창 열림">${loc.locUrl}</a>
+            <a href="${loc.loc_url}" target="_blank" title="새 창 열림">${loc.loc_url}</a>
 
           </dd>
         </dl>
@@ -81,14 +81,14 @@
 <!--공연장 정보 -->
 <ul>
 
-  <li>공연장ID: ${loc.locId} </li>
-  <li>이름:${loc.locName}</li>
-  <li>번호:${loc.locTel}</li>
-  <li>홈피:${loc.locUrl}</li>
-  <li>주소:${loc.locAddr}</li>
-  <li>위:${loc.locLa}</li>
-  <li>경도:${loc.locLo}</li>
-  <li>객석수:${loc.locSeatscale}</li>
+  <li>공연장ID: ${loc.loc_id} </li>
+  <li>이름:${loc.loc_name}</li>
+  <li>번호:${loc.loc_tel}</li>
+  <li>홈피:${loc.loc_url}</li>
+  <li>주소:${loc.loc_addr}</li>
+  <li>위:${loc.loc_la}</li>
+  <li>경도:${loc.loc_lo}</li>
+  <li>객석수:${loc.loc_seatscale}</li>
 </ul>
 </body>
 
@@ -97,7 +97,7 @@
 
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div(id로 따짐)
     mapOption = {
-    center: new kakao.maps.LatLng(${loc.locLa}, ${loc.locLo}), // 지도의 중심좌표
+    center: new kakao.maps.LatLng(${loc.loc_la}, ${loc.loc_lo}), // 지도의 중심좌표
     level: 3 // 지도의 확대 레벨
     };
 
@@ -127,7 +127,7 @@
     //=====지도 내부에 해당 주소 마커 생성=====>>>>>//
 
     // 마커가 표시될 위치입니다
-    var markerPosition = new kakao.maps.LatLng(${loc.locLa}, ${loc.locLo});
+    var markerPosition = new kakao.maps.LatLng(${loc.loc_la}, ${loc.loc_lo});
 
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({

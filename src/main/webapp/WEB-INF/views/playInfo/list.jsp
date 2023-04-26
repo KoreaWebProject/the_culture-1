@@ -83,15 +83,15 @@
 <ul>
 <c:forEach var="i" items="${list}">
   <h2>${i}번째</h2>
-  <li> ${i.playId} </li>
-  <li> <a href='<%=root%>/info.do?playId=${i.playId}'> ${i.playPrfnm} </a> </li>
-  <li> ${i.playFrom} </li>
-  <li> ${i.playTo} </li>
-  <li> ${i.playLocnm} </li>
-  <li> ${i.playPoster} </li>
-  <li> ${i.playGenrenm} </li>
-  <li> ${i.playPrfstate} </li>
-  <li> ${i.playRef} </li>
+  <li> ${i.play_id} </li>
+  <li> <a href='<%=root%>/info.do?play_id=${i.play_id}'> ${i.play_prfnm} </a> </li>
+  <li> ${i.play_from} </li>
+  <li> ${i.play_to} </li>
+  <li> ${i.play_locnm} </li>
+  <li> ${i.play_poster} </li>
+  <li> ${i.play_genrenm} </li>
+  <li> ${i.play_prfstate} </li>
+  <li> ${i.play_ref} </li>
 </c:forEach>
 
 </ul>
