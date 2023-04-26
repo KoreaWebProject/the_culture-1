@@ -36,8 +36,7 @@
 		<beans:property name="visit_dao" ref="visit_daoBean"/>
 	</beans:bean> -->
 	
-	<beans:bean class="korea.it.culture.HomeController">
-		<!-- <beans:property name="play_dao" ref="play_daoBean"/> -->
-	</beans:bean>
+		<!-- Auto Detecting(자동생성) -->
+	<context:component-scan base-package="dao,util,controller"/>
 	
 </beans:beans>

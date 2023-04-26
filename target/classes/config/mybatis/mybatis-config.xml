@@ -15,6 +15,11 @@
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/play.xml"/>
+		<mapper resource="config/mybatis/mapper/playinfo.xml"/>
+		<mapper resource="config/mybatis/mapper/reple.xml"/>
+		<mapper resource="config/mybatis/mapper/today.xml"/>
+		<mapper resource="config/mybatis/mapper/userinfo.xml"/>
+		<mapper resource="config/mybatis/mapper/locinfo.xml"/>
 		
 		<!-- <mapper resource="config/mybatis/mapper/board_select.xml" />
 		<mapper resource="config/mybatis/mapper/board_insert.xml" />
