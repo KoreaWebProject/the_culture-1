@@ -11,13 +11,13 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="korea.it.culture">
+	<logger name="com.korea.user">
 		<level value="info" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="off" />
+		<level value="info" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
@@ -25,7 +25,7 @@
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="off" />
+		<level value="info" />
 	</logger>
 
 	<logger name="org.springframework.web">
@@ -34,7 +34,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
 	

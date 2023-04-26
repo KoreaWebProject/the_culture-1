@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
-
-
-	<!-- db.properties(계정,비번)와 연결하는 작업 -->
-	<!-- 1. namespaces에서 context 체크 -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<!-- db.properties(계정, 비번) 연결 -->
 	<context:property-placeholder location="classpath:config/mybatis/db.properties"/>
-
-<!--	mybatis-spring기능을 이용해 spring과 mybatis연결 사용할 mapper의 경로 스캔-->
-	<mybatis-spring:scan base-package="korea.it.culture"/>
-
-
+		
 	<!-- DB연결을 위한 클래스 -->
 	<bean id="ds" class="org.apache.commons.dbcp.BasicDataSource">
-		<!-- 위 경로에 오류가 발생하지 않아야 라이브러리를 잘 가져온 것 -->
 		<property name="driverClassName" value="${driver}"/>
 		<property name="url" value="${url}"/>
 		<property name="username" value="${user}"/>
 		<property name="password" value="${password}"/>
 		<property name="maxActive" value="10"/>
-	</bean>
+	</bean>	
+		 
 </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

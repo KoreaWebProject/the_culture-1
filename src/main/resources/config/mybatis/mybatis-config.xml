@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "HTTP://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="korea.it.culture.qna.vo.QnaVO" alias="qna"/>
+		<typeAlias type="korea.it.culture.qna.vo.QnaReVO" alias="qna_reples"/>
+		<typeAlias type="korea.it.culture.login.vo.UserVO" alias="user"/>
+	</typeAliases>
+	
+	<mappers>
+		<mapper resource="config/mybatis/mapper/qna.xml"/>
+		<mapper resource="config/mybatis/mapper/qnaReple.xml"/>
+		<mapper resource="config/mybatis/mapper/user.xml" />
+	</mappers>
+</configuration>

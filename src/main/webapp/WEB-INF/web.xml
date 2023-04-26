@@ -3,9 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- 한글 깨짐 방지를 위한 추가 여기부터 -->
-	<!-- 매핑잡기 -->
-	<!-- 확장자가 .do로 끝나는 모든 url은 utf-8인코딩 처리를 할 수 있도록 코드 작성 -->
+	<!-- 확장자가 .do로 끝나는 모든 url은 utf-8인코딩 처리 -->
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -14,43 +12,37 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
-
-	<!-- 만든 필터를 연결 -->
+	
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-	
-	<!-- 여기까지 -->
-	
-	<!-- 관리를 편하게 하기 위해 수정/더이상 root-context는 사용 안함 -->
+
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:config/spring/context/context-*.xml</param-value>
-		<!-- 2번째로 실행하는 root-context가 여러 개가 된 것 / 순차적으로 다 실행 -->
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<!-- servlet-context도 이동했으므로 수정 -->
 			<param-value>classpath*:config/spring/mvc/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-		
+
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-
+	
 </web-app>
