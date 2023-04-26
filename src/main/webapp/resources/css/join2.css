@@ -1,0 +1,107 @@
+@charset "UTF-8";
+*{
+	margin: 0;
+	padding:0;
+}
+
+/* content 랩 */
+.wrap{
+	width : 1000px;
+	margin: auto;
+} 
+
+.image{
+	width: 80%;
+    margin-top: 20px;
+}
+/* 페이지 제목 */
+.subjecet{
+	width: 80%;
+    font-size: 25px;
+    font-weight: bold;
+}
+/* 폰트 */
+.id_name, .user_name, .pw_name, .pwck_name, .birth_name, .gender_name, .mail_name, .addr_name
+{
+	font-size: 20px;
+    font-weight: bold;
+}
+/* 아이디 영역 */
+.id_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+
+/* 비밀번호 영역 */
+.pw_wrap, .pwck_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+
+/* 이름 영역 */
+.user_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+
+/* 생년월일 영역 */
+.birth_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+
+/* 성별 영역 */
+.gender_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+
+/* 메일 영역 */
+.mail_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+.mail{
+	width: 280px;
+}
+
+/* 주소 영역 */
+.addr_wrap{
+	width: 80%;
+    margin-top: 20px;
+}
+
+.addr1_wrap{
+	margin-top: 20px;
+}
+
+.addr2_wrap{
+	margin-top: 20px;
+}
+#zip_code{
+	width:100px;
+}
+#addr1, #addr2{
+	width:280px;
+}
+
+/* 하단 버튼 */
+.join_button_wrap{
+	margin-top: 10px !important;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.join_btn, .cancel_btn{
+	width: 90px;
+	height: 30px;
+	background-color: #3366CC;
+	font-size: 18px;
+	font-weight: 900;
+	color: white;
+	margin : auto;
+}
+
+/* float 속성 해제 */
+.clearfix{
+	clear: both;
+}

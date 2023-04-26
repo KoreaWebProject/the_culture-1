@@ -75,7 +75,7 @@
 						<div>
 							<c:if test="${ list.qna_re_remove_lev eq 0}">
 								<div>
-									${ list.qna_id }에 대한 답변입니다
+									${ vo.qna_title }에 대한 답변입니다
 								</div>
 								<div>
 									${ list.qna_re_contents }
