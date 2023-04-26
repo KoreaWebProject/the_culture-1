@@ -9,7 +9,7 @@
 		<meta charset="UTF-8">
 		<title>The Culture</title>
 		
-		<script src="/login/resources/js/httpRequest.js"></script>
+		<script src="./resources/js/httpRequest.js"></script>
 		
 		<style>
 			.btn{
@@ -60,6 +60,7 @@
 	<script>
 		//로그인
 		function login(f){
+			
 			let user_id = f.user_id.value;
 			let user_pw = f.user_pw.value;
 			
@@ -74,6 +75,7 @@
 		//콜백메서드
 		function resFn(){
 			if(xhr.readyState == 4 && xhr.status == 200){
+				
 				var data = xhr.responseText;
 				
 				if(data == 'no_user_id'){
@@ -81,7 +83,7 @@
 				}else if(data == 'no_user_pw'){
 					alert("비밀번호가 일치하지 않습니다");
 				}else{
-					location.href="login_suc.jsp";						
+					location.href="qna_main.do";						
 				}
 			}
 		}

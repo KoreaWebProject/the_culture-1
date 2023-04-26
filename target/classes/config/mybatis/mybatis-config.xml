@@ -9,13 +9,14 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="koreait.culture.login.vo.UserVO" alias="user"/>
+		<typeAlias type="korea.it.culture.qna.vo.QnaVO" alias="qna"/>
+		<typeAlias type="korea.it.culture.qna.vo.QnaReVO" alias="qna_reples"/>
+		<typeAlias type="korea.it.culture.login.vo.UserVO" alias="user"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="config/mybatis/mapper/qna.xml"/>
+		<mapper resource="config/mybatis/mapper/qnaReple.xml"/>
 		<mapper resource="config/mybatis/mapper/user.xml" />
-		<!-- <mapper resource="config/mybatis/mapper/board_insert.xml" />
-		<mapper resource="config/mybatis/mapper/board_update.xml" />
-		<mapper resource="config/mybatis/mapper/board_delete.xml" /> -->
 	</mappers>
 </configuration>

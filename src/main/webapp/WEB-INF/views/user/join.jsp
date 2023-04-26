@@ -111,7 +111,7 @@
 		</div><!-- main_box -->
 	</body>
 	
-		<script src="/login/resources/js/httpRequest.js"></script>
+		<script src="./resources/js/httpRequest.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
@@ -159,11 +159,6 @@
 		    })
 		}
 		
-		/* function get_gen(event){
-			var user_gender = $('input[nmae="contact"]:checked').val();
-			alert(user_gender);
-		} */
-		
 		function send(f){
 		
 			let user_id = f.user_id.value;
@@ -192,9 +187,7 @@
 				return;
 			}
 			
-			
 			//라디오버튼 유효성
-		    /* var radios = document.getElementsByName("contact"); */
 		    var user_gender = $('input:radio[name="contact"]:checked').val();
 		    if(user_gender == null){
 		    	alert("성별을 선택하세요");
