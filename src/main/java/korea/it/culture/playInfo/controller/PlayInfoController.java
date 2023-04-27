@@ -1,6 +1,5 @@
 package korea.it.culture.playInfo.controller;
 
-import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.playInfo.util.MyCommon;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
@@ -14,33 +13,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class PlayInfoController {
 
 
   private PlayInfoService infoService;
 
   @Autowired
-  public HomeController(PlayInfoService infoService) {
+  public PlayInfoController(PlayInfoService infoService) {
     this.infoService = infoService;
     System.out.println("controller Autowired 실행완료");
   }
 
 
-  /**
-   * 초기페이지  Model 객체에 담아 jsp단에서 list로 사용
-   *
-   * @param model
-   * @return
-   * @throws Exception
-   * todo 상수햄 병합 시 삭제예정
-   */
+
  
 
   /**

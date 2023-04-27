@@ -67,7 +67,7 @@
 <header id="header" class="d-flex align-items-center">
   <div
           class="container d-flex align-items-center justify-content-between">
-    <!-- todo 병합 시 로고 클릭시 주소 설정-->
+
     <a href="#" onclick="location.href='culture.do'" class="logo"><img
             src="./resources/assets/img/logo.png" alt="" width="130px"></a>
     <nav class="navbar">
