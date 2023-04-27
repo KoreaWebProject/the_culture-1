@@ -9,7 +9,7 @@ public class Common {
 	//일반 게시판
 	public static class Board{
 		//한 페이지게 보여줄 게시글 갯수 5개
-		public final static int BLOCKLIST = 5;
+		public final static int BLOCKLIST = 10;
 		
 		//한 화면에 보여질 페이지 메뉴의 수
 		//< 1 2 3 > 최대 페이지 수를 3개로 제한

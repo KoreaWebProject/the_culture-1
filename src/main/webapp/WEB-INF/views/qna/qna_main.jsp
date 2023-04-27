@@ -35,10 +35,6 @@ a {
 </style>
 
 <script>
-	function classToggle() {
-		var el = document.querySelector('.icon-cards__content');
-		el.classList.toggle('step-animation');
-	}
 	function search() {
 		//조회 카테고리 검색
 		let search = document.getElementById("search").value;
@@ -72,7 +68,8 @@ a {
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#">고객센터</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">고객센터</a> <a href="#">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -82,7 +79,7 @@ a {
 	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
 		<div class="container d-flex align-items-center justify-content-between">
-			<a href="#" onclick="location.href='culture.do'" class="logo"><img src="./resources/assets/img/the_culture_logo.png" alt="" width="130px"></a>
+			<a href="#" onclick="location.href='culture.do'" class="logo"><img src="resources/img/the_culture_logo.png" alt="" width="130px"></a>
 			<nav class="navbar">
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -115,59 +112,154 @@ a {
 
 	</div>
 	<!-- ======= end menubar ======= -->
-	<h1>문의하기</h1>
-	<div>
-		<c:if test="${not empty login.user_id and login.user_role_id == 0}">
-			<input type="hidden" name="user_id" value="${login.user_id}">
-			<input type="button" value="문의하기" onClick="location.href='qna_reg.do'">
-		</c:if>
-	</div>
-	<div>
-		<div>
-			<div>NO</div>
-			<div>제목</div>
-			<div>이름</div>
-			<div>진행상황</div>
-			<div>등록일</div>
+	<main class="container">
+		<hr>
+		<div class="d-flex justify-content-between">
+		<h2 style="margin-bottom: 50px;">고객센터</h2>
+
+
+			<c:if test="${not empty login.user_id and login.user_role_id == 0}">
+				<input type="hidden" name="user_id" value="${login.user_id}">
+				<button class="btn btn-outline-secondary" onClick="location.href='qna_reg.do'">문의하기</button>
+			</c:if>
 		</div>
 
-		<c:forEach var="vo" items="${ list }">
-			<div>${vo.qna_id}</div>
+		<table class="container">
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>제목</th>
+					<th>이름</th>
+					<th>진행상황</th>
+					<th>등록일</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="vo" items="${ list }">
+					<c:if test="${ vo.qna_remove_lev ne 1 }">
+						<tr>
+							<td>${vo.qna_id}</td>
+							<td><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></td>
+							<td>${vo.user_id}</td>
+							<c:if test="${ vo.qna_status eq 0 }">
+								<td style="color: red;">처리중</td>
+							</c:if>
+							<c:if test="${ vo.qna_status ne 0 }">
+								<td style="color: blue;">답변완료</td>
+							</c:if>
+							<td>${vo.qna_regdate}</td>
+						</tr>
+					</c:if>
+					<c:if test="${ vo.qna_remove_lev eq 1 }">
+						<tr>
+							<td>${vo.qna_id}</td>
+							<td colspan="4">삭제된 게시글 입니다.</td>
+						</tr>
+					</c:if>
+
+				</c:forEach>
+			</tbody>
+		</table>
+
+
+
+
+		<%-- <div>
 			<div>
-				<c:if test="${ vo.qna_remove_lev ne 1 }">
-					<div>
-						<!-- 링크를 누르면 qna_id를 가지고 페이지를 넘어가기 -->
-						<a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a>
-						<div>${vo.user_id}</div>
-						<div>
-							<c:if test="${ vo.qna_status eq 0 }">처리중</c:if>
-							<c:if test="${ vo.qna_status ne 0 }">답변완료</c:if>
-						</div>
-						<div>${vo.qna_regdate}</div>
-					</div>
-				</c:if>
-				<c:if test="${ vo.qna_remove_lev eq 1 }">
-					<font color="gray">삭제된글입니다</font>
-				</c:if>
+				<div>NO</div>
+				<div>제목</div>
+				<div>이름</div>
+				<div>진행상황</div>
+				<div>등록일</div>
 			</div>
-		</c:forEach>
+
+			<c:forEach var="vo" items="${ list }">
+				<div>${vo.qna_id}</div>
+				<div>
+					<c:if test="${ vo.qna_remove_lev ne 1 }">
+						<div>
+							<!-- 링크를 누르면 qna_id를 가지고 페이지를 넘어가기 -->
+							<a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a>
+							<div>${vo.user_id}</div>
+							<div>
+								<c:if test="${ vo.qna_status eq 0 }">처리중</c:if>
+								<c:if test="${ vo.qna_status ne 0 }">답변완료</c:if>
+							</div>
+							<div>${vo.qna_regdate}</div>
+						</div>
+					</c:if>
+					<c:if test="${ vo.qna_remove_lev eq 1 }">
+						<font color="gray">삭제된글입니다</font>
+					</c:if>
+				</div>
+			</c:forEach> --%>
 
 		<!-- 페이지 선택 -->
-		<div>${ pageMenu }</div>
+		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
 
-		<div>
-			<!-- 조회 카테고리 -->
-			<select id="search">
-				<option value="all">전체보기</option>
-				<option value="subject">제목</option>
-				<option value="name">이름</option>
-				<option value="content">내용</option>
-				<option value="name_subject_content">이름+제목+내용</option>
-			</select>
+		<div class="row container d-flex justify-content-center" style="margin-top: 20px;">
+			<div class="col-2">
+				<select id="search" class="form-select ">
+					<option value="all">전체보기</option>
+					<option value="subject">제목</option>
+					<option value="name">이름</option>
+					<option value="content">내용</option>
+					<option value="name_subject_content">이름+제목+내용</option>
+				</select>
+			</div>
+			<div class="col-3">
+				<input id="search_text" class="form-control col-2" type="text">
+			</div>
+			<button class="btn btn-outline-primary col-1" onclick="search();">검색</button>
 
-			<!-- 검색어 입력 창 -->
-			<input id="search_text"> <input type="button" value="검색" onClick="search();">
 		</div>
-	</div>
+
+	</main>
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h3>
+							THE CULTURE<span>.</span>
+						</h3>
+
+
+						<div class="container py-4">
+							<div class="copyright">
+								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All Rights Reserved
+							</div>
+							<div class="credits d-flex align-item-left">
+								<p>park sang soo</p>
+								<p>kim dong joon</p>
+								<p>kim si yoon</p>
+								<p>kim yu mi</p>
+								Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+	</footer>
+	<!-- End Footer -->
+
+
+	<div id="preloader"></div>
+	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	
+	<!-- Vendor JS Files -->
+	<script src="./resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	<script src="./resources/assets/vendor/aos/aos.js"></script>
+
+	<script src="./resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="./resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script src="./resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="./resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
+	<!-- Template Main JS File -->
+	<script src="./resources/assets/js/main.js"></script>
 </body>
 </html>
