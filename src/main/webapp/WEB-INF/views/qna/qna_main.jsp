@@ -114,13 +114,13 @@ a {
 	<!-- ======= end menubar ======= -->
 	<main class="container">
 		<hr>
-		<div class="d-flex justify-content-between">
+		<div class="d-flex justify-content-between" style="position: relative;">
 		<h2 style="margin-bottom: 50px;">고객센터</h2>
 
 
 			<c:if test="${not empty login.user_id and login.user_role_id == 0}">
 				<input type="hidden" name="user_id" value="${login.user_id}">
-				<button class="btn btn-outline-secondary" onClick="location.href='qna_reg.do'">문의하기</button>
+				<button class="btn btn-outline-secondary" onClick="location.href='qna_reg.do'" style="position: absolute; top:3px; right: 0px;">문의하기</button>
 			</c:if>
 		</div>
 
