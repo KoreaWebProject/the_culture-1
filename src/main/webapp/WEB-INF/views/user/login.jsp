@@ -9,7 +9,7 @@
 		<meta charset="UTF-8">
 		<title>The Culture</title>
 
-		<script src="/resources/js/httpRequest.js"></script>
+		<script src="./resources/js/httpRequest.js"></script>
 
 		<style>
 			.btn{
@@ -83,7 +83,7 @@
 				}else if(data == 'no_user_pw'){
 					alert("비밀번호가 일치하지 않습니다");
 				}else{
-					location.href="qna_main.do";
+					location.href="culture.do";
 				}
 			}
 		}

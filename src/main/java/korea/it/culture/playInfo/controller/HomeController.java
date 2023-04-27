@@ -1,9 +1,10 @@
 package korea.it.culture.playInfo.controller;
 
+import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.playInfo.util.MyCommon;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
-import korea.it.culture.playInfo.vo.PlayVO;
+
 import korea.it.culture.playInfo.vo.LocInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,14 +41,7 @@ public class HomeController {
    * @throws Exception
    * todo 상수햄 병합 시 삭제예정
    */
-  @RequestMapping(value = {"/list.do"}, method = RequestMethod.GET)
-  public String getViewList(Model model) throws Exception {
-    System.out.println("con의 getViewList 메서드 진입");
-    List<PlayVO> list = infoService.getList();
-    System.out.println("service의 getList받아옴");
-    model.addAttribute("list", list);
-    return MyCommon.playInfo.VIEW_PATH + "list.jsp";
-  }
+ 
 
   /**
    * playId를 list에서 받아와 map에 저장 후 쿼리문 실행

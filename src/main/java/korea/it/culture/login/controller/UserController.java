@@ -27,7 +27,7 @@ public class UserController {
 	}
 
 	// 로그인메인 화면
-	@RequestMapping(value = { "/", "/login_main.do" })
+	@RequestMapping("/login_main.do")
 	public String loginmain() {
 		return "/WEB-INF/views/user/login.jsp";
 	}
@@ -89,6 +89,14 @@ public class UserController {
 
 		user_dao.insert(vo);
 		return "redirect:login_main.do";
+	}
+	
+	@RequestMapping("/logout.do")
+	public String logout(HttpSession session) {
+		session = request.getSession();
+		session.invalidate();
+
+		return "redirect:culture.do";
 	}
 
 }

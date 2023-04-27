@@ -13,9 +13,11 @@
 		<typeAlias type="korea.it.culture.qna.vo.QnaVO" alias="qna"/>
 		<typeAlias type="korea.it.culture.qna.vo.QnaReVO" alias="qna_reples"/>
 		<typeAlias type="korea.it.culture.login.vo.UserVO" alias="user"/>
-		<typeAlias type="korea.it.culture.playInfo.vo.PlayVO" alias="play"/>	<!-- todo 상수햄 병합 시 해당 패키지로 변경 -->
+		<typeAlias type="korea.it.culture.main.vo.PlayVO" alias="play"/>	<!-- todo 상수햄 병합 시 해당 패키지로 변경 -->
 		<typeAlias type="korea.it.culture.playInfo.vo.PlayInfoVO" alias="playInfo"/>
 		<typeAlias type="korea.it.culture.playInfo.vo.LocInfoVO" alias="locInfo"/>
+		<typeAlias type="korea.it.culture.main.vo.TodayVO" alias="today"/>
+		<typeAlias type="korea.it.culture.main.vo.RepleVO" alias="reple"/>
 	</typeAliases>
 
 	<mappers>
@@ -23,5 +25,8 @@
 		<mapper resource="config/mybatis/mapper/qnaReple.xml"/>
 		<mapper resource="config/mybatis/mapper/user.xml" />
 		<mapper resource="config/mybatis/mapper/playInfo.xml" />
+		<mapper resource="config/mybatis/mapper/play.xml"/>
+		<mapper resource="config/mybatis/mapper/reple.xml"/>
+		<mapper resource="config/mybatis/mapper/today.xml"/>
 	</mappers>
 </configuration>
