@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="p">
-	<select id="rank_list" resultType="vo.PlayVO">
+	<select id="rank_list" resultType="play">
 		Select p.*
 		From play p inner
 		join reple r
@@ -12,13 +12,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<select id="one_list" resultType="vo.PlayVO" parameterType="String">
+	<select id="one_list" resultType="play" parameterType="String">
 		select * from play
 		where play_id = #{play_id}
 	</select>
 
 	
-	<select parameterType="java.util.HashMap" resultType="vo.PlayVO"
+	<select parameterType="java.util.HashMap" resultType="play"
 		id="genre_list">
 		select * from(select RANK() OVER(order by play_ref desc) no , p.* from
 		(select * from play 
@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</select>
 
 
-		<select parameterType="java.util.HashMap" resultType="vo.PlayVO"
+		<select parameterType="java.util.HashMap" resultType="play"
 		id="all_list">
 		select * from(select RANK() OVER(order by play_ref desc) no , p.* from
 		(select * from play
