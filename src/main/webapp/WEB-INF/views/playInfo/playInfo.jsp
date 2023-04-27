@@ -19,27 +19,25 @@
           rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <%--<link href="../../resources/assets/css/style.css"--%>
-  <link href="/resources/assets/css/style.css"
-        rel="stylesheet">
+  <%--<link href="./resources/assets/css/style.css"--%>
   <link
-          href="../../resources/assets/vendor/bootstrap/css/bootstrap.min.css"
+          href="./resources/assets/vendor/bootstrap/css/bootstrap.min.css"
           rel="stylesheet">
   <link
-          href="../../resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+          href="./resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
           rel="stylesheet">
   <link
-          href="../../resources/assets/vendor/boxicons/css/boxicons.min.css"
+          href="./resources/assets/vendor/boxicons/css/boxicons.min.css"
           rel="stylesheet">
   <link
-          href="../../resources/assets/vendor/glightbox/css/glightbox.min.css"
+          href="./resources/assets/vendor/glightbox/css/glightbox.min.css"
           rel="stylesheet">
   <link
-          href="../../resources/assets/vendor/swiper/swiper-bundle.min.css"
+          href="./resources/assets/vendor/swiper/swiper-bundle.min.css"
           rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="../../resources/assets/css/style.css?ver=1"
+  <link href="./resources/assets/css/style.css?ver=1"
         rel="stylesheet">
 </head>
 <body>
@@ -70,8 +68,8 @@
   <div
           class="container d-flex align-items-center justify-content-between">
     <!-- todo 병합 시 로고 클릭시 주소 설정-->
-    <a href="#" onclick="location.href=.do'" class="logo"><img
-            src="../../resources/assets/img/logo.png" alt="" width="130px"></a>
+    <a href="#" onclick="location.href='culture.do'" class="logo"><img
+            src="./resources/assets/img/logo.png" alt="" width="130px"></a>
     <nav class="navbar">
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search"
@@ -89,26 +87,26 @@
   <nav class="navbar">
     <ul>
       <li><a class="nav-link scrollto" href="#"
-             onclick="location.href='info.do?genrenm=연극'">연극</a></li>
+             onclick="location.href='geinfo.do?genrenm=연극'">연극</a></li>
       <li><a class="nav-link scrollto" href="#"
-             onclick="location.href='info.do?genrenm=뮤지컬'">뮤지컬</a></li>
+             onclick="location.href='geinfo.do?genrenm=뮤지컬'">뮤지컬</a></li>
       <li class="dropdown"><a href="#"
-                              onclick="location.href='info.do?genrenm=음악'"><span>음악</span> <i
+                              onclick="location.href='geinfo.do?genrenm=음악'"><span>음악</span> <i
               class="bi bi-chevron-down"></i></a>
         <ul>
           <li><a href="#"
-                 onclick="location.href='info.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
+                 onclick="location.href='geinfo.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
           <li><a href="#"
-                 onclick="location.href='info.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
+                 onclick="location.href='geinfo.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
           <li><a href="#"
-                 onclick="location.href='info.do?genrenm=대중음악'">대중음악</a></li>
+                 onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
         </ul></li>
       <li><a class="nav-link scrollto" href="#"
-             onclick="location.href='info.do?genrenm=무용'">무용</a></li>
+             onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
       <li><a class="nav-link scrollto" href="#services"
-             onclick="location.href='info.do?genrenm=서커스/마술'">서커스/마술</a></li>
+             onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
       <li><a class="nav-link scrollto" href="#services"
-             onclick="location.href='info.do?genrenm=복합'">복합</a></li>
+             onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
 
     </ul>
 
@@ -266,22 +264,22 @@
 
 <!-- Vendor JS Files -->
 <script
-        src="../../resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-<script src="../../resources/assets/vendor/aos/aos.js"></script>
+        src="./resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+<script src="./resources/assets/vendor/aos/aos.js"></script>
 
 <script
-        src="../../resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+        src="./resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script
-        src="../../resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        src="./resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 <script
-        src="../../resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+        src="./resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
 <script
-        src="../../resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
+        src="./resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
 <script
-        src="../../resources/assets/vendor/php-email-form/validate.js"></script>
+        src="./resources/assets/vendor/php-email-form/validate.js"></script>
 
 <!-- Template Main JS File -->
-<script src="../../resources/assets/js/main.js"></script>
+<script src="./resources/assets/js/main.js"></script>
 
 <div>
   <ul>

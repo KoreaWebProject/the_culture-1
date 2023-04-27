@@ -83,7 +83,7 @@
 				}else if(data == 'no_user_pw'){
 					alert("비밀번호가 일치하지 않습니다");
 				}else{
-					location.href="qna_main.do";
+					location.href="culture.do";
 				}
 			}
 		}

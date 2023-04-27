@@ -183,10 +183,6 @@ public class QnaController {
 		return "redirect:qna_main.do";
 	}
 
-	@RequestMapping("/login_form.do")
-	public String login_form() {
-		return MyCommon.Login.VIEW_PATH + "login.jsp";
-	}
 
 	/*
 	 * @RequestMapping("/login.do") public String login(HttpSession session) {
@@ -201,11 +197,5 @@ public class QnaController {
 	 * return "redirect:qna_main.do"; } }
 	 */
 
-	@RequestMapping("/logout.do")
-	public String logout(HttpSession session) {
-		session = request.getSession();
-		session.invalidate();
 
-		return "redirect:qna_main.do";
-	}
 }

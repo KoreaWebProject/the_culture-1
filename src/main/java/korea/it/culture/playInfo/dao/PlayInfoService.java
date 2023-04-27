@@ -1,7 +1,7 @@
 package korea.it.culture.playInfo.dao;
 
 import korea.it.culture.playInfo.vo.PlayInfoVO;
-import korea.it.culture.playInfo.vo.PlayVO;
+import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.vo.LocInfoVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
