@@ -27,5 +27,11 @@ public class UserDAO {
 		return vo;
 	}
 	
+	//회원정보 수정
+	public int updateUser(UserVO vo) {
+		int res = sqlSession.update("u.user_update", vo);
+		return res;
+	}
+	
 
 }

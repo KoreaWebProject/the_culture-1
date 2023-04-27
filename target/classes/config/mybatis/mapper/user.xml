@@ -26,6 +26,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from userinfo where user_id = #{user_id}
 	</select>
 	
+	<!-- 회원정보 업데이트 -->
+	<update id="user_update" parameterType="user">
+		update userinfo set 
+			user_pw = #{user_pw},
+			user_name = #{user_name},
+			user_birth = #{user_birth},
+			user_gender = #{user_gender},
+			user_mail = #{user_mail},
+			user_zip_code = #{user_zip_code},
+			user_addr1 = #{user_addr1},
+			user_addr2 = #{user_addr2}
+		where user_id = #{user_id}
+	</update>
 </mapper>
 
 

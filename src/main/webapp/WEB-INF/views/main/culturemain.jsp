@@ -70,11 +70,13 @@
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
 					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
-					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#" onclick="location.href='qna_main.do'">고객센터</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span> 
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
+					<a href="#" onclick="location.href='qna_main.do'">고객센터</a> 
+					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
