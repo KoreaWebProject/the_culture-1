@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import korea.it.culture.login.dao.UserDAO;
@@ -19,6 +21,8 @@ public class UserController {
 
 	@Autowired
 	ServletContext app;
+	
+	@Autowired
 	UserDAO user_dao;
 
 	@Autowired
@@ -38,9 +42,8 @@ public class UserController {
 	public String login(HttpSession session) {
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
-		System.out.println(user_id + "/" + user_pw);
 
-		UserVO vo = user_dao.selectOne(user_id);
+		UserVO vo = user_dao.login(user_id);
 
 		String param = "clear";
 
@@ -49,6 +52,13 @@ public class UserController {
 			param = "no_user_id";
 			return param;
 		}
+		
+		//탈퇴회원 아이디 체크
+		if(vo != null && vo.getUser_role_id() == 1) {
+			param ="joined_out";
+			return param;
+		}
+
 
 		// 비밀번호 일치 여부 확인
 		if (!vo.getUser_pw().equals(user_pw)) {
@@ -60,7 +70,8 @@ public class UserController {
 			session = request.getSession();
 			session.setAttribute("login", vo);
 		}
-
+		
+		
 		return param;
 	}
 
@@ -80,7 +91,7 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/joinin.do")
 	public String joinin(UserVO vo) {
-
+		
 		String user_birth = request.getParameter("user_birth");
 		vo.setUser_birth(user_birth);
 
@@ -88,9 +99,33 @@ public class UserController {
 		vo.setUser_gender(user_gender);
 
 		user_dao.insert(vo);
-		return "redirect:login_main.do";
+		
+		String result = "yes";
+		
+		if( vo != null ) {
+	    	result = "yes";//아이디 중복
+	    }
+		
+		return result;
 	}
 	
+	//id중복체크
+	@ResponseBody
+	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	public String idCheck(String user_id) throws Exception {
+		
+	    UserVO vo = user_dao.idCheck(user_id);
+	    
+	    String result = "no_id";
+	    
+	    if( vo != null ) {
+	    	result = "yes_id";//아이디 중복
+	    }
+	    
+	    return result;
+	}
+	
+	//로그아웃
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session = request.getSession();
@@ -98,5 +133,7 @@ public class UserController {
 
 		return "redirect:culture.do";
 	}
+	
+	
 
 }
