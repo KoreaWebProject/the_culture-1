@@ -34,9 +34,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{qna_title},
 			#{qna_contents},
 			sysdate,
-			sysdate,
 			0,
-			0
+			0,
+			#{qna_public_lev}
 		)
 	</insert>
 	

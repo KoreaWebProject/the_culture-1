@@ -116,6 +116,7 @@ public class QnaController {
 	// Qna 등록
 	@RequestMapping("/qna_insert.do")
 	public String qna_insert(QnaVO vo) {
+		System.out.println("공개타입"+vo.getQna_contents());
 		qna_dao.insertContent(vo);
 		return "redirect:qna_main.do";
 	}

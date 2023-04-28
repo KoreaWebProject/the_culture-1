@@ -108,6 +108,7 @@ public class playcontroller {
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("select", list);
 		model.addAttribute("genrenm", genrenm);
+		model.addAttribute("total",row_total);
 		return "/WEB-INF/views/main/playgeList.jsp";
 	}
 
@@ -172,6 +173,7 @@ public class playcontroller {
 		model.addAttribute("play_id", play_id);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("allselect", list);
+		model.addAttribute("total",row_total);
 
 		return "/WEB-INF/views/main/update.jsp";
 	}

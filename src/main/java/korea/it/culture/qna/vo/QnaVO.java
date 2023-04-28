@@ -1,12 +1,9 @@
 package korea.it.culture.qna.vo;
 
 public class QnaVO {
-	String user_id, qna_title, qna_contents, qna_regdate, qna_update;
-	int qna_id, qna_status, qna_remove_lev;
+	private String user_id, qna_title, qna_contents, qna_regdate;
+	private int qna_id, qna_status, qna_remove_lev, qna_public_lev;
 	
-	/*
-	 * public QnaVO() { System.out.println("QNA VO"); }
-	 */
 	
 	public String getUser_id() {
 		return user_id;
@@ -32,12 +29,6 @@ public class QnaVO {
 	public void setQna_regdate(String qna_regdate) {
 		this.qna_regdate = qna_regdate;
 	}
-	public String getQna_update() {
-		return qna_update;
-	}
-	public void setQna_update(String qna_update) {
-		this.qna_update = qna_update;
-	}
 	public int getQna_id() {
 		return qna_id;
 	}
@@ -56,4 +47,16 @@ public class QnaVO {
 	public void setQna_remove_lev(int qna_remove_lev) {
 		this.qna_remove_lev = qna_remove_lev;
 	}
+	public int getQna_public_lev() {
+		return qna_public_lev;
+	}
+	public void setQna_public_lev(int qna_public_lev) {
+		this.qna_public_lev = qna_public_lev;
+	}
+	
+	/*
+	 * public QnaVO() { System.out.println("QNA VO"); }
+	 */
+	
+	
 }

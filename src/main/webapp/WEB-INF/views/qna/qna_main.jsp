@@ -28,11 +28,6 @@
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
 
-<style>
-a {
-	text-decoration: none;
-}
-</style>
 
 <script>
 	function search() {
@@ -63,13 +58,13 @@ a {
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
 					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">고객센터</a> <a href="#">마이페이지</a>
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -115,7 +110,7 @@ a {
 	<main class="container">
 		<hr>
 		<div class="d-flex justify-content-between" style="position: relative;">
-		<h2 style="margin-bottom: 50px;">고객센터</h2>
+		<h2 style="margin-bottom: 50px;">Q&A</h2>
 
 
 			<c:if test="${not empty login.user_id and login.user_role_id == 0}">
@@ -127,20 +122,36 @@ a {
 		<table class="container">
 			<thead>
 				<tr>
-					<th>NO</th>
-					<th>제목</th>
-					<th>이름</th>
-					<th>진행상황</th>
-					<th>등록일</th>
+					<th style="text-align: center">NO</th>
+					<th style="text-align: center">제목</th>
+					<th style="text-align: center">이름</th>
+					<th style="text-align: center">진행상황</th>
+					<th style="text-align: center">등록일</th>
+					<th style="text-align: center">공개여부</th>
 
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style="text-align: center">
 				<c:forEach var="vo" items="${ list }">
 					<c:if test="${ vo.qna_remove_lev ne 1 }">
 						<tr>
 							<td>${vo.qna_id}</td>
-							<td><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></td>
+							<c:if test="${ login.user_role_id eq 2}">
+							<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
+							<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
+							<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
+							<th>${vo.qna_title}</th>
+							</c:if>
+							<c:if test="${ empty login.user_id}">
+							<th>${vo.qna_title}</th>
+							</c:if>
+							
 							<td>${vo.user_id}</td>
 							<c:if test="${ vo.qna_status eq 0 }">
 								<td style="color: red;">처리중</td>
@@ -149,12 +160,18 @@ a {
 								<td style="color: blue;">답변완료</td>
 							</c:if>
 							<td>${vo.qna_regdate}</td>
+							<c:if test="${ vo.qna_public_lev eq 0 }">
+								<td style="color: red;">비공개</td>
+							</c:if>
+							<c:if test="${ vo.qna_public_lev eq 1 }">
+								<td style="color: blue;">공개</td>
+							</c:if>
 						</tr>
 					</c:if>
 					<c:if test="${ vo.qna_remove_lev eq 1 }">
 						<tr>
 							<td>${vo.qna_id}</td>
-							<td colspan="4">삭제된 게시글 입니다.</td>
+							<td colspan="5">삭제된 문의글 입니다.</td>
 						</tr>
 					</c:if>
 
@@ -165,37 +182,7 @@ a {
 
 
 
-		<%-- <div>
-			<div>
-				<div>NO</div>
-				<div>제목</div>
-				<div>이름</div>
-				<div>진행상황</div>
-				<div>등록일</div>
-			</div>
-
-			<c:forEach var="vo" items="${ list }">
-				<div>${vo.qna_id}</div>
-				<div>
-					<c:if test="${ vo.qna_remove_lev ne 1 }">
-						<div>
-							<!-- 링크를 누르면 qna_id를 가지고 페이지를 넘어가기 -->
-							<a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a>
-							<div>${vo.user_id}</div>
-							<div>
-								<c:if test="${ vo.qna_status eq 0 }">처리중</c:if>
-								<c:if test="${ vo.qna_status ne 0 }">답변완료</c:if>
-							</div>
-							<div>${vo.qna_regdate}</div>
-						</div>
-					</c:if>
-					<c:if test="${ vo.qna_remove_lev eq 1 }">
-						<font color="gray">삭제된글입니다</font>
-					</c:if>
-				</div>
-			</c:forEach> --%>
-
-		<!-- 페이지 선택 -->
+	
 		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
 
 		<div class="row container d-flex justify-content-center" style="margin-top: 20px;">

@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -56,8 +57,8 @@
 
 		//카테고리가 전체보기(all)로 지정되어 있지않은 경우라면 반드시 검색어가 입력되어있어야한다.
 
-		if (search != 'all' && search_text == "") {
-			alert("검색어를 입력하세요");
+		if (search_text == "") {
+			location.href="geinfo.do?genrenm=" + "${genrenm}";
 			return;
 		}
 
@@ -78,12 +79,12 @@
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#" onclick="location.href='qna_main.do'">고객센터</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#" onclick="location.href='qna_main.do'">Q&A</a> <a href="#">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -132,9 +133,13 @@
 	<!-- main -->
 	<main class="container ">
 		<div class="row justify-content-center">
-			<p id="up">${genrenm}</p>
+			<div class="container d-flex justify-content-between">
+				<p id="up" style="position: relative;">${genrenm}</p>
+				<div class="d-flex align-items-end">총 검색 건수 : ${total}</div>
+			</div>
+			
 			<div class="wrapper row justify-content-center">
-				<c:forEach var="vo" items="${ select }">
+				<c:forEach var="vo" items="${ select }" varStatus="status">
 					<a href="#" onclick="info('${vo.play_id }');" class="card col-3">
 						<form action="info.do" id="info${vo.play_id}">
 							<input type="hidden" name="play_id" value="${vo.play_id }"> <input type="hidden" name="play_from" value="${vo.play_from }"> <input
