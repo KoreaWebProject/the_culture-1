@@ -58,6 +58,15 @@
 							<img src="resources/img/kakao_login.png" ></a>
 						</td>
 					</tr>
+					<!-- 네이버 로그인 창으로 이동 -->
+					<tr>
+						<td colspan="2" align="center">
+							<a href="${url}">
+								<!--NaverLoginBO.java 파일에 REDIRECT_URI란의 주소로 이동된다.(callback uri)-->
+							<img width="223" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
+							</a>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

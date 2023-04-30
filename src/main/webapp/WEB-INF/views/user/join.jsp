@@ -7,7 +7,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>The Culture</title>
+		<title>회원가입</title>
 		<!-- <link rel="stylesheet" href="/user/resources/css/join2.css"> -->
 	</head>
 
@@ -29,13 +29,13 @@
 						<input type="password" name="user_pw" class="pw_input">
 				</div>
 				<div class="pwck_wrap">
-					<div class="pwck_name">비밀번호 확인11</div>
+					<div class="pwck_name">비밀번호 확인</div>
 						<input type="password" name="user_pwck" class="pwck_input">
 				</div>
 				<div class="user_wrap">
 					<div class="user_name">이름</div>
-						<input name="user_name" class="user_input">
-				</div> 
+						<input name="user_name" class="user_input" value="${result.name}">
+				</div>
 				<div class="birth_wrap">
 					<div class="birth_name">생년월일</div>
 					<div class="user_birth">
@@ -45,7 +45,7 @@
 						    <option value="${i}">${i}</option>
 						  </c:forEach>
 						</select>
-						
+
 						<select class="birth_month" name="birth_month">
 						  <option value="월">월</option>
 						  <c:forEach var="i" begin="1" end="12">
@@ -59,7 +59,7 @@
 						  </c:choose>
 						  </c:forEach>
 						</select>
-						
+
 						<select class="birth_day" name="birth_day">
 						  <option value="일">일</option>
 						  <c:forEach var="i" begin="1" end="31">
@@ -73,22 +73,21 @@
 						  </c:choose>
 						  </c:forEach>
 						</select>
-					</div>	
+					</div>
 				</div>
-				
+
 				<div class="gender_wrap">
-					<div class="gender_name">성별</div>
-				        <input type="radio" id="gender_male" name="contact" value="남">
-				        <label for="남">남</label>
-				        <input type="radio" id="gender_female" name="contact" value="여">
-				        <label for="여">여</label>
+					<div class="gender_name">성별
+						<input type="radio" id="gender_male" name="contact" class="contact" value="M">남
+						<input type="radio" id="gender_female" name="contact" class="contact" value="F">여
+          </div>
 				</div>
-				        
+
 				<div class="mail_wrap">
 					<div class="mail_name">이메일</div>
-						<input name="user_mail" class="user_mail">
+						<input name="user_mail" class="user_mail" value="${result.email}">
 				</div>
-				
+
 				<div class="addr_wrap">
 					<div class="addr_name">주소</div>
 					<div class="zip_code_wrap">
@@ -105,33 +104,55 @@
 					</div>
 				<div class="join_button_wrap">
 					<input type="button" class="join_btn" value="가입하기" onclick="send(this.form);">
-					<input type="button" class="cancel_btn" value="취소" onclick="history.go(-1)">
+					<input type="button" class="cancel_btn" value="취소" onclick="location.href='cancel.do'">
 				</div>
 				</form>
 			</div><!-- wrap -->
 		</div><!-- main_box -->
 	</body>
-	
+
 		<script src="./resources/js/httpRequest.js"></script>
 		<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
+
 	<script>
-	
+
+
+    //가져온 값에 대해서는 변경 불가
+    if('${result.name}'){
+      console.log('가져올 이름이 있어요( •́ ▾ •̀ )');
+      $("input[name='user_name']").prop("disabled", true);
+    }
+    if('${result.birthyear}'){
+      console.log('가져올 생일이 있어요( •́ ▾ •̀ )' + '${result.birthyear}');
+      $('.birth_year').val('${result.birthyear}').prop("selected",true);
+      $(".birth_year").prop('disabled',true);
+    }
+    if('${result.gender}'){
+      console.log('가져올 성별이 있어요( •́ ▾ •̀ )' + '${result.gender}');
+      $("input[class='contact'][value='${result.gender}']").prop("checked", true);  //만약 젠더값이 있다면 class가 contect인 radio 에서 value가 'result.gender'인것을 체크
+      $(".contact").prop('disabled',true);
+    }
+    if('${result.email}'){
+      console.log('가져올 이메일이 있어요( •́ ▾ •̀ )' + '${result.email}');
+      $("input[name='user_mail']").prop("disabled", true);
+    }
+
+
 		function kakao_addr() {
 		    daum.postcode.load(function(){
 		      new daum.Postcode({
 		          oncomplete : function(data){
-		
+
 		              console.log(data); //뭐가 오는지 궁금하시나용
-		
+
 		              let fullAddr = '';
 		              let extraAddr = '';
-		
+
 		              //도로명 주소를 선택 시
 		              if(data.userSelectedType === 'R') {
 		                  fullAddr = data.roadAddress;
-		
+
 		                  //법정동 명이 있을 시
 		                  if(data.bname !== ''){
 		                      extraAddr += data.bname;
@@ -139,16 +160,16 @@
 		              }else{
 		                  fullAddr = data.jibunAddress;
 		              }
-		
+
 		              //건물이름 있을 시
 		              if(data.buildingName !== ''){
 		                  //빈값이 아니라면 즉,법정동명이 있으면 ',' + buildingName ,,,,, 빈값이라면 buildingName
 		                  extraAddr += ( extraAddr !== '' ? ', ' + data.buildingName : data.buildingName );
 		              }
-		
-		
+
+
 		              fullAddr += ( extraAddr !== '' ? '(' + extraAddr + ')' : '');
-		
+
 		              $( '#user_zip_code' ).val( data.zonecode );
 		              $( '#user_addr1' ).val( fullAddr );
 		              console.log('#user_zip_code');
@@ -159,10 +180,10 @@
 		      }).open();
 		    })
 		}
-		
+
 		function idCheck() {
 			  var user_id = document.getElementById("user_id").value;
-			  
+
 			  // 입력한 아이디에 대한 유효성 검사
 			  if (user_id == '') {
 				    alert("아이디를 입력하세요");
@@ -172,15 +193,15 @@
 			// 중복 체크를 위해 가입된 아이디 목록에서 검색
 			 var url = "idChk?user_id="+user_id;
 			// var param = user_id;
-			sendRequest(url, null, resFn2, 'POST');	  
-				  
+			sendRequest(url, null, resFn2, 'POST');
+
 			}
-		
+
 		function resFn2(){
 			if(xhr.readyState == 4 && xhr.status == 200){
-				
+
 				var data = xhr.responseText;
-				
+
 				if( data == 'no_id' ){
 					alert("사용 가능한 아이디");
 					return;
@@ -188,13 +209,16 @@
 					alert("중복된 아이디");
 					return;
 				}
-				
-				
+
+
 			}
 		}
-		
+
 		function send(f){
-		
+      $("input[name='user_name']").prop("disabled", false);
+      $("input[name='user_mail']").prop("disabled", false);
+      $(".birth_year").prop('disabled',false);
+      $(".contact").prop('disabled',false);
 			let user_id = f.user_id.value;
 			let user_pw = f.user_pw.value;
 			let user_pwck = f.user_pwck.value;
@@ -207,32 +231,32 @@
 			let user_zip_code = f.user_zip_code.value;
 			let user_addr1 = f.user_addr1.value.trim();
 			let user_addr2 = f.user_addr2.value.trim();
-		 	
-			
+
+
 			//id유효성
 			if(user_id == ''){
 				alert("ID를 입력하세요");
 				return;
 			}
-			
+
 			//pw유효성
 			if(user_pw !== user_pwck){
 				alert("비밀번호가 일치하지 않습니다");
 				return;
 			}
-			
+
 			//라디오버튼 유효성
 		    var user_gender = $('input:radio[name="contact"]:checked').val();
 		    if(user_gender == null){
 		    	alert("성별을 선택하세요");
 		    	return;
 		    }
-		    
+
 		    var url = "joinin.do";
-		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2; 
+		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2;
 		    sendRequest(url, param, resFn, "get");
 		}
-		
+
 		function resFn(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				//data = "no" 또는 data = "yes"
@@ -240,9 +264,9 @@
 				if(data == 'yes'){
 					alert("회원가입 성공");
 				}
-				location.href = "culture.do";//전체목록 갱신
+				location.href = "login_main.do";//전체목록 갱신
 			}
 		}
-		
+
 	</script>
 </html>

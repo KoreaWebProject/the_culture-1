@@ -30,7 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	<select id="idCheck" resultType="user" parameterType="String">
   		select * from userinfo where user_id = #{user_id}
   	</select>
-	
+
+	<!-- 받은 이메일로 가입된 아이디가 있는지 조회-->
+  	<select id="emailCheck" resultType="user" parameterType="String">
+  		select * from userinfo where user_mail = #{email}
+  	</select>
+
 	
 </mapper>
 

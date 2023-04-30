@@ -44,7 +44,15 @@ public class UserDAO {
 		return vo;
 		
 	}
-	
+
+
+	// 이메일 정보를 통한 회원확인하기
+	public UserVO emailCheck(String email) throws Exception {
+
+		UserVO vo = sqlSession.selectOne("u.emailCheck", email);
+
+		return vo;
+	}
 	
 	
 
