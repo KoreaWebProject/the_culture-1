@@ -14,7 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select *
 		from PLAYINFO
-		where PLAY_ID = #{play_id}   /*'#'은 파라미터 타입이 int면 int로 들어오고 string이면 string으로 자동으로 들어옴*/
+		where PLAY_ID = #{play_id}  <!-- /*'#'은 파라미터 타입이 int면 int로 들어오고 string이면 string으로 자동으로 들어옴*/ -->
 
 	</select>
 
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		select *
 		from LOCATIONINFO
-		where LOC_ID = #{loc_id}   /*'#'은 파라미터 타입이 int면 int로 들어오고 string이면 string으로 자동으로 들어옴*/
+		where LOC_ID = #{loc_id}  <!--  /*'#'은 파라미터 타입이 int면 int로 들어오고 string이면 string으로 자동으로 들어옴*/ -->
 
 	</select>
 

@@ -21,14 +21,15 @@
 				<div class="subjecet">회원가입</div>
 				<div class="id_wrap">
 					<div class="id_name">아이디</div>
-						<input name="user_id" class="id_input">
+						<input id="user_id" class="id_input">
+						<input type="button" value="아이디 중복확인" onclick="idCheck()">
 				</div>
 				<div class="pw_wrap">
 					<div class="pw_name">비밀번호</div>
 						<input type="password" name="user_pw" class="pw_input">
 				</div>
 				<div class="pwck_wrap">
-					<div class="pwck_name">비밀번호 확인</div>
+					<div class="pwck_name">비밀번호 확인11</div>
 						<input type="password" name="user_pwck" class="pwck_input">
 				</div>
 				<div class="user_wrap">
@@ -159,6 +160,39 @@
 		    })
 		}
 		
+		function idCheck() {
+			  var user_id = document.getElementById("user_id").value;
+			  
+			  // 입력한 아이디에 대한 유효성 검사
+			  if (user_id == '') {
+				    alert("아이디를 입력하세요");
+				    return;
+			  }
+
+			// 중복 체크를 위해 가입된 아이디 목록에서 검색
+			 var url = "idChk?user_id="+user_id;
+			// var param = user_id;
+			sendRequest(url, null, resFn2, 'POST');	  
+				  
+			}
+		
+		function resFn2(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				
+				var data = xhr.responseText;
+				
+				if( data == 'no_id' ){
+					alert("사용 가능한 아이디");
+					return;
+				}else{
+					alert("중복된 아이디");
+					return;
+				}
+				
+				
+			}
+		}
+		
 		function send(f){
 		
 			let user_id = f.user_id.value;
@@ -203,11 +237,10 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				//data = "no" 또는 data = "yes"
 				var data = xhr.responseText;
-				
 				if(data == 'yes'){
 					alert("회원가입 성공");
 				}
-				location.href = "login_main.do";//전체목록 갱신
+				location.href = "culture.do";//전체목록 갱신
 			}
 		}
 		

@@ -51,6 +51,13 @@
 							<input type="button" class="btn" value="회원가입" onclick="location.href='join.do'">
 						</td>
 					</tr>
+					
+					<tr>
+						<td colspan="2" align="center">
+				 			<a class="p-2" href="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=602c023b6ce1daeba7c38f4497a12be6&redirect_uri=https://localhost:9090/kakaologin'">
+							<img src="resources/img/kakao_login.png" ></a>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
@@ -71,6 +78,7 @@
 
 			sendRequest(url, param, resFn, "Post");
 		}
+		
 
 		//콜백메서드
 		function resFn(){
@@ -82,6 +90,8 @@
 					alert("아이디가 존재하지 않습니다");
 				}else if(data == 'no_user_pw'){
 					alert("비밀번호가 일치하지 않습니다");
+				}else if(data == 'joined_out'){
+					alert("이미 탈퇴한 회원입니다");
 				}else{
 					location.href="culture.do";
 				}
