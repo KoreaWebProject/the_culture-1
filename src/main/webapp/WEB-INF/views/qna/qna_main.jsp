@@ -126,7 +126,7 @@
 					<th style="text-align: center">제목</th>
 					<th style="text-align: center">이름</th>
 					<th style="text-align: center">진행상황</th>
-					<th style="text-align: center">등록일</th>
+					<th style="text-align: center">등록/수정일</th>
 					<th style="text-align: center">공개여부</th>
 
 				</tr>
@@ -139,7 +139,7 @@
 							<c:if test="${ login.user_role_id eq 2}">
 							<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
 							</c:if>
-							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
+							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0 and vo.qna_status ne 0}">
 							<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
 							</c:if>
 							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
@@ -147,6 +147,9 @@
 							</c:if>
 							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
 							<th>${vo.qna_title}</th>
+							</c:if>
+							<c:if test="${login.user_id eq vo.user_id and login.user_role_id eq 0 and vo.qna_status ne 1}">
+							<th><a href="qna_update.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
 							</c:if>
 							<c:if test="${ empty login.user_id}">
 							<th>${vo.qna_title}</th>

@@ -39,12 +39,27 @@
 							width : 850,
 							height : 450,
 							clipboard_handleImages : false,
-							language : "ko",
-							readOnly : true
+							language : "ko"
 						});
 
 		// ...
 	});
+
+	function send(f) {
+		alert(f.qna_id.value);
+		let qna_title = f.qna_title.value.trim();
+		var qna_contents = CKEDITOR.instances.qna_contents.getData();
+
+		//유효성 체크
+		if (qna_title == '' || qna_contents == '') {
+			alert("수정하실 제목 및 내용을 입력하시오");
+			return;
+		}
+
+		f.action = "modify.do";
+		f.method = "post";
+		f.submit();
+	}
 </script>
 </head>
 <body>
@@ -109,91 +124,76 @@
 			<hr>
 			<h2 style="margin-bottom: 50px; font-weight: bold">문의 상세 보기</h2>
 			<div class="container col-10 ">
-				<table>
-					<tr>
-						<th class="col-2">제목</th>
-						<td>${vo.qna_title}</td>
-					</tr>
+				<form>
+					<table>
+						<tr>
+							<th class="col-2">제목</th>
+							<td class="row"><input class="col-6" type="text" name="qna_title" value="${ vo.qna_title }"></td>
+						</tr>
 
-					<tr>
-						<th>작성자</th>
-						<td>${vo.user_id }</td>
-					</tr>
+						<tr>
+							<th>작성자</th>
+							<td class="row"> ${ login.user_id }</td>
+						</tr>
 
-					<tr>
-						<th>내용</th>
-						<td class="row"><textarea class="col-11" name="qna_contents" id="qna_contents">${ vo.qna_contents }</textarea></td>
-					</tr>
+						<tr>
+							<th>내용</th>
+							<td class="row"><textarea class="col-11" name="qna_contents" id="qna_contents">${ vo.qna_contents }</textarea></td>
+						</tr>
 
-					<tr>
-						<th class="col-2">등록/수정일</th>
-						<td>${ vo.qna_regdate }</td>
-					</tr>
+						<tr>
+							<th>공개여부</th>
+							<td>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="qna_public_lev" id="public1" value="1" checked> <label class="form-check-label"
+											for="1">공개</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="qna_public_lev" id="public2" value="0"> <label class="form-check-label" for="0">비공개</label>
+									</div>
 
-					<tr>
-						<th class="col-2">처리상태</th>
-						<c:if test="${ vo.qna_status eq 0 }">
-							<td>처리중</td>
-						</c:if>
-						<c:if test="${ vo.qna_status eq 1 }">
-							<td>답변완료</td>
-						</c:if>
-					</tr>
+								</div>
+							</td>
+						</tr>
 
+						<tr>
+							<th class="col-2">등록/수정일</th>
+							<td>${ vo.qna_regdate }</td>
+						</tr>
 
-
-					<tr>
-						<td colspan="2">
-							<div class="d-flex justify-content-center">
-								<c:if test="${login.user_role_id == 2 or login.user_id eq vo.user_id}">
-									<input type="button" value="삭제하기" class="btn btn-outline-primary"
-										onClick="location.href='qna_del.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">
-								</c:if>
-
-								<input type="button" value="목록으로" class="btn btn-outline-primary"
-									onClick="location.href='qna_main.do?page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"
-									style="margin-left: 50px;">
-								<c:if test="${login.user_role_id == 2}">
-									<input type="button" value="답글달기" class="btn btn-outline-primary"
-										onClick="location.href='qna_reple_reg.do?qna_id=${ vo.qna_id }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"
-										style="margin-left: 50px;">
-								</c:if>
-							</div>
-						</td>
-					</tr>
-				</table>
-
-				<div>문의 답글</div>
-
-				<c:forEach var="list" items="${ list }">
-					<c:if test="${ list.qna_re_remove_lev eq 0}">
-						<table>
-							<tr>
-								<th>제목</th>
-								<td>→${ vo.qna_title }에대한답변입니다</td>
-							</tr>
-							<tr>
-								<th>작성자</th>
-								<td>${vo.user_id}</td>
-							</tr>
-
-							<tr>
-								<th>내용</th>
-								<td class="row"><textarea class="col-11" name="qna_contents" id="qna_contents">${ list.qna_re_contents }</textarea></td>
-							</tr>
-
-							<tr>
-								<th class="col-2">등록/수정일</th>
-								<td>${ list.qna_re_regdate }</td>
-								<td>${ list.qna_re_update }</td>
-							</tr>
-
-						</table>
-					</c:if>
-					<c:if test="${ list.qna_re_remove_lev eq 1}">
-								삭제된 답글입니다
+						<tr>
+							<th class="col-2">처리상태</th>
+							<c:if test="${ vo.qna_status eq 0 }">
+								<td>처리중</td>
 							</c:if>
-				</c:forEach>
+							<c:if test="${ vo.qna_status eq 1 }">
+								<td>답변완료</td>
+							</c:if>
+						</tr>
+
+
+
+						<tr>
+							<td colspan="2">
+								<div class="d-flex justify-content-center">
+									<input type="hidden" name="qna_id" value="${vo.qna_id}"/>
+									<input type="hidden" name="page" value="${param.page}"/>
+									<input type="hidden" name="search" value="${param.search}"/>
+									<input type="hidden" name="search_text" value="${param.search_text}"/>
+									<input type="button" value="수정하기" class="btn btn-outline-primary"  onClick="send(this.form);">
+									<c:if test="${login.user_role_id == 2 or login.user_id eq vo.user_id}">
+										<input type="button" value="삭제하기" class="btn btn-outline-primary" onClick="location.href='qna_del.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
+											style="margin-left: 50px;">
+									</c:if>
+									<input type="button" value="목록으로" class="btn btn-outline-primary"
+										onClick="location.href='qna_main.do?page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"
+										style="margin-left: 50px;">
+								</div>
+							</td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 	</main>
@@ -302,7 +302,7 @@
 			<c:forEach var="list" items="${ list }">
 				<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
 					<div>
-						<input type="button" value="답글삭제" onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }'">
+						<input type="button" value="답글삭제" onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">
 					</div>
 				</c:if>
 				<div>

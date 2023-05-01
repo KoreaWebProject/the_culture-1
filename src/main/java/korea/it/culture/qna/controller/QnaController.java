@@ -124,6 +124,7 @@ public class QnaController {
 	// 문의글 자세히 보기
 	@RequestMapping("/qna_view.do")
 	public String qna_view(Model model) {
+		System.out.println(request.getParameter("qna_id"));
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
 		// 선택한 게시글의 내용들 가져오기
 		QnaVO vo = qna_dao.selectOne(qna_id);
@@ -136,7 +137,33 @@ public class QnaController {
 
 		return MyCommon.Qna.VIEW_PATH + "qna_detail.jsp";
 	}
+	
+	// 문의글 자세히 보기
+	@RequestMapping("/qna_update.do")
+	public String qna_update(Model model , QnaVO qna) {
+		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		// 선택한 게시글의 내용들 가져오기
+		QnaVO vo = qna_dao.selectOne(qna_id);
+		// 선택한 게시글에 달려있는 댓글(관리자의 글)을 가져오기
+		List<QnaReVO> list = qna_re_dao.selectList(qna_id);
 
+		model.addAttribute("vo", vo);// 바인딩
+		model.addAttribute("list", list);// 바인딩
+		// 세션에서 현재 사용자 id를 가져와서 바인딩 해줌
+
+		return MyCommon.Qna.VIEW_PATH + "qna_update.jsp";
+	}
+	
+	@RequestMapping("/modify.do")
+	public String modify(Model model, QnaVO qna) {
+		System.out.println(qna.getQna_id());
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
+		qna_dao.modify(qna);
+		return "redirect:qna_main.do?page="+page+"&search="+search+"&search_text="+search_text;
+	}
+	
 	// 문의답글 추가 화면전환 용
 	@RequestMapping("/qna_reple_reg.do")
 	public String reple_insert_form(Model model) {
@@ -161,10 +188,14 @@ public class QnaController {
 	// Qna 삭제를 위한 업데이트
 	@RequestMapping("/qna_del.do")
 	public String qna_del() {
+		System.out.println(request.getParameter("qna_id"));
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		qna_dao.update(qna_id);
 
-		return "redirect:qna_main.do";
+		return "redirect:qna_main.do?page="+page+"&search="+search+"&search_text="+search_text;
 	}
 
 	// QnaReple 삭제를 위한 업데이트

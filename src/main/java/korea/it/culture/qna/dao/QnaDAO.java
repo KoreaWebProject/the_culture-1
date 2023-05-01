@@ -44,6 +44,11 @@ public class QnaDAO {
 		QnaVO detail = sqlSession.selectOne("q.qna_detail", qna_id);
 		return detail;
 	}
+	
+	public int modify( QnaVO vo ) {
+		int res = sqlSession.update("q.qna_modify", vo);
+		return res;
+	}
 
 	//qna 삭제
 	public int update(int qna_id) {
