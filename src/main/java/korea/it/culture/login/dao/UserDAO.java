@@ -33,5 +33,10 @@ public class UserDAO {
 		return res;
 	}
 	
+	//회원 탈퇴 정보 업데이트
+	public int delUser(String user_id) {
+		int res = sqlSession.update("u.user_del_up",user_id);
+		return res;
+	}
 
 }

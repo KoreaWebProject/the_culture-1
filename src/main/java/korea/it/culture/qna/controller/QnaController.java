@@ -182,20 +182,4 @@ public class QnaController {
 
 		return "redirect:qna_main.do";
 	}
-
-
-	/*
-	 * @RequestMapping("/login.do") public String login(HttpSession session) {
-	 * String id = request.getParameter("id"); String pw =
-	 * request.getParameter("pw");
-	 * 
-	 * UserVO vo = user_dao.selectOne(id); if (vo == null) { return
-	 * "redirect:login_form.do"; } else {
-	 * 
-	 * session = request.getSession(); session.setAttribute("login", vo);
-	 * 
-	 * return "redirect:qna_main.do"; } }
-	 */
-
-
 }

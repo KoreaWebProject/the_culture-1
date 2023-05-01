@@ -77,8 +77,8 @@
 			<div class="social-links d-none d-md-flex align-items-end">
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_form.do'">로그인</a>
-					<a href="#">회원가입</a>
-					<a href="#">고객센터</a>
+					<a href="#" onclick="location.href='join.do'">회원가입</a>
+					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">

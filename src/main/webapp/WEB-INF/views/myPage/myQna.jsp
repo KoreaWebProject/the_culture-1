@@ -122,20 +122,53 @@
 			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
 			<li><a href="#" onclick="location.href='myReview.do'">나의 후기</a></li>
 			<li><a href="#" onclick="location.href='favorite.do'">즐겨찾기</a></li>
-			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='myQna.do'">나의 문의 내역</a></li>
 			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
 		</ul>
 	</div>
 	<!-- ======= end myPage list ======= -->
 	
-	마이페이지 기본 첫화면
+	<!-- ======= my Qna list ======= -->
+	마이페이지 내 Qna 목록 
 	
-	<h2>회원정보 수정</h2>
-	<form>
-		<div>ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }"></div>
-		<div>PW : <input name="user_pw"></div>
-		<div><input type="button" value="확인" onClick="send(this.form)"></div>
-	</form>
+	<h2>내가 남긴 QNA</h2>
+	
+	<div>
+		<div>NO</div>
+		<div>제목</div>
+		<div>이름</div>
+		<div>진행상황</div>
+		<div>등록일</div>
+	</div>
+
+	<c:forEach var="vo" items="${ list }">
+		<div>
+			<c:if test="${ login.user_id eq vo.user_id }">
+				<div>${vo.qna_id}</div>
+				<c:if test="${ vo.qna_remove_lev ne 1 }">
+					<div>
+						<!-- 링크를 누르면 qna_id를 가지고 페이지를 넘어가기 -->
+						<a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a>
+						<div>${vo.user_id}</div>
+						<div>
+							<c:if test="${ vo.qna_status eq 0 }">처리중</c:if>
+							<c:if test="${ vo.qna_status ne 0 }">답변완료</c:if>
+						</div>
+						<div>${vo.qna_regdate}</div>
+					</div>
+				</c:if>
+				<c:if test="${ vo.qna_remove_lev eq 1 }">
+					<font color="gray">삭제된글입니다</font>
+				</c:if>
+			</c:if>
+		</div>
+	</c:forEach>
+	
+	<!-- 페이지 선택 -->
+	<div>${ pageMenu }</div>
+		
+	<!-- ======= end my Qna list ======= -->
+	
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -185,32 +218,5 @@
 	<!-- send function -->
 	<script src="./resources/js/httpRequest.js"></script>
 	
-	<script>
-		function send(f) {
-			let user_id = f.user_id.value;
-			let user_pw = f.user_pw.value;
-
-			var url = "checkInfo.do";
-
-			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
-			var param = "user_id=" + user_id + "&user_pw=" + encodeURIComponent(user_pw);
-
-			sendRequest(url, param, resFn, "Post");
-		}
-
-		//콜백메서드
-		function resFn(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-
-				var data = xhr.responseText;
-
-				if(data == 'no_user_pw'){
-					alert("비밀번호가 일치하지 않습니다");
-				}else{
-					location.href="editInfo.do";
-				}
-			}
-		}
-	</script>
 </body>
 </html>

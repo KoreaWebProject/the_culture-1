@@ -18,7 +18,6 @@ public class PlayInfoService {
   @Autowired
   public  PlayInfoService(SqlSession sqlSession) {
     this.sqlSession = sqlSession;
-    System.out.println("service Autowired 실행완료");
   }
 
   /**
@@ -28,7 +27,6 @@ public class PlayInfoService {
    * @throws Exception
    */
     public List<PlayVO> getList() throws Exception {
-      System.out.println("service에 getList 메서드 진입");
       List<PlayVO> list = sqlSession.selectList("pInfo.getList");
       return list;
     }
@@ -40,7 +38,6 @@ public class PlayInfoService {
    * @throws Exception
    */
   public PlayInfoVO getPlayInfo(Map<String, Object> paramMap) throws Exception{
-    System.out.println("service에 getPlayInfo 메서드 진입");
     PlayInfoVO vo = sqlSession.selectOne("pInfo.getPlayInfo", paramMap);
     return vo;
   }
@@ -52,7 +49,6 @@ public class PlayInfoService {
    * @throws Exception
    */
   public LocInfoVO getLocInfo(Map<String, Object> paramMap) throws Exception{
-    System.out.println("service에 getLocInfo 메서드 진입");
     LocInfoVO vo = sqlSession.selectOne("pInfo.getLocInfo", paramMap);
     return vo;
   }

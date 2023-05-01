@@ -128,9 +128,7 @@
 		</ul>
 	</div>
 	<!-- ======= end myPage list ======= -->
-
-	마이페이지 정보 수정 화면
-
+	
 	<h2>회원정보 수정</h2>
 	<form>
 		<div>
@@ -379,7 +377,7 @@
 				if (data == 'success') {
 					alert("회원 정보 수정 성공");
 				}
-				location.href = "mypage.do";//되돌아오기
+				location.href = "editInfo.do";//되돌아오기
 			}
 		}
 	</script>

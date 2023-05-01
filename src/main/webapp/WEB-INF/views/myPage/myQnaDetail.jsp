@@ -59,9 +59,9 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span> 
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a> 
+					<span>${login.user_name}님</span>
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a>
+					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
 					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
@@ -115,27 +115,84 @@
 		</nav>
 	</div>
 	<!-- ======= end menubar ======= -->
-	
-	<!-- ======= myPage list ======= -->
+
+	<!-- 목록으로 돌아가기 버튼 -->
 	<div>
-		<ul>
-			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
-			<li><a href="#" onclick="location.href='myReview.do'">나의 후기</a></li>
-			<li><a href="#" onclick="location.href='favorite.do'">즐겨찾기</a></li>
-			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
-			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
-		</ul>
+		<input type="button" value="목록으로"
+			onClick="location.href='myQna.do?page=${param.page}'">
 	</div>
-	<!-- ======= end myPage list ======= -->
-	
-	마이페이지 기본 첫화면
-	
-	<h2>회원정보 수정</h2>
-	<form>
-		<div>ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }"></div>
-		<div>PW : <input name="user_pw"></div>
-		<div><input type="button" value="확인" onClick="send(this.form)"></div>
-	</form>
+	<!-- 문의 수정 기능 추가? -->
+
+	<!-- 선택한 문의 내용 상세보기 -->
+	<h1>문의 상세 보기</h1>
+	<!-- 현재 접속자와 해당 게시글의 작성자가 동일하면 삭제할 수 있도록 -->
+	<div>
+		<input type="button" value="삭제하기" onClick="location.href='qna_del.do?qna_id=${vo.qna_id}'">
+	</div>
+	<div>
+		<div>제목</div>
+		<div>${ vo.qna_title }</div>
+	</div>
+	<div>
+		<div>아이디 :</div>
+		<div>${ vo.user_id }</div>
+	</div>
+	<div>
+		<div>내용 :</div>
+		<div>${ vo.qna_contents }</div>
+	</div>
+	<div>
+		<div>등록일 :</div>
+		<div>${ vo.qna_regdate }</div>
+	</div>
+	<div>
+		<div>공개여부 :</div>
+		<c:if test="${ vo.qna_public_lev eq 0 }">
+			<div>공개</div>
+		</c:if>
+		<c:if test="${ vo.qna_public_lev eq 1 }">
+			<div>비공개</div>
+		</c:if>
+	</div>
+	<div>
+		<div>처리상태 :</div>
+		<div>
+			<c:if test="${ vo.qna_status eq 0 }">
+				<div>처리중</div>
+			</c:if>
+			<c:if test="${ vo.qna_status eq 1 }">
+				<div>답변완료</div>
+			</c:if>
+		</div>
+	</div>
+
+	<!-- 문의에 대한 답글 목록 -->
+	<div>
+		<hr>
+		<h1>문의에 대한 답글 보기</h1>
+
+		<div>
+			<c:forEach var="list" items="${ list }">
+				<div>
+					<c:if test="${ list.qna_re_remove_lev eq 0}">
+						<div>${ vo.qna_title }에 대한 답변입니다</div>
+						<div>${ list.qna_re_contents }</div>
+						<div>등록일</div>
+						<div>${ list.qna_re_regdate }</div>
+						<div>수정일</div>
+						<div>${ list.qna_re_update }</div>
+						<div>
+							<hr>
+						</div>
+					</c:if>
+					<c:if test="${ list.qna_re_remove_lev eq 1}">
+						삭제된 답글입니다
+					</c:if>
+				</div>
+			</c:forEach>
+		</div>
+	</div>
+
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -146,10 +203,10 @@
 							THE CULTURE<span>.</span>
 						</h3>
 
-
 						<div class="container py-4">
 							<div class="copyright">
-								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All Rights Reserved
+								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All
+								Rights Reserved
 							</div>
 							<div class="credits d-flex align-item-left">
 								<p>park sang soo</p>
@@ -159,58 +216,33 @@
 								Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 							</div>
 						</div>
-						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
+		</div>
 	</footer>
 	<!-- End Footer -->
 
 
 	<div id="preloader"></div>
-	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
-	<script src="./resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	<script
+		src="./resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 	<script src="./resources/assets/vendor/aos/aos.js"></script>
 
 	<script src="./resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script src="./resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script
+		src="./resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 	<script src="./resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script src="./resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script
+		src="./resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
-	
-	<!-- send function -->
-	<script src="./resources/js/httpRequest.js"></script>
-	
-	<script>
-		function send(f) {
-			let user_id = f.user_id.value;
-			let user_pw = f.user_pw.value;
 
-			var url = "checkInfo.do";
-
-			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
-			var param = "user_id=" + user_id + "&user_pw=" + encodeURIComponent(user_pw);
-
-			sendRequest(url, param, resFn, "Post");
-		}
-
-		//콜백메서드
-		function resFn(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-
-				var data = xhr.responseText;
-
-				if(data == 'no_user_pw'){
-					alert("비밀번호가 일치하지 않습니다");
-				}else{
-					location.href="editInfo.do";
-				}
-			}
-		}
-	</script>
 </body>
 </html>

@@ -1,5 +1,8 @@
 package korea.it.culture.myPage.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import korea.it.culture.login.dao.UserDAO;
 import korea.it.culture.login.vo.UserVO;
 import korea.it.culture.myPage.util.MyCommon;
+import korea.it.culture.qna.dao.QnaDAO;
+import korea.it.culture.qna.dao.QnaReDAO;
+import korea.it.culture.qna.util.Common;
+import korea.it.culture.qna.util.Paging;
+import korea.it.culture.qna.vo.QnaReVO;
+import korea.it.culture.qna.vo.QnaVO;
 
 @Controller
 public class MyPageController {
@@ -22,9 +31,14 @@ public class MyPageController {
 	ServletContext app;
 	
 	UserDAO user_dao;
+	QnaDAO qna_dao;
+	QnaReDAO qna_re_dao;
+	
 	@Autowired
-	public MyPageController(UserDAO user_dao) {
+	public MyPageController(UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao) {
 		this.user_dao = user_dao;
+		this.qna_dao = qna_dao;
+		this.qna_re_dao = qna_re_dao;
 	}
 	
 	//마이페이지 첫 화면으로 이동(회원정보 수정 창)
@@ -67,12 +81,89 @@ public class MyPageController {
 		int res = user_dao.updateUser(vo);
 		String result = "fail";
 		
-		if(res != 0) {
+		if(res != 0) { 
 			//바뀐 정보로 세션 변경
 			session = request.getSession();
 			session.setAttribute("login", vo);
 			result = "success";
 		}
 		return result;
+	}
+	
+	//회원 탈퇴 확인 페이지로 이동
+	@RequestMapping("/delInfo.do")
+	public String delPage() {
+		return MyCommon.MyPage.VIEW_PATH + "delPage.jsp";
+	}
+
+	//회원 탈퇴 확인 페이지로 이동
+	@ResponseBody
+	@RequestMapping("/userDel.do")
+	public String delUser(HttpSession session, String user_id) {
+		int res = user_dao.delUser(user_id);
+		
+		String result = "fail";
+		if(res != 0) { 
+			//탈퇴 성공으로 인한 세션 삭제로 로그아웃
+			session = request.getSession();
+			session.invalidate();
+			result = "success";
+		}
+		
+		return result;
+	}
+
+	//나의 문의내역 화면으로 이동
+	@RequestMapping("/myQna.do")
+	public String moveMyQna(Model model) {
+		int nowPage = 1; // 1로 첫페이지 번호를 가정
+		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
+		if (page != null && !page.isEmpty()) {// 올바른 값을 받았다면
+			nowPage = Integer.parseInt(page);
+		}
+		
+		String user_id = request.getParameter("user_id");
+
+		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산
+		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
+		int end = nowPage * Common.Board.BLOCKLIST;
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("user_qid", user_id);
+
+		List<QnaVO> list = qna_dao.selectMyList(map);
+
+		// 페이지 메뉴 생성
+		int row_id = qna_dao.getRowID(user_id);
+
+		// 하단 페이지 메뉴 생성
+		String pageMenu = Paging.getPaging("myQna.do", nowPage, // 현재페이지
+				row_id, // 전체 게시글 수
+				"", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
+				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
+
+		// pageMenu를 바인딩
+		model.addAttribute("pageMenu", pageMenu);
+
+		model.addAttribute("list", list);
+		return MyCommon.MyPage.VIEW_PATH + "myQna.jsp";
+	}
+	
+	// 내가 남긴 문의글 자세히 보기
+	@RequestMapping("/myQnaView.do")
+	public String qna_view(Model model) {
+		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		// 선택한 게시글의 내용들 가져오기
+		QnaVO vo = qna_dao.selectOne(qna_id);
+		// 선택한 게시글에 달려있는 댓글(관리자의 글)을 가져오기
+		List<QnaReVO> list = qna_re_dao.selectList(qna_id);
+
+		model.addAttribute("vo", vo);// 바인딩
+		model.addAttribute("list", list);// 바인딩
+		// 세션에서 현재 사용자 id를 가져와서 바인딩 해줌
+
+		return MyCommon.MyPage.VIEW_PATH + "myQnaDetail.jsp";
 	}
 }

@@ -91,6 +91,7 @@ public class UserController {
 		return "redirect:login_main.do";
 	}
 	
+	//로그아웃
 	@RequestMapping("/logout.do")
 	public String logout(HttpSession session) {
 		session = request.getSession();
