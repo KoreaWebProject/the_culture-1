@@ -122,11 +122,14 @@
       console.log('가져올 이름이 있어요( •́ ▾ •̀ )');
       $("input[name='user_name']").prop("disabled", true);
     }
-    if('${result.birthyear}' && '${result.birthday}'){
-      console.log('가져올 생일이 있어요( •́ ▾ •̀ )' + '${result.birthyear}' + '${result.birthday}');
+    if('${result.birthyear}'){
+      console.log('가져올 생일이 있어요( •́ ▾ •̀ )' + '${result.birthyear}');
 			//생년
       $('.birth_year').val(${result.birthyear}).prop("selected",true);
       $('.birth_year').prop('disabled',true);
+    }
+    if( '${result.birthday}'){
+      console.log('가져올 생일이 있어요( •́ ▾ •̀ )'+ '${result.birthday}');
 			var birth_month = '${result.birthday}'.substring(0,2);	//'12-23' 이런 식으로 넘어와서 0부터 2까지
 			var birth_day = '${result.birthday}'.substring(3,5);		//3부터 5까지 잘라서 씀
 			//월
@@ -137,6 +140,8 @@
       $('.birth_day').val(birth_day).prop("selected",true);
       $('.birth_day').prop('disabled',true);
     }
+
+
     if('${result.gender}'){
       console.log('가져올 성별이 있어요( •́ ▾ •̀ )' + '${result.gender}');
       $("input[class='contact'][value='${result.gender}']").prop("checked", true);  //만약 젠더값이 있다면 class가 contect인 radio 에서 value가 'result.gender'인것을 체크
