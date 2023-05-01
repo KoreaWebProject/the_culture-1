@@ -236,11 +236,26 @@ public class UserController {
 
 	}
 
+	/**
+	 * 1.카카오 로그인 서비스 요청
+	 * 2.인가코드 받기
+	 * 3.사용자 인증 동의
+	 * 
+	 * @param code
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/kakao-callback.do")
 	public String kakao(@RequestParam String code, Model model, HttpSession session) throws Exception {
+		//?code = xxx로 오는 인가코드를 파라미터로 받는다
 		System.out.println("(๑•̀༚•́)ฅ 1.인가코드  code = " + code);
+		//인가코드를  이용해  유저 정보에 접근할 수 있는 토큰요청!
 		String access_token = socialLoginService.getToken(code);
 		System.out.println("(๑•̀༚•́)ฅ getToken()으로 떠나 돌아온 access_token :  " + access_token);
+		
+		//내놔
 		Map<String, Object> userInfo = socialLoginService.getUserInfo(access_token);
 
 		//3-1 	데이터 중 이메일을 기존 유저 데이터베이스에서 정보가 있는지 확인.

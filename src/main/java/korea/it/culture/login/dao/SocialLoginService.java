@@ -104,7 +104,12 @@ public class SocialLoginService {
   }
 
 
-
+  /**
+   * 토큰요청 그리고 발급
+   * @param code
+   * @return
+   * @throws Exception
+   */
   //code = 인가코드
   public String getToken(String code) throws Exception {
     // 인가코드로 토큰받기
@@ -165,6 +170,12 @@ public class SocialLoginService {
   }
 
 
+  /**
+   * 유저정보에 접근할 수 있는 엑세스 토큰을 가지고 유저데이터 가져오기
+   * @param access_token
+   * @return
+   * @throws Exception
+   */
   public Map<String, Object> getUserInfo(String access_token) throws Exception {
     String host = "https://kapi.kakao.com/v2/user/me";
     Map<String, Object> result = new HashMap<>();
