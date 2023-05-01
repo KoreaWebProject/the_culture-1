@@ -69,13 +69,13 @@
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span>
+					<span>${login.user_name}님<span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a> 
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
 					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
@@ -134,21 +134,16 @@
 
 					<div class="icon-cards__item d-flex align-items-center justify-content-center container">
 						<div class="align-top">${status.count}</div>
-						<a href="#" onclick="info('${vo.play_id }');"><form action="info.do" id="info${vo.play_id }">
+						<a href="#" onclick="info('${vo.play_id }');">
+							<form action="info.do" id="info${vo.play_id }">
 								<input type="hidden" name="play_id" value="${vo.play_id }">
 								<img src="${vo.play_poster}" width="250px" />
-							</form></a>
-
+							</form>
+						</a>
 					</div>
 				</c:forEach>
-
-
-
-
-
 			</div>
 		</figure>
-
 
 		<!-- ======= Featured Services Section ======= -->
 		<section id="featured-services" class="featured-services">

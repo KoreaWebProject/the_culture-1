@@ -37,80 +37,59 @@ String root = request.getContextPath();
 </head>
 <body>
 
-	<!-- ======= Top Bar ======= -->
+<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
 			<div class="social-links d-none d-md-flex align-items-end">
 				<c:if test="${empty login.user_id}">
-					<a href="#" onclick="location.href='login_form.do'">로그인</a>
+					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
 					<span>${login.user_name}님<span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a> 
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
 					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
-
 			</div>
 		</div>
 	</section>
 
 	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
-		<div
-			class="container d-flex align-items-center justify-content-between">
-			<!-- todo 병합 시 로고 클릭시 주소 설정-->
-			<a href="#" onclick="location.href='culture.do'" class="logo"><img
-				src="./resources/assets/img/logo.png" alt="" width="130px"></a>
+		<div class="container d-flex align-items-center justify-content-between">
+			<a href="#" onclick="location.href='culture.do'" class="logo"><img src="resources/img/the_culture_logo.png" alt="" width="130px"></a>
 			<nav class="navbar">
 				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-primary" type="submit">Search</button>
 				</form>
-				<i class="bi bi-list mobile-nav-toggle"></i>
 			</nav>
 		</div>
 	</header>
 	<!-- End Header -->
 
-
+	<!-- ======= menubar ======= -->
 	<div id="menubar" class="navbar container justify-content-left">
 		<nav class="navbar">
 			<ul>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=연극'">연극</a></li>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=뮤지컬'">뮤지컬</a></li>
-				<li class="dropdown"><a href="#"
-					onclick="location.href='geinfo.do?genrenm=음악'"><span>음악</span>
-						<i class="bi bi-chevron-down"></i></a>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=연극'">연극</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=뮤지컬'">뮤지컬</a></li>
+				<li class="dropdown"><a href="#" onclick="location.href='geinfo.do?genrenm=음악'"><span>음악</span> <i class="bi bi-chevron-down"></i></a>
 					<ul>
-						<li><a href="#"
-							onclick="location.href='geinfo.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
-						<li><a href="#"
-							onclick="location.href='geinfo.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
-						<li><a href="#"
-							onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
+						<li><a href="#" onclick="location.href='geinfo.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
+						<li><a href="#" onclick="location.href='geinfo.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
+						<li><a href="#" onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
 					</ul></li>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
-				<li><a class="nav-link scrollto" href="#services"
-					onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
-				<li><a class="nav-link scrollto" href="#services"
-					onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
-
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
 			</ul>
-
 		</nav>
-
 	</div>
-
-
-
+	<!-- ======= end menubar ======= -->
 
 	<main class=" container ">
 
@@ -209,28 +188,8 @@ String root = request.getContextPath();
 
 	</main>
 
-
-
-
-
-
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
-
-		<!--     <div class="footer-newsletter">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <h4>Join Our Newsletter</h4>
-          <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-          <form action="" method="post">
-            <input type="email" name="email"><input type="submit" value="Subscribe">
-          </form>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">
@@ -260,9 +219,6 @@ String root = request.getContextPath();
 		</div>
 	</footer>
 	<!-- End Footer -->
-
-
-
 
 	<div id="preloader"></div>
 	<a href="#"

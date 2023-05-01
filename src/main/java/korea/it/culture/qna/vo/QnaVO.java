@@ -1,8 +1,8 @@
 package korea.it.culture.qna.vo;
 
 public class QnaVO {
-	String user_id, qna_title, qna_contents, qna_regdate;
-	int qna_id, qna_status, qna_remove_lev, qna_public_lev;
+	private String user_id, qna_title, qna_contents, qna_regdate;
+	private int qna_id, qna_status, qna_remove_lev, qna_public_lev;
 	
 	public String getUser_id() {
 		return user_id;

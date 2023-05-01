@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import korea.it.culture.login.dao.UserDAO;
-import korea.it.culture.login.vo.UserVO;
 import korea.it.culture.qna.dao.QnaDAO;
 import korea.it.culture.qna.dao.QnaReDAO;
 import korea.it.culture.qna.util.Common;
@@ -116,6 +114,7 @@ public class QnaController {
 	// Qna 등록
 	@RequestMapping("/qna_insert.do")
 	public String qna_insert(QnaVO vo) {
+		System.out.println("공개타입"+vo.getQna_contents());
 		qna_dao.insertContent(vo);
 		return "redirect:qna_main.do";
 	}
@@ -123,6 +122,7 @@ public class QnaController {
 	// 문의글 자세히 보기
 	@RequestMapping("/qna_view.do")
 	public String qna_view(Model model) {
+		
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
 		// 선택한 게시글의 내용들 가져오기
 		QnaVO vo = qna_dao.selectOne(qna_id);
@@ -175,6 +175,7 @@ public class QnaController {
 		return "redirect:qna_main.do";
 	}
 
+	//qna 완료처리 
 	@RequestMapping("/qna_clear.do")
 	public String qna_clear() {
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));

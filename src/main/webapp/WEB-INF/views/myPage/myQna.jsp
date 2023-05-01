@@ -38,14 +38,26 @@
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
+<script>
+	function search() {
+		//조회 카테고리 검색
+		let search = document.getElementById("search").value;
+		//검색어 조회
+		let search_text = document.getElementById("search_text").value.trim();
 
-<!-- =======================================================
-  * Template Name: BizLand
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+		//카테고리가 전체보기(all)로 지정되어 있지 않은 경우라면 반드시 검색어가 입력되어 있어야 한다
+		//유효성 체크
+		if (search != 'all' && search_text == "") {
+			alert("검색어를 입력하세요");
+			return;
+		}
+
+		//검색 카테고리, 검색어, 페이지 정보를 qna_main.do에게 전달
+		location.href = "qna_main.do?search=" + search + "&search_text="
+				+ encodeURIComponent(search_text);
+	}
+</script>
+
 </head>
 <body>
 	<!-- ======= Top Bar ======= -->
@@ -55,14 +67,14 @@
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span> 
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a> 
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#"
+							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
+							onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -115,60 +127,102 @@
 		</nav>
 	</div>
 	<!-- ======= end menubar ======= -->
-	
+		
 	<!-- ======= myPage list ======= -->
 	<div>
 		<ul>
 			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
 			<li><a href="#" onclick="location.href='myReview.do'">나의 후기</a></li>
 			<li><a href="#" onclick="location.href='favorite.do'">즐겨찾기</a></li>
-			<li><a href="#" onclick="location.href='myQna.do'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">나의 문의 내역</a></li>
 			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
 		</ul>
 	</div>
 	<!-- ======= end myPage list ======= -->
 	
-	<!-- ======= my Qna list ======= -->
-	마이페이지 내 Qna 목록 
-	
-	<h2>내가 남긴 QNA</h2>
-	
-	<div>
-		<div>NO</div>
-		<div>제목</div>
-		<div>이름</div>
-		<div>진행상황</div>
-		<div>등록일</div>
-	</div>
 
-	<c:forEach var="vo" items="${ list }">
-		<div>
-			<c:if test="${ login.user_id eq vo.user_id }">
-				<div>${vo.qna_id}</div>
-				<c:if test="${ vo.qna_remove_lev ne 1 }">
-					<div>
-						<!-- 링크를 누르면 qna_id를 가지고 페이지를 넘어가기 -->
-						<a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a>
-						<div>${vo.user_id}</div>
-						<div>
-							<c:if test="${ vo.qna_status eq 0 }">처리중</c:if>
-							<c:if test="${ vo.qna_status ne 0 }">답변완료</c:if>
-						</div>
-						<div>${vo.qna_regdate}</div>
-					</div>
-				</c:if>
-				<c:if test="${ vo.qna_remove_lev eq 1 }">
-					<font color="gray">삭제된글입니다</font>
-				</c:if>
-			</c:if>
+	<main class="container">
+		<hr>
+
+		<table class="container">
+			<thead>
+				<tr>
+					<th style="text-align: center">NO</th>
+					<th style="text-align: center">제목</th>
+					<th style="text-align: center">이름</th>
+					<th style="text-align: center">진행상황</th>
+					<th style="text-align: center">등록일</th>
+					<th style="text-align: center">공개여부</th>
+
+				</tr>
+			</thead>
+			<tbody style="text-align: center">
+				<c:forEach var="vo" items="${ list }">
+					<c:if test="${ vo.qna_remove_lev ne 1 }">
+						<tr>
+							<td>${vo.qna_id}</td>
+							<c:if test="${ login.user_role_id eq 2}">
+								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
+								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
+								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
+								<th>${vo.qna_title}</th>
+							</c:if>
+							<c:if test="${ empty login.user_id}">
+								<th>${vo.qna_title}</th>
+							</c:if>
+
+							<td>${vo.user_id}</td>
+							<c:if test="${ vo.qna_status eq 0 }">
+								<td style="color: red;">처리중</td>
+							</c:if>
+							<c:if test="${ vo.qna_status ne 0 }">
+								<td style="color: blue;">답변완료</td>
+							</c:if>
+							<td>${vo.qna_regdate}</td>
+							<c:if test="${ vo.qna_public_lev eq 0 }">
+								<td style="color: red;">비공개</td>
+							</c:if>
+							<c:if test="${ vo.qna_public_lev eq 1 }">
+								<td style="color: blue;">공개</td>
+							</c:if>
+						</tr>
+					</c:if>
+					<c:if test="${ vo.qna_remove_lev eq 1 }">
+						<tr>
+							<td>${vo.qna_id}</td>
+							<td colspan="5">삭제된 문의글 입니다.</td>
+						</tr>
+					</c:if>
+
+				</c:forEach>
+			</tbody>
+		</table>
+
+		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
+
+		<div class="row container d-flex justify-content-center"
+			style="margin-top: 20px;">
+			<div class="col-2">
+				<select id="search" class="form-select ">
+					<option value="all">전체보기</option>
+					<option value="subject">제목</option>
+					<option value="name">이름</option>
+					<option value="content">내용</option>
+					<option value="name_subject_content">이름+제목+내용</option>
+				</select>
+			</div>
+			<div class="col-3">
+				<input id="search_text" class="form-control col-2" type="text">
+			</div>
+			<button class="btn btn-outline-primary col-1" onclick="search();">검색</button>
 		</div>
-	</c:forEach>
-	
-	<!-- 페이지 선택 -->
-	<div>${ pageMenu }</div>
-		
-	<!-- ======= end my Qna list ======= -->
-	
+	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -182,7 +236,8 @@
 
 						<div class="container py-4">
 							<div class="copyright">
-								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All Rights Reserved
+								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All
+								Rights Reserved
 							</div>
 							<div class="credits d-flex align-item-left">
 								<p>park sang soo</p>
@@ -192,31 +247,32 @@
 								Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 							</div>
 						</div>
-						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
+		</div>
 	</footer>
 	<!-- End Footer -->
 
 
 	<div id="preloader"></div>
-	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
-	<script src="./resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	<script
+		src="./resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 	<script src="./resources/assets/vendor/aos/aos.js"></script>
 
 	<script src="./resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script src="./resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<script
+		src="./resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 	<script src="./resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	<script src="./resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	<script
+		src="./resources/assets/vendor/waypoints/noframework.waypoints.js"></script>
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
-	
-	<!-- send function -->
-	<script src="./resources/js/httpRequest.js"></script>
-	
 </body>
 </html>

@@ -39,7 +39,6 @@
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
-
 <!-- =======================================================
   * Template Name: BizLand
   * Updated: Mar 10 2023 with Bootstrap v5.2.3
@@ -56,14 +55,14 @@
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span>
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#"
+							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
+							onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -123,7 +122,7 @@
 			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
 			<li><a href="#" onclick="location.href='myReview.do'">나의 후기</a></li>
 			<li><a href="#" onclick="location.href='favorite.do'">즐겨찾기</a></li>
-			<li><a href="#" onclick="location.href='myQna.do'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
 			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
 		</ul>
 	</div>

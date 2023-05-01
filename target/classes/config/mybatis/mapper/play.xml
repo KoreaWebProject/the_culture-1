@@ -79,7 +79,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<if test="fromto != null">or play_from Like '%'||#{fromto}||'%' or play_to Like
 					'%'||#{fromto}||'%'  </if>
 				<if test="genrenm != null">or play_genrenm Like '%'||#{genrenm}||'%' </if>
-
+				
+				
 		</trim>
 		) p) where no between #{start} AND #{end}
 		</select>
