@@ -161,8 +161,16 @@ public class UserController {
 	public String logout(HttpSession session) {
 		session = request.getSession();
 		session.invalidate();
+		//request.getHeader("Referer")로 현재페이지 이전 URL주소 를 가져온다
+		if (request.getHeader("Referer") != null) {
+			//만약 어디 들렸다가 로그아웃하면 계속해서 볼 수 있게 돌려놔준다
+			return "redirect:" + request.getHeader("Referer");
+		} else {
+			//아니라면 그냥 메인화면으로 리다이렉트해준다
+			return "redirect:culture.do";
+		}
 
-		return "redirect:culture.do";
+//		return "redirect:culture.do";
 	}
 
 	//가입 페이지에서 history -1을 하면 네이버 세션 정보가 그대로 저장되어있어 일반

@@ -102,7 +102,11 @@
 				}else if(data == 'joined_out'){
 					alert("이미 탈퇴한 회원입니다");
 				}else{
-					location.href="culture.do";
+					// 목록을 보다가 로그인 시 메인으로 가버림
+					// location.href="culture.do";
+					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
+					// history.back();
+					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
 				}
 			}
 		}
