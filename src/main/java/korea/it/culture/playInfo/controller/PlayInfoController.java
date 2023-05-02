@@ -1,6 +1,5 @@
 package korea.it.culture.playInfo.controller;
 
-import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.playInfo.util.MyCommon;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
@@ -14,33 +13,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class PlayInfoController {
 
 
   private PlayInfoService infoService;
 
   @Autowired
-  public HomeController(PlayInfoService infoService) {
+  public PlayInfoController(PlayInfoService infoService) {
     this.infoService = infoService;
   }
-
-
-  /**
-   * 초기페이지  Model 객체에 담아 jsp단에서 list로 사용
-   *
-   * @param model
-   * @return
-   * @throws Exception
-   * todo 상수햄 병합 시 삭제예정
-   */
- 
 
   /**
    * playId를 list에서 받아와 map에 저장 후 쿼리문 실행
@@ -52,7 +39,6 @@ public class HomeController {
    */
   @RequestMapping(value = "/info.do", method = RequestMethod.GET)
   public String viewInfo(Model model, @RequestParam("play_id") String play_id) throws Exception{
-    System.out.println("con의 ViewInfo 실행");
     //조건 값을 저장할 parameter용 map
     Map<String, Object> paramMap = new HashMap<>();
     //조건값 삽입
@@ -74,7 +60,6 @@ public class HomeController {
    */
   @RequestMapping(value = "/loc.do", method = RequestMethod.GET)
   public String locInfo(Model model, @RequestParam("loc_id") String loc_id) throws Exception{
-    System.out.println("con의 locInfo 실행");
     //조건 값을 저장할 parameter용 map
     Map<String, Object> paramMap = new HashMap<>();
     //조건값 삽입

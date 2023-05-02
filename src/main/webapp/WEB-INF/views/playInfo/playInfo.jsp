@@ -48,7 +48,7 @@ String root = request.getContextPath();
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> 
+					<span>${login.user_name}님</span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
 					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
@@ -92,67 +92,6 @@ String root = request.getContextPath();
 	<!-- ======= end menubar ======= -->
 
 	<main class=" container ">
-
-		<h2>뽀로로</h2>
-		<div>연극</div>
-		<hr style="margin-bottom: 50px;">
-		<div class=" container row d-flex justify-content-evenly "
-			style="margin-bottom: 50px;">
-			<img class="col-3  img-thumbnail rounded float-start"
-				src="${info.play_poster}">
-			<table class="col-6" border="1">
-				<tr>
-					<th style="width: 100px;">공연기간</th>
-					<td style="width: 500px;"></td>
-				</tr>
-				<tr>
-					<th>공연장소</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>공연시간</th>
-					<td>${info.play_dtguidance}</td>
-				</tr>
-				<tr>
-					<th>관람연령</th>
-					<td>${info.play_prfage}</td>
-				</tr>
-				<tr>
-					<th>티켓가격</th>
-					<td>${info.play_ticketprice}</td>
-				</tr>
-				<tr>
-					<th>출연진</th>
-					<td>${info.play_prfcast}</td>
-				</tr>
-				<tr>
-					<th>제작진</th>
-					<c:if test="${fn:trim(info.play_prfcrew) eq ''}">
-						<td>해당사항없음</td>
-					</c:if>
-					<c:if test="${fn:trim(info.play_prfcrew) ne ''}">
-						<td>${info.play_prfcrew}</td>
-					</c:if>
-
-				</tr>
-				<tr>
-					<th>주최-주관</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>기획-제작</th>
-					<td></td>
-				</tr>
-			</table>
-
-		</div>
-
-		<div>
-			<button type="button" class="btn btn-dark"
-				onclick="location.href='<%=root%>/list.do'" style="cursor: pointer;">목록보기</button>
-		</div>
-
-
 		<div class="btn-group container" role="group"
 			aria-label="Basic radio toggle button group"
 			style="margin-bottom: 30px;">
@@ -161,7 +100,7 @@ String root = request.getContextPath();
 				class="btn  btn-outline-danger" for="btnradio1">소개</label> <input
 				type="radio" class="btn-check" name="btnradio" id="btnradio2"
 				autocomplete="off"
-				onclick="location.href='/loc.do?loc_id=${info.loc_id}'"
+				onclick="location.href='loc.do?loc_id=${info.loc_id}'"
 				style="cursor: pointer"> <label
 				class="btn  btn-outline-danger" for="btnradio2">공연장</label> <input
 				type="radio" class="btn-check" name="btnradio" id="btnradio3"
@@ -174,51 +113,10 @@ String root = request.getContextPath();
 		<div class="container d-flex justify-content-center"
 			style="margin-bottom: 30px;">
 			<div>
-				<img src="${info.play_styurls}" alt=""
-					style="max-width: 100%; height: auto;">
-				<%-- 상세 이미지 2~ 4				<img src="${info.playStyurls}" alt="" style="max-width: 100%; height: auto;">--%>
-				<%--				<img src="${info.playStyurls}" alt="" style="max-width: 100%; height: auto;">--%>
-				<%--				<img src="${info.playStyurls}" alt="" style="max-width: 100%; height: auto;">--%>
-
-				<%--				<img src="http://www.kopis.or.kr/upload/pfmIntroImage/PF_PF217150_230420_1221160.jpg">--%>
-
+				<img src="${info.play_styurls}" alt="" style="max-width: 100%; height: auto;">
 			</div>
-
 		</div>
-
 	</main>
-
-	<!-- ======= Footer ======= -->
-	<footer id="footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-lg-3 col-md-6 footer-contact">
-						<h3>
-							THE CULTURE<span>.</span>
-						</h3>
-
-
-						<div class="container py-4">
-							<div class="copyright">
-								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All
-								Rights Reserved
-							</div>
-							<div class="credits">
-								<!-- All the links in the footer should remain intact. -->
-								<!-- You can delete the links only if you purchased the pro version. -->
-								<!-- Licensing information: https://bootstrapmade.com/license/ -->
-								<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
-								Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- End Footer -->
 
 	<div id="preloader"></div>
 	<a href="#"
@@ -258,6 +156,36 @@ String root = request.getContextPath();
 
 		</ul>
 	</div>
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer">
+		<div class="footer-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 footer-contact">
+						<h3>
+							THE CULTURE<span>.</span>
+						</h3>
+
+						<div class="container py-4">
+							<div class="copyright">
+								&copy; Copyright <strong><span>THE CULTURE</span></strong>. All
+								Rights Reserved
+							</div>
+							<div class="credits">
+								<!-- All the links in the footer should remain intact. -->
+								<!-- You can delete the links only if you purchased the pro version. -->
+								<!-- Licensing information: https://bootstrapmade.com/license/ -->
+								<!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bizland-bootstrap-business-template/ -->
+								Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- End Footer -->
 
 </body>
 <script>

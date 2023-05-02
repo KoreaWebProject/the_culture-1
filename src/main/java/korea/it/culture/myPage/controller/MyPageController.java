@@ -54,7 +54,7 @@ public class MyPageController {
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
 
-		UserVO vo = user_dao.selectOne(user_id);
+		UserVO vo = user_dao.login(user_id);
 
 		String param = "clear";
 
