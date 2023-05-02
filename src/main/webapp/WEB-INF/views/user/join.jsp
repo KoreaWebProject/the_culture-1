@@ -198,20 +198,9 @@
 			let user_addr1 = f.user_addr1.value.trim();
 			let user_addr2 = f.user_addr2.value.trim();
 
+			//유효성 체크
 			checkAll(f);
 			
-			//id유효성
-			if (user_id == '') {
-				alert("ID를 입력하세요");
-				return;
-			}
-
-			//pw유효성
-			if (user_pw !== user_pwck) {
-				alert("비밀번호가 일치하지 않습니다");
-				return;
-			}
-
 			//라디오버튼 유효성
 			var user_gender = $('input:radio[name="contact"]:checked').val();
 			if (user_gender == null) {
@@ -338,7 +327,7 @@
 	        if (!checkExistData(name, "이름을"))
 	            return false;
 	 
-	        var nameRegExp = /^[가-힣]{2,4}$/;
+	        var nameRegExp = /^[가-힣]{2,50}$/;
 	        if (!nameRegExp.test(name)) {
 	            alert("이름이 올바르지 않습니다.");
 	            return false;

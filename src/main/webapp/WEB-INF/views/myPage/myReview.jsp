@@ -38,26 +38,6 @@
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
-<script>
-	function search() {
-		//조회 카테고리 검색
-		let search = document.getElementById("search").value;
-		//검색어 조회
-		let search_text = document.getElementById("search_text").value.trim();
-
-		//카테고리가 전체보기(all)로 지정되어 있지 않은 경우라면 반드시 검색어가 입력되어 있어야 한다
-		//유효성 체크
-		if (search != 'all' && search_text == "") {
-			alert("검색어를 입력하세요");
-			return;
-		}
-
-		//검색 카테고리, 검색어, 페이지 정보를 myQna.do에게 전달
-		location.href = "myQna.do?search=" + search + "&search_text="
-				+ encodeURIComponent(search_text);
-	}
-</script>
-
 </head>
 <body>
 	<!-- ======= Top Bar ======= -->
@@ -71,10 +51,10 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#"
-							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
-							onclick="location.href='mypage.do'">마이페이지</a>
+					<span>${login.user_name}님<span> 
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
+					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -148,11 +128,11 @@
 			<thead>
 				<tr>
 					<th style="text-align: center">NO</th>
-					<th style="text-align: center">제목</th>
-					<th style="text-align: center">이름</th>
-					<th style="text-align: center">진행상황</th>
-					<th style="text-align: center">등록일</th>
-					<th style="text-align: center">공개여부</th>
+					<th style="text-align: center">공연제목</th>
+					<th style="text-align: center">작성자</th>
+					<th style="text-align: center">한줄평</th>
+					<th style="text-align: center">별점</th>
+					<th style="text-align: center">좋아요</th>
 
 				</tr>
 			</thead>
@@ -160,43 +140,18 @@
 				<c:forEach var="vo" items="${ list }">
 					<c:if test="${ vo.qna_remove_lev ne 1 }">
 						<tr>
-							<td>${vo.qna_id}</td>
-							<c:if test="${ login.user_role_id eq 2}">
-								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
-							</c:if>
-							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
-								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
-							</c:if>
-							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
-								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
-							</c:if>
-							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
-								<th>${vo.qna_title}</th>
-							</c:if>
-							<c:if test="${ empty login.user_id}">
-								<th>${vo.qna_title}</th>
-							</c:if>
-
+							<td>${vo.reple_id}</td>
+							<td>${vo.play_id}</td><!-- Play table의 공연이름으로 변경 -->
 							<td>${vo.user_id}</td>
-							<c:if test="${ vo.qna_status eq 0 }">
-								<td style="color: red;">처리중</td>
-							</c:if>
-							<c:if test="${ vo.qna_status ne 0 }">
-								<td style="color: blue;">답변완료</td>
-							</c:if>
-							<td>${vo.qna_regdate}</td>
-							<c:if test="${ vo.qna_public_lev eq 0 }">
-								<td style="color: red;">비공개</td>
-							</c:if>
-							<c:if test="${ vo.qna_public_lev eq 1 }">
-								<td style="color: blue;">공개</td>
-							</c:if>
+							<td>${vo.reple_contents}</td>
+							<td>${vo.reple_rating}</td>
+							<td>${vo.reple_good}</td>
 						</tr>
 					</c:if>
-					<c:if test="${ vo.qna_remove_lev eq 1 }">
+					<c:if test="${ vo.reple_remove_lev eq 1 }">
 						<tr>
-							<td>${vo.qna_id}</td>
-							<td colspan="5">삭제된 문의글 입니다.</td>
+							<td>${vo.reple_id}</td>
+							<td colspan="5">삭제된 후기입니다.</td>
 						</tr>
 					</c:if>
 
@@ -205,7 +160,6 @@
 		</table>
 
 		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
-
 	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">

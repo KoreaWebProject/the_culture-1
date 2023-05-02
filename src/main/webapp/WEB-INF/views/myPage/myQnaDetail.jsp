@@ -104,6 +104,19 @@
 		</nav>
 	</div>
 	<!-- ======= end menubar ======= -->
+	
+	<!-- ======= myPage list ======= -->
+	<div>
+		<ul>
+			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
+			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
+			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
+			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
+		</ul>
+	</div>
+	<!-- ======= end myPage list ======= -->
+	
 	<main class="container">
 		<div class="row justify-content-center" style="padding-bottom: 5px;">
 			<hr>

@@ -119,8 +119,8 @@
 	<div>
 		<ul>
 			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
-			<li><a href="#" onclick="location.href='myReview.do'">나의 후기</a></li>
-			<li><a href="#" onclick="location.href='favorite.do'">즐겨찾기</a></li>
+			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
+			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
 			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
 			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
 		</ul>

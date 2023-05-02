@@ -133,7 +133,7 @@
 
 			if (data == 'no_user_id') {
 				alert("아이디가 존재하지 않습니다");
-			} else if (data == 'no_user_pw') {
+			} else if (data == 'no_user_pwd') {
 				alert("비밀번호가 일치하지 않습니다");
 			} else {
 				location.href = "culture.do";

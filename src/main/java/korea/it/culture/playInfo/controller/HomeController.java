@@ -29,7 +29,6 @@ public class HomeController {
   @Autowired
   public HomeController(PlayInfoService infoService) {
     this.infoService = infoService;
-    System.out.println("controller Autowired 실행완료");
   }
 
 
