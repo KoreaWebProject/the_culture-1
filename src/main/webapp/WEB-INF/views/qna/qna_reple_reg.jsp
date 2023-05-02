@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -72,12 +73,13 @@
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
-					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">Q&A</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span>
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a>
+					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='mypage.do'">Q&A</a>
 				</c:if>
 
 			</div>
@@ -91,6 +93,7 @@
 			<nav class="navbar">
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
 					<button class="btn btn-outline-primary" type="submit">Search</button>
 				</form>
 			</nav>
@@ -121,23 +124,6 @@
 	</div>
 	<!-- ======= end menubar ======= -->
 	<main class="container">
-		<%-- <form>
-			<div>답변달기</div>
-			<div>
-				<input type="hidden" name="qna_id" value="${ reVo.qna_id }"> <input type="hidden" name="page" value="${ param.page }"> <input
-					type="hidden" name="search" value="${ param.search }"> <input type="hidden" name="search_text" value="${ param.search_text }">
-			</div>
-			<div>
-				<div>내용</div>
-				<div>
-					<textarea rows="10" cols="50" name="qna_re_contents" style="resize: none;" wrap="on"></textarea>
-				</div>
-			</div>
-
-			<div>
-				<input type="button" value="작성완료" onClick="send(this.form);"> <input type="button" value="목록으로" onClick="location.href='qna_main.do'">
-			</div>
-		</form> --%>
 
 		<div class="row justify-content-center" style="padding-bottom: 5px;">
 			<hr>
@@ -219,5 +205,6 @@
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
+
 </body>
 </html>

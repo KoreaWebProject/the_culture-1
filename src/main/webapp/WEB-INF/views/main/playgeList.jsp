@@ -80,11 +80,13 @@
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
-					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#" onclick="location.href='qna_main.do'">Q&A</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span> 
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
+					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -120,14 +122,10 @@
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
-
 			</ul>
-
 		</nav>
-
 	</div>
 	<!-- ======= end menubar ======= -->
-
 
 
 	<!-- main -->

@@ -4,7 +4,6 @@ public class QnaVO {
 	private String user_id, qna_title, qna_contents, qna_regdate;
 	private int qna_id, qna_status, qna_remove_lev, qna_public_lev;
 	
-	
 	public String getUser_id() {
 		return user_id;
 	}
@@ -53,10 +52,4 @@ public class QnaVO {
 	public void setQna_public_lev(int qna_public_lev) {
 		this.qna_public_lev = qna_public_lev;
 	}
-	
-	/*
-	 * public QnaVO() { System.out.println("QNA VO"); }
-	 */
-	
-	
 }

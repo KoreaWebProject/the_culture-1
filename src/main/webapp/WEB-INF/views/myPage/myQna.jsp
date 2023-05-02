@@ -38,32 +38,43 @@
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
+<script>
+	function search() {
+		//조회 카테고리 검색
+		let search = document.getElementById("search").value;
+		//검색어 조회
+		let search_text = document.getElementById("search_text").value.trim();
 
-<!-- =======================================================
-  * Template Name: BizLand
-  * Updated: Mar 10 2023 with Bootstrap v5.2.3
-  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37eb6d4d340481c71f7f17add0ea7792&libraries=services,clusterer"></script>
+		//카테고리가 전체보기(all)로 지정되어 있지 않은 경우라면 반드시 검색어가 입력되어 있어야 한다
+		//유효성 체크
+		if (search != 'all' && search_text == "") {
+			alert("검색어를 입력하세요");
+			return;
+		}
+
+		//검색 카테고리, 검색어, 페이지 정보를 myQna.do에게 전달
+		location.href = "myQna.do?search=" + search + "&search_text="
+				+ encodeURIComponent(search_text);
+	}
+</script>
+
 </head>
 <body>
-<!-- ======= Top Bar ======= -->
+	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
 			<div class="social-links d-none d-md-flex align-items-end">
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span>
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a>
-					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#"
+							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
+							onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -116,78 +127,86 @@
 		</nav>
 	</div>
 	<!-- ======= end menubar ======= -->
+		
+	<!-- ======= myPage list ======= -->
+	<div>
+		<ul>
+			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
+			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
+			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
+			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
+		</ul>
+	</div>
+	<!-- ======= end myPage list ======= -->
+	
 
-<!--공연장 정보-->
-<div class="bxo_vcb" style>
-  <div class="tib">
-    <h4 class="nb_tit1">
-      ${loc.loc_name}
-    </h4>
-    <p class="tip_btn_area"><a href="javascript:fnPrfplcView('FC001418');" class="bt_st3">시설정보 상세 <span>&gt;</span></a></p>
-  </div>
-  <ul class="ro_utb nvw">
+	<main class="container">
+		<hr>
 
-    <li>
-      <div>
-        <dl>
-          <dt>좌석수</dt>
-          <dd>${loc.loc_seatscale}</dd>
-        </dl>
-      </div>
-    </li>
-    <li>
-      <div>
-        <dl>
-          <dt>주소</dt>
-          <dd>${loc.loc_addr}</dd>
-        </dl>
-      </div>
-    </li>
-    <li>
-      <div>
-        <dl>
-          <dt>홈페이지</dt>
-          <dd style="word-break:break-all;" wrap="hard">
-            <!-- Java 모바일 체크 -->
+		<table class="container">
+			<thead>
+				<tr>
+					<th style="text-align: center">NO</th>
+					<th style="text-align: center">제목</th>
+					<th style="text-align: center">이름</th>
+					<th style="text-align: center">진행상황</th>
+					<th style="text-align: center">등록일</th>
+					<th style="text-align: center">공개여부</th>
 
-            <a href="${loc.loc_url}" target="_blank" title="새 창 열림">${loc.loc_url}</a>
+				</tr>
+			</thead>
+			<tbody style="text-align: center">
+				<c:forEach var="vo" items="${ list }">
+					<c:if test="${ vo.qna_remove_lev ne 1 }">
+						<tr>
+							<td>${vo.qna_id}</td>
+							<c:if test="${ login.user_role_id eq 2}">
+								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
+								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
+								<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+							</c:if>
+							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
+								<th>${vo.qna_title}</th>
+							</c:if>
+							<c:if test="${ empty login.user_id}">
+								<th>${vo.qna_title}</th>
+							</c:if>
 
-          </dd>
-        </dl>
-      </div>
-    </li>
-    <li>
-      <div>
-        <dl class="bkv">
-          <dt>공연장 위치</dt>
-        </dl>
-      </div>
-    </li>
+							<td>${vo.user_id}</td>
+							<c:if test="${ vo.qna_status eq 0 }">
+								<td style="color: red;">처리중</td>
+							</c:if>
+							<c:if test="${ vo.qna_status ne 0 }">
+								<td style="color: blue;">답변완료</td>
+							</c:if>
+							<td>${vo.qna_regdate}</td>
+							<c:if test="${ vo.qna_public_lev eq 0 }">
+								<td style="color: red;">비공개</td>
+							</c:if>
+							<c:if test="${ vo.qna_public_lev eq 1 }">
+								<td style="color: blue;">공개</td>
+							</c:if>
+						</tr>
+					</c:if>
+					<c:if test="${ vo.qna_remove_lev eq 1 }">
+						<tr>
+							<td>${vo.qna_id}</td>
+							<td colspan="5">삭제된 문의글 입니다.</td>
+						</tr>
+					</c:if>
 
-  </ul>
-</div>
+				</c:forEach>
+			</tbody>
+		</table>
 
-<!--지도 표시 영역-->
-<div id="map" style="width:70%;height:350px;">
-  <!--표시즁~~◠ ͜ ◠-->
-  <!--표시즁~~◠ ͜ ◠-->
-  <!--표시즁~~◠ ͜ ◠-->
-  <!--표시즁~~◠ ͜ ◠-->
-</div>
+		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
 
-<!--공연장 정보 -->
-<ul>
-
-  <li>공연장ID: ${loc.loc_id} </li>
-  <li>이름:${loc.loc_name}</li>
-  <li>번호:${loc.loc_tel}</li>
-  <li>홈피:${loc.loc_url}</li>
-  <li>주소:${loc.loc_addr}</li>
-  <li>위:${loc.loc_la}</li>
-  <li>경도:${loc.loc_lo}</li>
-  <li>객석수:${loc.loc_seatscale}</li>
-</ul>
-
+	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -239,56 +258,5 @@
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
-
-
 </body>
-
-<script>
-    //=====기본 지도 설정 및 생성=====>>>>>//
-
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div(id로 따짐)
-    mapOption = {
-    center: new kakao.maps.LatLng(${loc.loc_la}, ${loc.loc_lo}), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
-    };
-
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-
-    //<<<<<=====기본 지도 설정 및 생성=====//
-
-
-    //=====지도 내부 스카이뷰, 줌 기능 컨트롤 버튼 생성=====>>>>>//
-
-    // 일반지도, 스카이뷰 전환 가능한 컨트롤 만들기
-    var mapTypeControl = new kakao.maps.MapTypeControl();
-
-    //map 지도에 addControl 한다 mapTypeControl의 컨트롤 버튼을 kakao.maps.ControlPosition.TOPRIGHT 의 위치로
-    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치 정의, TOPRIGHT는 오른쪽 위 생성
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-    //  확대 축소를 제어할 수 있는  줌 컨트롤을 생성
-    //addControl로 zoomControl을 kakao.maps.ControlPosition.RIGHT의 위치에 생성
-    var zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    //<<<<<=====지도 내부 스카이뷰, 줌 기능 컨트롤 버튼 생성=====//
-
-
-    //=====지도 내부에 해당 주소 마커 생성=====>>>>>//
-
-    // 마커가 표시될 위치입니다
-    var markerPosition = new kakao.maps.LatLng(${loc.loc_la}, ${loc.loc_lo});
-
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-      position: markerPosition
-    });
-
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-
-    //<<<<<=====지도 내부에 해당 주소 마커 생성=====//
-
-</script>
 </html>

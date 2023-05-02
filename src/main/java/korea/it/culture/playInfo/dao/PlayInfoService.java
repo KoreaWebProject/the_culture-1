@@ -22,18 +22,6 @@ public class PlayInfoService {
   }
 
   /**
-   * 임시 공연목록 리스트 출력
-   * todo 삭제 예정
-   * @return
-   * @throws Exception
-   */
-    public List<PlayVO> getList() throws Exception {
-      System.out.println("service에 getList 메서드 진입");
-      List<PlayVO> list = sqlSession.selectList("pInfo.getList");
-      return list;
-    }
-
-  /**
    * 공연에 대한 상세정보 출력
    * @param paramMap
    * @return

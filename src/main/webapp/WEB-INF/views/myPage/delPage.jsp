@@ -38,7 +38,6 @@
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
-
 <!-- =======================================================
   * Template Name: BizLand
   * Updated: Mar 10 2023 with Bootstrap v5.2.3
@@ -46,24 +45,23 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=37eb6d4d340481c71f7f17add0ea7792&libraries=services,clusterer"></script>
 </head>
 <body>
-<!-- ======= Top Bar ======= -->
+	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
 			<div class="social-links d-none d-md-flex align-items-end">
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span>
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a>
-					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#"
+							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
+							onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -117,77 +115,27 @@
 	</div>
 	<!-- ======= end menubar ======= -->
 
-<!--공연장 정보-->
-<div class="bxo_vcb" style>
-  <div class="tib">
-    <h4 class="nb_tit1">
-      ${loc.loc_name}
-    </h4>
-    <p class="tip_btn_area"><a href="javascript:fnPrfplcView('FC001418');" class="bt_st3">시설정보 상세 <span>&gt;</span></a></p>
-  </div>
-  <ul class="ro_utb nvw">
+	<!-- ======= myPage list ======= -->
+	<div>
+		<ul>
+			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
+			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
+			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
+			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
+		</ul>
+	</div>
+	<!-- ======= end myPage list ======= -->
 
-    <li>
-      <div>
-        <dl>
-          <dt>좌석수</dt>
-          <dd>${loc.loc_seatscale}</dd>
-        </dl>
-      </div>
-    </li>
-    <li>
-      <div>
-        <dl>
-          <dt>주소</dt>
-          <dd>${loc.loc_addr}</dd>
-        </dl>
-      </div>
-    </li>
-    <li>
-      <div>
-        <dl>
-          <dt>홈페이지</dt>
-          <dd style="word-break:break-all;" wrap="hard">
-            <!-- Java 모바일 체크 -->
-
-            <a href="${loc.loc_url}" target="_blank" title="새 창 열림">${loc.loc_url}</a>
-
-          </dd>
-        </dl>
-      </div>
-    </li>
-    <li>
-      <div>
-        <dl class="bkv">
-          <dt>공연장 위치</dt>
-        </dl>
-      </div>
-    </li>
-
-  </ul>
-</div>
-
-<!--지도 표시 영역-->
-<div id="map" style="width:70%;height:350px;">
-  <!--표시즁~~◠ ͜ ◠-->
-  <!--표시즁~~◠ ͜ ◠-->
-  <!--표시즁~~◠ ͜ ◠-->
-  <!--표시즁~~◠ ͜ ◠-->
-</div>
-
-<!--공연장 정보 -->
-<ul>
-
-  <li>공연장ID: ${loc.loc_id} </li>
-  <li>이름:${loc.loc_name}</li>
-  <li>번호:${loc.loc_tel}</li>
-  <li>홈피:${loc.loc_url}</li>
-  <li>주소:${loc.loc_addr}</li>
-  <li>위:${loc.loc_la}</li>
-  <li>경도:${loc.loc_lo}</li>
-  <li>객석수:${loc.loc_seatscale}</li>
-</ul>
-
+	회원 탈퇴에 관한 안내문구를 출력
+	<form action="userDel.do">
+		<div><input type="checkbox" name="agree" value="agree">동의합니다</div>
+		<div><input type="hidden" name="user_id" value="${ login.user_id }"></div>
+		<div><input type="hidden" name="ori_user_pw" value="${ login.user_pw }"></div>
+		<div>비밀번호 확인 : <input type="password" name="user_pw"></div>
+		<div><input type="button" value="탈퇴하기" onClick="del(this.form);"></div>
+	</form>
+	
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -240,55 +188,46 @@
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
 
-
+	<!-- 회원 삭제 function -->
+	<script src="https://code.jquery.com/jquery-3.6.4.js"
+	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+	crossorigin="anonymous"></script>
+	<script src="./resources/js/httpRequest.js"></script>
+	<script>
+		function del(f) {
+			let user_id = f.user_id.value;
+			let user_pw = f.user_pw.value;
+			let ori_user_pw = f.ori_user_pw.value;
+			let agree;
+			$("input:checkbox[name=agree]:checked").each(function() {
+				agree = $(this).val();
+			});
+			
+			if (agree == null) {
+				alert("탈퇴 동의 체크 필수");
+				return;
+			}
+			if(user_pw != ori_user_pw){
+				alert("패스워드 불일치");
+				return;
+			}
+			
+			var url = "userDel.do";
+			var param = "user_id=" + user_id;
+			sendRequest(url, param, resFn, "post");
+		}
+		
+		function resFn() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				//data = "no" 또는 data = "yes"
+				var data = xhr.responseText;
+	
+				if (data == 'success') {
+					alert("회원 탈퇴 성공");
+				}
+				location.href="culture.do";//메인으로 이동
+			}
+		}
+	</script>
 </body>
-
-<script>
-    //=====기본 지도 설정 및 생성=====>>>>>//
-
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div(id로 따짐)
-    mapOption = {
-    center: new kakao.maps.LatLng(${loc.loc_la}, ${loc.loc_lo}), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
-    };
-
-    // 지도를 표시할 div와  지도 옵션으로  지도를 생성
-    var map = new kakao.maps.Map(mapContainer, mapOption);
-
-    //<<<<<=====기본 지도 설정 및 생성=====//
-
-
-    //=====지도 내부 스카이뷰, 줌 기능 컨트롤 버튼 생성=====>>>>>//
-
-    // 일반지도, 스카이뷰 전환 가능한 컨트롤 만들기
-    var mapTypeControl = new kakao.maps.MapTypeControl();
-
-    //map 지도에 addControl 한다 mapTypeControl의 컨트롤 버튼을 kakao.maps.ControlPosition.TOPRIGHT 의 위치로
-    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치 정의, TOPRIGHT는 오른쪽 위 생성
-    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-    //  확대 축소를 제어할 수 있는  줌 컨트롤을 생성
-    //addControl로 zoomControl을 kakao.maps.ControlPosition.RIGHT의 위치에 생성
-    var zoomControl = new kakao.maps.ZoomControl();
-    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
-    //<<<<<=====지도 내부 스카이뷰, 줌 기능 컨트롤 버튼 생성=====//
-
-
-    //=====지도 내부에 해당 주소 마커 생성=====>>>>>//
-
-    // 마커가 표시될 위치입니다
-    var markerPosition = new kakao.maps.LatLng(${loc.loc_la}, ${loc.loc_lo});
-
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-      position: markerPosition
-    });
-
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
-
-    //<<<<<=====지도 내부에 해당 주소 마커 생성=====//
-
-</script>
 </html>
