@@ -251,11 +251,26 @@
 		    	alert("성별을 선택하세요");
 		    	return;
 		    }
+		    
+		    if(user_zip_code == '' && user_addr1 == ''){
+		    	alert("주소를 입력하세요");
+		    	return;
+		    }
+		    
+		    if(!birth_year && !birth_month && !birth_day){
+	            alert("생년월일을 선택하세요");
+	            $('#birth_year').focus();
+	            return;
+	        }
 
 		    var url = "joinin.do";
 		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2;
 		    sendRequest(url, param, resFn, "get");
+		
+						
 		}
+		
+		
 
 		function resFn(){
 			if(xhr.readyState == 4 && xhr.status == 200){
