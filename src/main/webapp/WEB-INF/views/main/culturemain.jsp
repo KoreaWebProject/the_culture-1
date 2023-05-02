@@ -123,17 +123,20 @@
 
 		<div class="container">
 			<hr>
-			<h2>실시간 랭킹</h2>
+			<p id="up">실시간 랭킹</p>
 		</div>
 		<figure class="icon-cards mt-3 container">
 			<div class="icon-cards__content">
 				<c:forEach var="vo" items="${ rank }" begin="0" end="4" varStatus="status">
-
-					<div class="icon-cards__item d-flex align-items-center justify-content-center container">
-						<div class="align-top">${status.count}</div>
+				
+					<div class="icon-cards__item d-flex align-items-center container">
+						<div class=" d-flex align-items-start" ">
+							<div class="d-flex align-items-start" style="position: absolute; top: 10px; font-size: 20px;">${status.count}</div>
+						</div>
 						<a href="#" onclick="info('${vo.play_id }');"><form action="info.do" id="info${vo.play_id }">
 								<input type="hidden" name="play_id" value="${vo.play_id }">
-								<img src="${vo.play_poster}" width="250px" />
+								<img src="${vo.play_poster}" width="250px"  style="position: relative;"/>
+								<div class="" style="position: absolute; top: -80px; left:100px; font-size: 30px; font-family: 'Cooper';">NO.${status.count}</div>
 							</form></a>
 
 					</div>
@@ -152,7 +155,7 @@
 			<div class="container" data-aos="fade-up">
 				<hr>
 				<div class="row ">
-					<p id="up" class="position-relative">오늘의 추천</p>
+					<p id="up">오늘의 추천</p>
 					<div class="containers">
 						<c:forEach var="vo" items="${ today }">
 							<div class="cards">

@@ -164,9 +164,9 @@
        aria-label="Basic radio toggle button group" style="margin-bottom: 30px;">
     <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked >
     <label class="btn  btn-outline-danger" for="btnradio1">소개</label>
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="location.href='/loc.do?loc_id=${info.loc_id}'" style="cursor: pointer">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="location.href='loc.do?loc_id=${info.loc_id}'" style="cursor: pointer">
     <label class="btn  btn-outline-danger" for="btnradio2">공연장</label>
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="location.href='<%=root%>/reple.do?loc_id=${info.loc_id}'" style="cursor: pointer">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="location.href='<%=root%>reple.do?loc_id=${info.loc_id}'" style="cursor: pointer">
     <label class="btn  btn-outline-danger" for="btnradio3">공연장</label>
   </div>
 

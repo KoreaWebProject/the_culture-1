@@ -108,8 +108,8 @@
 		<div class="row justify-content-center" style="padding-bottom: 5px;">
 			<hr>
 			<h2 style="margin-bottom: 50px; font-weight: bold">문의 상세 보기</h2>
-			<div class="container col-10 ">
-				<table>
+			<div class="container col-10 row">
+				<table style="word-wrap:break-word; table-layout: fixed;">
 					<tr>
 						<th class="col-2">제목</th>
 						<td>${vo.qna_title}</td>
@@ -122,7 +122,10 @@
 
 					<tr>
 						<th>내용</th>
-						<td class="row"><textarea class="col-11" name="qna_contents" id="qna_contents">${ vo.qna_contents }</textarea></td>
+						<td>
+							<div class="col-11 " style="white-space: pre-line;">${ vo.qna_contents }</div>
+						</td>
+
 					</tr>
 
 					<tr>
@@ -151,48 +154,73 @@
 								</c:if>
 
 								<input type="button" value="목록으로" class="btn btn-outline-primary"
-									onClick="location.href='qna_main.do?page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"
-									style="margin-left: 50px;">
-								<c:if test="${login.user_role_id == 2}">
+									onClick="location.href='qna_main.do?page=${param.page}&search=${param.search}&search_text=${param.search_text }'" style="margin-left: 50px;">
+								<c:if test="${login.user_role_id == 2 and vo.qna_status ne 1}">
 									<input type="button" value="답글달기" class="btn btn-outline-primary"
 										onClick="location.href='qna_reple_reg.do?qna_id=${ vo.qna_id }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"
 										style="margin-left: 50px;">
+									<input type="button" value="완료하기" class="btn btn-outline-primary"
+										onClick="location.href='qna_clear.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
+										style="margin-left: 50px;">
+
 								</c:if>
 							</div>
 						</td>
 					</tr>
 				</table>
-
-				<div>문의 답글</div>
+				<hr>
+				<h2 style="margin-top: 20px; font-weight: bold">문의 답글</h2>
 
 				<c:forEach var="list" items="${ list }">
 					<c:if test="${ list.qna_re_remove_lev eq 0}">
-						<table>
-							<tr>
-								<th>제목</th>
-								<td>→${ vo.qna_title }에대한답변입니다</td>
-							</tr>
-							<tr>
-								<th>작성자</th>
-								<td>${vo.user_id}</td>
-							</tr>
+						<div class="col-11 d-flex justify-content-right row">
 
-							<tr>
-								<th>내용</th>
-								<td class="row"><textarea class="col-11" name="qna_contents" id="qna_contents">${ list.qna_re_contents }</textarea></td>
-							</tr>
+							<table class="col-12" style="margin-top: 20px; word-wrap:break-word; table-layout: fixed;">
+								<tr>
+									<th>작성자</th>
+									<td colspan="3">${login.user_id}</td>
 
-							<tr>
-								<th class="col-2">등록/수정일</th>
-								<td>${ list.qna_re_regdate }</td>
-								<td>${ list.qna_re_update }</td>
-							</tr>
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td colspan="3">${ vo.qna_title }에대한문의답글입니다</td>
 
-						</table>
+								</tr>
+
+
+								<tr>
+									<th>내용</th>
+									<td colspan="3">
+										<div class="col-11 " style="white-space: pre-line; ">${ list.qna_re_contents }</div>
+									</td>
+
+								</tr>
+
+								<tr>
+									<th>등록일</th>
+									<td>${ list.qna_re_regdate }</td>
+
+								</tr>
+
+							</table>
+						</div>
+						<div class="col-1 d-flex justify-content-right align-items-start">
+							<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
+								<td><input class="btn btn-outline-primary" style="margin-top: 20px;" type="button" value="답글삭제"
+									onClick="location.href='qna_reple_del.do?qna_id=${vo.qna_id}&qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"></td>
+							</c:if>
+						</div>
+
 					</c:if>
 					<c:if test="${ list.qna_re_remove_lev eq 1}">
-								삭제된 답글입니다
-							</c:if>
+						<div class="col-11  d-flex justify-content-right row">
+							<table style="margin-top: 20px;">
+								<tr>
+									<th>삭제된 답글입니다</th>
+								</tr>
+							</table>
+						</div>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>

@@ -27,6 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where qna_re_ref = #{qna_re_ref}
 	</update>
 	
+	<delete id ="qna_reple_alldel_up" parameterType="int">
+		delete from qnareple where qna_id = #{qna_id}
+	</delete>
 </mapper>
 
 

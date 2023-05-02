@@ -133,7 +133,7 @@
 
 						<tr>
 							<th>작성자</th>
-							<td class="row"> ${ login.user_id }</td>
+							<td class="row">${ login.user_id }</td>
 						</tr>
 
 						<tr>
@@ -177,13 +177,12 @@
 						<tr>
 							<td colspan="2">
 								<div class="d-flex justify-content-center">
-									<input type="hidden" name="qna_id" value="${vo.qna_id}"/>
-									<input type="hidden" name="page" value="${param.page}"/>
-									<input type="hidden" name="search" value="${param.search}"/>
-									<input type="hidden" name="search_text" value="${param.search_text}"/>
-									<input type="button" value="수정하기" class="btn btn-outline-primary"  onClick="send(this.form);">
+									<input type="hidden" name="qna_id" value="${vo.qna_id}" /> <input type="hidden" name="page" value="${param.page}" /> <input type="hidden"
+										name="search" value="${param.search}" /> <input type="hidden" name="search_text" value="${param.search_text}" /> <input type="button"
+										value="수정하기" class="btn btn-outline-primary" onClick="send(this.form);">
 									<c:if test="${login.user_role_id == 2 or login.user_id eq vo.user_id}">
-										<input type="button" value="삭제하기" class="btn btn-outline-primary" onClick="location.href='qna_del.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
+										<input type="button" value="삭제하기" class="btn btn-outline-primary"
+											onClick="location.href='qna_del.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
 											style="margin-left: 50px;">
 									</c:if>
 									<input type="button" value="목록으로" class="btn btn-outline-primary"
@@ -194,6 +193,60 @@
 						</tr>
 					</table>
 				</form>
+				<hr>
+				<h2 style="margin-top: 20px; font-weight: bold">문의 답글</h2>
+
+				<c:forEach var="list" items="${ list }">
+					<c:if test="${ list.qna_re_remove_lev eq 0}">
+						<div class="col-11 d-flex justify-content-right row">
+
+							<table class="col-12" style="margin-top: 20px; word-wrap:break-word; table-layout: fixed;" >
+								<tr>
+									<th>작성자</th>
+									<td colspan="3">${login.user_id}</td>
+
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td colspan="3">${ vo.qna_title }에대한문의답글입니다</td>
+
+								</tr>
+
+
+								<tr>
+									<th>내용</th>
+									<td colspan="3">
+										<div class="col-11 " style="white-space: pre-line;">${ list.qna_re_contents }</div>
+									</td>
+
+								</tr>
+
+								<tr>
+									<th>등록일</th>
+									<td>${ list.qna_re_regdate }</td>
+
+								</tr>
+
+							</table>
+						</div>
+						<div class="col-1 d-flex justify-content-right align-items-start">
+							<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
+								<td><input class="btn btn-outline-primary" style="margin-top: 20px;" type="button" value="답글삭제"
+									onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"></td>
+							</c:if>
+						</div>
+
+					</c:if>
+					<c:if test="${ list.qna_re_remove_lev eq 1}">
+						<div class="col-11  d-flex justify-content-right row">
+							<table style="margin-top: 20px;">
+								<tr>
+									<th>삭제된 답글입니다</th>
+								</tr>
+							</table>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</main>
@@ -302,7 +355,8 @@
 			<c:forEach var="list" items="${ list }">
 				<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
 					<div>
-						<input type="button" value="답글삭제" onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">
+						<input type="button" value="답글삭제"
+							onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">
 					</div>
 				</c:if>
 				<div>

@@ -126,6 +126,9 @@ public class QnaController {
 	public String qna_view(Model model) {
 		System.out.println(request.getParameter("qna_id"));
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		// 선택한 게시글의 내용들 가져오기
 		QnaVO vo = qna_dao.selectOne(qna_id);
 		// 선택한 게시글에 달려있는 댓글(관리자의 글)을 가져오기
@@ -133,6 +136,9 @@ public class QnaController {
 
 		model.addAttribute("vo", vo);// 바인딩
 		model.addAttribute("list", list);// 바인딩
+		model.addAttribute("page");
+		model.addAttribute("search");
+		model.addAttribute("search_text");
 		// 세션에서 현재 사용자 id를 가져와서 바인딩 해줌
 
 		return MyCommon.Qna.VIEW_PATH + "qna_detail.jsp";
@@ -168,10 +174,20 @@ public class QnaController {
 	@RequestMapping("/qna_reple_reg.do")
 	public String reple_insert_form(Model model) {
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		QnaReVO reVo = new QnaReVO();
 		reVo.setQna_id(qna_id);
-
+		QnaVO vo = qna_dao.selectOne(qna_id);
+		
+		
+		
+		model.addAttribute("page");
+		model.addAttribute("search");
+		model.addAttribute("search_text");
 		model.addAttribute("reVo", reVo);
+		model.addAttribute("qna",vo);
 		return MyCommon.Qna.VIEW_PATH + "qna_reple_reg.jsp";
 	}
 
@@ -179,12 +195,14 @@ public class QnaController {
 	@RequestMapping("/qna_reple.do")
 	public String qna_reple_insert(Model model, QnaReVO vo) {
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		vo.setQna_id(qna_id);
 		qna_re_dao.insert(vo);
 
-		return "redirect:qna_main.do";
+		return "redirect:qna_view.do?qna_id="+qna_id+"&page="+page+"&search="+search+"&search_text="+search_text;
 	}
-
 	// Qna 삭제를 위한 업데이트
 	@RequestMapping("/qna_del.do")
 	public String qna_del() {
@@ -194,25 +212,33 @@ public class QnaController {
 		String search = request.getParameter("search");
 		String search_text = request.getParameter("search_text");
 		qna_dao.update(qna_id);
+		qna_re_dao.delete(qna_id);
 
 		return "redirect:qna_main.do?page="+page+"&search="+search+"&search_text="+search_text;
 	}
 
 	// QnaReple 삭제를 위한 업데이트
 	@RequestMapping("/qna_reple_del.do")
-	public String qna_reple_del() {
+	public String qna_reple_del(Model model) {
 		int qna_re_ref = Integer.parseInt(request.getParameter("qna_re_ref"));
+		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		qna_re_dao.update(qna_re_ref);
 
-		return "redirect:qna_main.do";
+		return "redirect:qna_view.do?qna_id="+qna_id+"&page="+page+"&search="+search+"&search_text="+search_text;
 	}
 
 	@RequestMapping("/qna_clear.do")
 	public String qna_clear() {
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
 		qna_dao.update_clear(qna_id);
 
-		return "redirect:qna_main.do";
+		return "redirect:qna_main.do?page="+page+"&search="+search+"&search_text="+search_text;
 	}
 
 
