@@ -69,12 +69,14 @@
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
-					<a href="#">마이페이지</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#" onclick="location.href='qna_main.do'">고객센터</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span> 
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
+					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -106,7 +108,8 @@
 						<li><a href="#" onclick="location.href='geinfo.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
 						<li><a href="#" onclick="location.href='geinfo.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
 						<li><a href="#" onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
-					</ul></li>
+					</ul>
+				</li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
@@ -123,36 +126,34 @@
 
 		<div class="container">
 			<hr>
-			<h2>실시간 랭킹</h2>
+			<p id="up">실시간 랭킹</p>
 		</div>
 		<figure class="icon-cards mt-3 container">
 			<div class="icon-cards__content">
 				<c:forEach var="vo" items="${ rank }" begin="0" end="4" varStatus="status">
 
-					<div class="icon-cards__item d-flex align-items-center justify-content-center container">
-						<div class="align-top">${status.count}</div>
-						<a href="#" onclick="info('${vo.play_id }');"><form action="info.do" id="info${vo.play_id }">
+				
+					<div class="icon-cards__item d-flex align-items-center container">
+						
+						<a href="#" onclick="info('${vo.play_id }');">
+						<form action="info.do" id="info${vo.play_id }">
 								<input type="hidden" name="play_id" value="${vo.play_id }">
-								<img src="${vo.play_poster}" width="250px" />
+								<img src="${vo.play_poster}" width="250px"  style="position: relative;"/>
+								<div class="" style="position: absolute; top: -80px; left:100px; font-size: 30px; font-family: 'Cooper';">NO.${status.count}</div>
 							</form></a>
+
 
 					</div>
 				</c:forEach>
-
-
-
-
-
 			</div>
 		</figure>
-
 
 		<!-- ======= Featured Services Section ======= -->
 		<section id="featured-services" class="featured-services">
 			<div class="container" data-aos="fade-up">
 				<hr>
 				<div class="row ">
-					<p id="up" class="position-relative">오늘의 추천</p>
+					<p id="up">오늘의 추천</p>
 					<div class="containers">
 						<c:forEach var="vo" items="${ today }">
 							<div class="cards">

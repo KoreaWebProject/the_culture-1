@@ -36,16 +36,25 @@ public class UserDAO {
 		return vo;
 	}
 	
+	//회원정보 수정
+	public int updateUser(UserVO vo) {
+		int res = sqlSession.update("u.user_update", vo);
+		return res;
+	}
 	
-
+	//회원 탈퇴 정보 업데이트
+	public int delUser(String user_id) {
+		int res = sqlSession.update("u.user_del_up",user_id);
+		return res;
+	}
+	
 	// 로그인
 	public UserVO login(String user_id) {
 		UserVO vo = sqlSession.selectOne("u.user_login", user_id);
 		return vo;
 		
 	}
-
-
+	
 	// 이메일 정보를 통한 회원확인하기
 	public UserVO emailCheck(String email) throws Exception {
 
@@ -53,7 +62,5 @@ public class UserDAO {
 
 		return vo;
 	}
-	
-	
 
 }

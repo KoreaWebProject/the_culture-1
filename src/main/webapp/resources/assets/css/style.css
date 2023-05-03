@@ -25,6 +25,7 @@ a:hover {
 }
 
 
+
 h1,
 h2,
 h3,
@@ -34,6 +35,44 @@ h6 {
   font-family: "Roboto", sans-serif;
 }
 
+#btn1 {
+	 margin-top: 10px;
+	 background: #03C75A; 
+	 color: white; 
+}
+
+#btn1:hover {
+	background: #1e7906;
+	transition: 0.7s;
+}
+
+#btn2 {
+	margin-top: 10px; 
+	background: #FEE500; 
+	color: black; 
+	
+}
+
+#btn2:hover {
+	background: #c7b010;
+	transition: 0.7s;
+}
+
+#atag a{
+	color:black;
+}
+
+#atag a:hover {
+	color: #3b8af2;
+}
+
+#atag2 a{
+	color:black;
+}
+
+#atag2 a:hover {
+	color: #3b8af2;
+}
 /*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
@@ -735,4 +774,86 @@ body {
   padding: 20px;
   z-index: -1;
 }
+
+
+
+table {
+  border: 1px #a39485 solid;
+  font-size: .9em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+th {
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+  
+thead {
+  font-weight: bold;
+  color: #fff;
+  background: #73685d;
+}
+  
+ td, th {
+  padding: 1em .5em;
+  vertical-align: middle;
+}
+  
+ td {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+}
+
+a {
+  color: #73685d;
+}
+  
+ @media all and (max-width: 768px) {
+    
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  
+  th {
+    text-align: right;
+  }
+  
+  table {
+    position: relative; 
+    padding-bottom: 0;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+  }
+  
+  thead {
+    float: left;
+    white-space: nowrap;
+  }
+  
+  tbody {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    white-space: nowrap;
+  }
+  
+  tr {
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  th {
+    border-bottom: 1px solid #a39485;
+  }
+  
+  td {
+    border-bottom: 1px solid #e5e5e5;
+  }
+  
+  
+  }
 

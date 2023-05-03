@@ -34,7 +34,6 @@ import korea.it.culture.login.vo.UserVO;
 
 import java.util.Map;
 
-
 @Controller
 public class UserController {
 	@Autowired // 자동주입 : spring으로부터 자동생성 가능한 객체를 new없이 알아서 생성해준다
@@ -55,8 +54,6 @@ public class UserController {
 		this.socialLoginService = socialLoginService;
 	}
 	private String apiResult = null;
-
-
 
 	// 로그인메인 화면
 	// 메인 화면을 부르면서 네이버 아이디 인증 URL준비
@@ -99,7 +96,6 @@ public class UserController {
 			return param;
 		}
 
-
 		// 비밀번호 일치 여부 확인
 		if (!vo.getUser_pw().equals(user_pw)) {
 			param = "no_user_pwd";
@@ -111,15 +107,8 @@ public class UserController {
 			session.setAttribute("login", vo);
 		}
 
-
 		return param;
 	}
-
-	/*
-	 * //로그인 성공 후 메인화면
-	 *
-	 * @RequestMapping("/main.do") public String login_main () { return "main.do"; }
-	 */
 
 	// 회원가입 화면
 	@RequestMapping("/join.do")
@@ -148,7 +137,6 @@ public class UserController {
 
 		return result;
 	}
-
 	//id중복체크
 	@ResponseBody
 	@RequestMapping(value = "/idChk", method = RequestMethod.POST)
@@ -179,7 +167,6 @@ public class UserController {
 			return "redirect:culture.do";
 		}
 
-//		return "redirect:culture.do";
 	}
 
 	//가입 페이지에서 history -1을 하면 네이버 세션 정보가 그대로 저장되어있어 일반
@@ -191,7 +178,6 @@ public class UserController {
 		session.invalidate();
 		return "redirect:login_main.do";
 	}
-
 
 	//네이버 로그인 성공시 callback호출 메소드
 	@RequestMapping(value = "/callback.do", method = {RequestMethod.GET, RequestMethod.POST})
@@ -418,10 +404,8 @@ public class UserController {
 	@RequestMapping("/kakao-callback.do")
 	public String kakao(@RequestParam String code, Model model, HttpSession session) throws Exception {
 		//?code = xxx로 오는 인가코드를 파라미터로 받는다
-		System.out.println("(๑•̀༚•́)ฅ 1.인가코드  code = " + code);
 		//인가코드를  이용해  유저 정보에 접근할 수 있는 토큰요청!
 		String access_token = socialLoginService.getToken(code);
-		System.out.println("(๑•̀༚•́)ฅ getToken()으로 떠나 돌아온 access_token :  " + access_token);
 		
 		//내놔
 		Map<String, Object> userInfo = socialLoginService.getUserInfo(access_token);
@@ -435,27 +419,14 @@ public class UserController {
 			session.setAttribute("result", userInfo); //세션 생성
 			model.addAttribute("result", userInfo);
 			//만약 매치결과 null이면(정보가없다면) -> 회원가입(세션에 정보를 담아 감
-			System.out.println("카카오 로그인 시도! 가입해야함! ദ്ദി(⩌ᴗ⩌ )");
 			return "redirect:/join.do";
 		} else {
 			//매치결과 vo가 null이 아니면(가입되어있다는 뜻.
 			// 해당 이메일에 맞는 id, pw로 로그인진행해주기	(처리하고 네이버정보가 담긴 세션 삭제 하기
-			System.out.println("카카오 로그인 시도! 가입되어있음!ദ്ദിㆆ_ㆆ)");
 			session = request.getSession();
 			session.removeAttribute("result");//세션에 카카오 정보가 들어있기 때문에 삭제 후 필요한 vo만 넣기
 			session.setAttribute("login", vo);
 			return "redirect:culture.do";
 		}
-
-
-
-
-
-//		model.addAttribute("code", code);
-//		model.addAttribute("userInfo", userInfo.get("nickname"));
-//
-//		//ci는 비즈니스 전환후 검수신청 -> 허락받아야 수집 가능
-//		return "/WEB-INF/views/user/kakaoTest.jsp";
 	}
-
 }

@@ -21,8 +21,6 @@ public class PlayInfoService {
     System.out.println("service Autowired 실행완료");
   }
 
-
-
   /**
    * 공연에 대한 상세정보 출력
    * @param paramMap

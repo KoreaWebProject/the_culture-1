@@ -115,7 +115,6 @@ public class SocialLoginService {
     // 인가코드로 토큰받기
     String host = "https://kauth.kakao.com/oauth/token";
     URL url = new URL(host);
-    System.out.println("‹^› ‹(•_•)› ‹^›  url " + url);
     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
     String token = "";
     try {
@@ -128,13 +127,11 @@ public class SocialLoginService {
       sb.append("&client_id=a2fec8e26b856f784cee55f1fb98be1b");
       sb.append("&redirect_uri=http://localhost:9090/kakao-callback.do");
       sb.append("&code=" + code);
-      System.out.println("append 한 sb  :  " + sb);
 
       bw.write(sb.toString());
       bw.flush();
 
       int responseCode = urlConnection.getResponseCode();
-      System.out.println("(๑•̀༚•́)ฅ 2.결과 200 이면 정상! responseCode = " + responseCode);
 
       BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
       String line = "";
@@ -150,12 +147,8 @@ public class SocialLoginService {
 
       String access_token = elem.get("access_token").toString();
       String refresh_token = elem.get("refresh_token").toString();
-      System.out.println("(๑•̀༚•́)ฅ 리프래쉬 토큰 refresh_token = " + refresh_token);
-      System.out.println("(๑•̀༚•́)ฅ 액세스 토큰  access_token = " + access_token);
 
       token = access_token;
-      System.out.println("token = " + token);
-
 
       br.close();
       bw.close();
@@ -187,8 +180,6 @@ public class SocialLoginService {
       urlConnection.setRequestMethod("GET");
 
       int responseCode = urlConnection.getResponseCode();
-      System.out.println("(๑•̀༚•́)ฅ getUserInfo()메서드의 responseCode = " + responseCode);
-
 
       BufferedReader br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
       String line = "";
@@ -197,9 +188,6 @@ public class SocialLoginService {
       {
         res+=line;
       }
-
-      System.out.println("정보들을 가져오는 (๑•̀༚•́)ฅ res = " + res);
-
 
       JSONParser parser = new JSONParser();
       JSONObject obj = (JSONObject) parser.parse(res);
@@ -229,21 +217,12 @@ public class SocialLoginService {
         gender = "F";
       }
 
-      System.out.println("내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)" +
-              "내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)" +
-              "내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)" +
-              "내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)" +
-              "내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)" +
-              "내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)내가이겼어( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)( ՞ټ՞)" +
-              nickname +  " " + email +  " " + birthday +  " " + gender +  " ");
-
       result.put("name", nickname);
       result.put("email", email);
       result.put("birthday", birthday);
       result.put("gender", gender);
 
       br.close();
-
 
     } catch (IOException | ParseException e) {
       e.printStackTrace();

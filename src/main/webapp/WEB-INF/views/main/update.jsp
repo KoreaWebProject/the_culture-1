@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 
@@ -51,8 +52,8 @@
 
 		//카테고리가 전체보기(all)로 지정되어 있지않은 경우라면 반드시 검색어가 입력되어있어야한다.
 
-		if (search != 'all' && search_text == "") {
-			alert("검색어를 입력하세요");
+		if (search_text == "") {
+			location.href="update.do?play_id=" + "${play_id}";
 			return;
 		}
 
@@ -70,14 +71,16 @@
 		<div class="container d-flex justify-content-end">
 			<div class="social-links d-none d-md-flex align-items-end">
 				<c:if test="${empty login.user_id}">
-					<a href="#" onclick="location.href='login_form.do'">로그인</a>
-					<a href="#">회원가입</a>
-					<a href="#">고객센터</a>
-					<a href="#">마이페이지</a>
+					<a href="#" onclick="location.href='login_main.do'">로그인</a>
+					<a href="#" onclick="location.href='join.do'">회원가입</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#">고객센터</a> <a href="#">마이페이지</a>
+					<span>${login.user_name}님<span> 
+					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
+					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -87,7 +90,7 @@
 	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
 		<div class="container d-flex align-items-center justify-content-between">
-			<a href="#" onclick="location.href='culture.do'" class="logo"><img src="./resources/assets/img/logo.png" alt="" width="130px"></a>
+			<a href="#" onclick="location.href='culture.do'" class="logo"><img src="resources/img/the_culture_logo.png" alt="" width="130px"></a>
 			<nav class="navbar">
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -98,7 +101,7 @@
 	</header>
 	<!-- End Header -->
 
-
+	<!-- ======= menubar ======= -->
 	<div id="menubar" class="navbar container justify-content-left">
 		<nav class="navbar">
 			<ul>
@@ -111,19 +114,23 @@
 						<li><a href="#" onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
 					</ul></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
-				<li><a class="nav-link scrollto" href="#services" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
-				<li><a class="nav-link scrollto" href="#services" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
 
 			</ul>
 
 		</nav>
 
 	</div>
+	<!-- ======= end menubar ======= -->
 
 
 	<main class="container ">
 		<div class="row justify-content-center">
-			<p id="up">${genrenm}</p>
+			<div class="container d-flex justify-content-between">
+				<p id="up" style="position: relative;">${genrenm}</p>
+				<div class="d-flex align-items-end">총 검색 건수 : ${total}</div>
+			</div>
 			<div class="wrapper row justify-content-center">
 				<c:forEach var="vo" items="${ allselect }">
 					<a href="updatelist.do?select_id=${vo.play_id }&play_id=${play_id}" class="card col-3"><div>

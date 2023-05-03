@@ -27,12 +27,7 @@ public class PlayInfoController {
   @Autowired
   public PlayInfoController(PlayInfoService infoService) {
     this.infoService = infoService;
-    System.out.println("controller Autowired 실행완료");
   }
-
-
-
- 
 
   /**
    * playId를 list에서 받아와 map에 저장 후 쿼리문 실행
@@ -44,7 +39,6 @@ public class PlayInfoController {
    */
   @RequestMapping(value = "/info.do", method = RequestMethod.GET)
   public String viewInfo(Model model, @RequestParam("play_id") String play_id) throws Exception{
-    System.out.println("con의 ViewInfo 실행");
     //조건 값을 저장할 parameter용 map
     Map<String, Object> paramMap = new HashMap<>();
     //조건값 삽입
@@ -66,7 +60,6 @@ public class PlayInfoController {
    */
   @RequestMapping(value = "/loc.do", method = RequestMethod.GET)
   public String locInfo(Model model, @RequestParam("loc_id") String loc_id) throws Exception{
-    System.out.println("con의 locInfo 실행");
     //조건 값을 저장할 parameter용 map
     Map<String, Object> paramMap = new HashMap<>();
     //조건값 삽입
