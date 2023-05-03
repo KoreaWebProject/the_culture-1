@@ -69,6 +69,7 @@ public class UserController {
 
 		//네이버로그인 인증 URL을 생성한 후 model에 담기
 		model.addAttribute("url", naverAuthUrl);
+		System.out.println(request.getHeader("Referer"));
 
 		return "/WEB-INF/views/user/login.jsp";
 	}
@@ -394,7 +395,7 @@ public class UserController {
 	 * 1.카카오 로그인 서비스 요청
 	 * 2.인가코드 받기
 	 * 3.사용자 인증 동의
-	 * 
+	 *
 	 * @param code
 	 * @param model
 	 * @param session
@@ -403,10 +404,10 @@ public class UserController {
 	 */
 	@RequestMapping("/kakao-callback.do")
 	public String kakao(@RequestParam String code, Model model, HttpSession session) throws Exception {
+		System.out.println(request.getHeader("Referer"));
 		//?code = xxx로 오는 인가코드를 파라미터로 받는다
 		//인가코드를  이용해  유저 정보에 접근할 수 있는 토큰요청!
 		String access_token = socialLoginService.getToken(code);
-		
 		//내놔
 		Map<String, Object> userInfo = socialLoginService.getUserInfo(access_token);
 
