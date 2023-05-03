@@ -8,19 +8,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from play
 	</select>
 
+
 	<!-- 공연 목록 에서 클릭시 해당 id에 맞는 상세 정보 출력 -->
-	<select id="getPlayInfo" parameterType="java.util.HashMap" resultType="playInfo">
+	<select id="getPlayInfo" parameterType="java.util.HashMap"
+		resultType="playInfo">
+
 		select *
 		from PLAYINFO
 		where PLAY_ID = #{play_id} 
+
 	</select>
 
 	<!-- 공연장 탭 클릭시 해당 시설id에 맞는 시설 상세정보 출력 -->
-	<select id="getLocInfo" parameterType="java.util.HashMap" resultType="locInfo">
+	<select id="getLocInfo" parameterType="java.util.HashMap"
+		resultType="locInfo">
+
 		select *
 		from LOCATIONINFO
 		where LOC_ID = #{loc_id} 
+
 	</select>
+
+
 
 	<!-- update,insert,delete는 resultType이 없음 이유는 성공(1)/실패(-1)/(미실행(0) 결과를 자동으로 
 		리턴해준다 즉 기본적으로 int타입으로 잡혀있음 -->
