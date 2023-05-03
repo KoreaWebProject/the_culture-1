@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import korea.it.culture.login.dao.UserDAO;
 import korea.it.culture.login.vo.UserVO;
 import korea.it.culture.myPage.util.MyCommon;
+import korea.it.culture.myPage.util.Paging;
 import korea.it.culture.qna.dao.QnaDAO;
 import korea.it.culture.qna.dao.QnaReDAO;
 import korea.it.culture.qna.util.Common;
-import korea.it.culture.qna.util.Paging;
 import korea.it.culture.qna.vo.QnaReVO;
 import korea.it.culture.qna.vo.QnaVO;
 
@@ -117,12 +117,13 @@ public class MyPageController {
 	@RequestMapping("/myQna.do")
 	public String moveMyQna(Model model) {
 		int nowPage = 1; // 1로 첫페이지 번호를 가정
+		
+		String user_id = request.getParameter("user_id");
 		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
+		
 		if (page != null && !page.isEmpty()) {// 올바른 값을 받았다면
 			nowPage = Integer.parseInt(page);
 		}
-
-		String user_id = request.getParameter("user_id");
 
 		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산
 		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
@@ -131,23 +132,52 @@ public class MyPageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("user_qid", user_id);
+		map.put("user_id", user_id);
+
+		// 검색관련 내용
+		String search = request.getParameter("search");// 카테고리
+		String search_text = request.getParameter("search_text");// 검색어
+
+		// 검색어가 입력되어 있는 경우
+		if (search != null && !search.equalsIgnoreCase("all")) {
+			switch (search) {
+			case "name_subject_content":
+				map.put("name", search_text);
+				map.put("subject", search_text);
+				map.put("content", search_text);
+				break;
+			case "name":
+				map.put("name", search_text);
+				break;
+			case "subject":
+				map.put("subject", search_text);
+				break;
+			case "content":
+				map.put("content", search_text);
+				break;
+
+			default:
+				break;
+			}// switch
+		}
 
 		List<QnaVO> list = qna_dao.selectMyList(map);
-
+		
 		// 페이지 메뉴 생성
 		int row_id = qna_dao.getRowID(user_id);
 
+		String search_param = String.format("search=%s&search_text=%s", search, search_text);
+
 		// 하단 페이지 메뉴 생성
-		String pageMenu = Paging.getPaging("myQna.do", nowPage, // 현재페이지
+		String pageMenu = Paging.getPaging("myQna.do?user_id="+user_id, nowPage, // 현재페이지
 				row_id, // 전체 게시글 수
-				"", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
+				search_param, Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
 				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
 
-		// pageMenu를 바인딩
+		//바인딩
 		model.addAttribute("pageMenu", pageMenu);
-
 		model.addAttribute("list", list);
+		
 		return MyCommon.MyPage.VIEW_PATH + "myQna.jsp";
 	}
 
@@ -185,7 +215,7 @@ public class MyPageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("user_qid", user_id);
+		map.put("user_id", user_id);
 
 		List<QnaVO> list = qna_dao.selectMyList(map);
 

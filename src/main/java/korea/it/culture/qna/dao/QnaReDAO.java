@@ -10,30 +10,36 @@ import korea.it.culture.qna.vo.QnaReVO;
 
 @Repository
 public class QnaReDAO {
-	
+
 	SqlSession sqlSession;
-	
+
 	@Autowired
 	public QnaReDAO(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
-	//댓글 조회
+
+	// 댓글 조회
 	public List<QnaReVO> selectList(int idx) {
 		List<QnaReVO> list = sqlSession.selectList("qr.qna_reple_detail", idx);
-		//System.out.println(vo.toString());
+		// System.out.println(vo.toString());
 		return list;
 	}
-	
-	//댓글 추가
+
+	// 댓글 추가
 	public int insert(QnaReVO vo) {
 		int res = sqlSession.insert("qr.qna_reple_insert", vo);
 		return res;
 	}
-	
-	//댓글 삭제
+
+	// 댓글 삭제
 	public int update(int qna_re_ref) {
 		int res = sqlSession.update("qr.qna_reple_del_up", qna_re_ref);
+		return res;
+	}
+
+	// 댓글 삭제
+	public int delete(int qna_id) {
+		int res = sqlSession.delete("qr.qna_reple_alldel_up", qna_id);
 		return res;
 	}
 

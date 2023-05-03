@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gion6
-  Date: 2023-04-23
-  Time: PM 7:58
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -178,10 +171,15 @@ String root = request.getContextPath();
 		</div>
 	</main>
 
-	<div id="preloader"></div>
-	<a href="#"
-		class="back-to-top d-flex align-items-center justify-content-center"><i
-		class="bi bi-arrow-up-short"></i></a>
+  <div class="btn-group container" role="group"
+       aria-label="Basic radio toggle button group" style="margin-bottom: 30px;">
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked >
+    <label class="btn  btn-outline-danger" for="btnradio1">소개</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="location.href='loc.do?loc_id=${info.loc_id}'" style="cursor: pointer">
+    <label class="btn  btn-outline-danger" for="btnradio2">공연장</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="location.href='<%=root%>reple.do?loc_id=${info.loc_id}'" style="cursor: pointer">
+    <label class="btn  btn-outline-danger" for="btnradio3">공연장</label>
+  </div>
 
 	<!-- Vendor JS Files -->
 	<script

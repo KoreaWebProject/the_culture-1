@@ -53,13 +53,16 @@
 		}
 
 		//검색 카테고리, 검색어, 페이지 정보를 myQna.do에게 전달
-		location.href = "myQna.do?search=" + search + "&search_text="
+		location.href = "myQna.do?user_id="+${login.user_id}+"&search=" + search + "&search_text="
 				+ encodeURIComponent(search_text);
 	}
 </script>
 
 </head>
 <body>
+	<!-- check_login.jsp가 body에서 호출하도록 붙여줌 -->
+	<jsp:include page="check_login.jsp"/>
+		
 	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
@@ -71,7 +74,7 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#"
+					<span>${login.user_name}님</span> <a href="#"
 							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
 							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
 							onclick="location.href='mypage.do'">마이페이지</a>
@@ -206,6 +209,22 @@
 
 		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
 
+		<div class="row container d-flex justify-content-center"
+			style="margin-top: 20px;">
+			<div class="col-2">
+				<select id="search" class="form-select ">
+					<option value="all">전체보기</option>
+					<option value="subject">제목</option>
+					<option value="name">이름</option>
+					<option value="content">내용</option>
+					<option value="name_subject_content">이름+제목+내용</option>
+				</select>
+			</div>
+			<div class="col-3">
+				<input id="search_text" class="form-control col-2" type="text">
+			</div>
+			<button class="btn btn-outline-primary col-1" onclick="search();">검색</button>
+		</div>
 	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
