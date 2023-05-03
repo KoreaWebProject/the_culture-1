@@ -123,7 +123,8 @@ public class MyPageController {
 		}
 
 		String user_id = request.getParameter("user_id");
-
+		
+		
 		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산
 		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
 		int end = nowPage * Common.Board.BLOCKLIST;
@@ -134,7 +135,9 @@ public class MyPageController {
 		map.put("user_qid", user_id);
 
 		List<QnaVO> list = qna_dao.selectMyList(map);
-
+		
+		
+		
 		// 페이지 메뉴 생성
 		int row_id = qna_dao.getRowID(user_id);
 
@@ -144,11 +147,12 @@ public class MyPageController {
 				"", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
 				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
 
-		// pageMenu를 바인딩
-		model.addAttribute("pageMenu", pageMenu);
 
+		
+		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("list", list);
-		return MyCommon.MyPage.VIEW_PATH + "myQna.jsp";
+		
+		return MyCommon.MyPage.VIEW_PATH + "myPage.jsp";
 	}
 
 	// 내가 남긴 문의글 자세히 보기

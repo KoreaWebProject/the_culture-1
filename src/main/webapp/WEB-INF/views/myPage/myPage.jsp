@@ -1,16 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -23,17 +19,11 @@
 
 <!-- Vendor CSS Files -->
 <link href="./resources/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="./resources/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="./resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="./resources/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="./resources/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link href="./resources/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+<link href="./resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="./resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="./resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="./resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
@@ -45,6 +35,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+<script>
+	//로그인
+</script>
 </head>
 <body>
 	<!-- ======= Top Bar ======= -->
@@ -58,10 +52,8 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> <a href="#"
-							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
-							onclick="location.href='mypage.do'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -70,14 +62,11 @@
 
 	<!-- ======= Header ======= -->
 	<header id="header" class="d-flex align-items-center">
-		<div
-			class="container d-flex align-items-center justify-content-between">
-			<a href="#" onclick="location.href='culture.do'" class="logo"><img
-				src="resources/img/the_culture_logo.png" alt="" width="130px"></a>
+		<div class="container d-flex align-items-center justify-content-between">
+			<a href="#" onclick="location.href='culture.do'" class="logo"><img src="resources/img/the_culture_logo.png" alt="" width="130px"></a>
 			<nav class="navbar">
 				<form class="d-flex">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-primary" type="submit">Search</button>
 				</form>
 			</nav>
@@ -89,52 +78,273 @@
 	<div id="menubar" class="navbar container justify-content-left">
 		<nav class="navbar">
 			<ul>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=연극'">연극</a></li>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=뮤지컬'">뮤지컬</a></li>
-				<li class="dropdown"><a href="#"
-					onclick="location.href='geinfo.do?genrenm=음악'"><span>음악</span>
-						<i class="bi bi-chevron-down"></i></a>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=연극'">연극</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=뮤지컬'">뮤지컬</a></li>
+				<li class="dropdown"><a href="#" onclick="location.href='geinfo.do?genrenm=음악'"><span>음악</span> <i class="bi bi-chevron-down"></i></a>
 					<ul>
-						<li><a href="#"
-							onclick="location.href='geinfo.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
-						<li><a href="#"
-							onclick="location.href='geinfo.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
-						<li><a href="#"
-							onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
+						<li><a href="#" onclick="location.href='geinfo.do?genrenm=서양음악(클래식)'">서양음악(클래식)</a></li>
+						<li><a href="#" onclick="location.href='geinfo.do?genrenm=한국음악(국악)'">한국음악(국악)</a></li>
+						<li><a href="#" onclick="location.href='geinfo.do?genrenm=대중음악'">대중음악</a></li>
 					</ul></li>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
-				<li><a class="nav-link scrollto" href="#"
-					onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
+				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
 			</ul>
 		</nav>
 	</div>
 	<!-- ======= end menubar ======= -->
-	
-	<!-- ======= myPage list ======= -->
-	<div>
-		<ul>
-			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
-			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
-			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
-			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
-			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
-		</ul>
-	</div>
-	<!-- ======= end myPage list ======= -->
-	
-	마이페이지 기본 첫화면
-	
-	<h2>회원정보 수정</h2>
-	<form>
-		<div>ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }"></div>
-		<div>PW : <input name="user_pw"></div>
-		<div><input type="button" value="확인" onClick="send(this.form)"></div>
-	</form>
+
+	<main class="container">
+		<hr>
+		<div class="d-flex justify-content-between">
+			<h2 style="margin-bottom: 30px;">마이페이지</h2>
+		</div>
+		<!-- ======= Clients Section ======= -->
+		<section id="clients" class="clients section-bg">
+			<div class="container" data-aos="zoom-in">
+
+				<div class="row">
+					<div class="row" data-aos="fade-up" data-aos-delay="100">
+						<div class=" col-12 d-flex justify-content-center ">
+							<ul id="portfolio-flters">
+
+								<li data-filter=".filter-app" class="filter-active"><img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a
+									class="col-8" href="#" style="margin-left: 10px;">정보수정</a></li>
+
+								<li data-filter=".filter-card"><img src="./resources/assets/img/clients/comment.png" class="img-fluid" alt="">
+								<a class="col-8"
+									href="#"  style="margin-left: 10px;">후기내역</a>
+								</li>
+								<li data-filter=".filter-web"><img src="./resources/assets/img/clients/star.png" class="img-fluid" alt=""><a class="col-8" href="#"
+									style="margin-left: 10px;">즐겨찾기</a></li>
+								<li data-filter=".filter-we"><img src="./resources/assets/img/clients/qna.png" class="img-fluid" alt=""><a class="col-8" href="#"
+									 style="margin-left: 10px;"onclick="myQna('${login.user_id}');">문의내역</a></li>
+
+								<li data-filter=".filter-w"><img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a class="col-8" href="#"
+									style="margin-left: 10px;">회원탈퇴</a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">정보수정</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/comment.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">후기내역</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/star.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">즐겨찾기</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/qna.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">문의내역</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">회원탈퇴</a>
+				</div> -->
+				</div>
+
+			</div>
+		</section>
+		<!-- End Clients Section -->
+
+		<section id="portfolio" class="portfolio">
+			<div class="container" data-aos="fade-up">
+
+
+				<!-- 	<div class="row" data-aos="fade-up" data-aos-delay="100">
+				<div class="col-lg-12 d-flex justify-content-center">
+					<ul id="portfolio-flters">
+						<li data-filter="*" class="filter-active">All</li>
+						<li data-filter=".filter-app">App</li>
+						<li data-filter=".filter-card">Card</li>
+						<li data-filter=".filter-web">Web</li>
+					</ul>
+				</div>
+			</div> -->
+
+				<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+					<div class="col-12 portfolio-item filter-app">
+						<div class="portfolio-info">
+
+							<form id="modify" class="col-12 d-flex justify-content-center">
+								<div class="content row  d-flex justify-content-center ">
+									<div class="col container d-flex justify-content-center row">
+										<div class="col-12" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px; width: 400px;">
+											<form>
+												<input class="form-control col-12" name="user_id" type="text" placeholder="아이디" style="margin-top: 20px;" value="${ login.user_id }"
+													disabled> <input class="form-control col-12" name="user_pw" type="password" placeholder="비밀번호" style="margin-top: 20px;">
+
+												<input type="button" class="btn btn-primary col-12" style="margin-top: 20px;" onclick="send(this.form);" value="확인">
+											</form>
+										</div>
+									</div>
+								</div>
+								<%-- <div >
+									ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }">
+								</div>
+								<div>
+									PW : <input name="user_pw">
+								</div>
+								<div>
+									<input type="button" value="확인" onClick="send(this.form)">
+								</div> --%>
+							</form>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-item filter-web">
+						<img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+						<div class="portfolio-info">
+							<h4>Web 3</h4>
+							<p>Web</p>
+							asdasdasd <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i
+								class="bx bx-plus"></i></a> <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+						</div>
+					</div>
+
+
+
+					<div class="col-12 portfolio-item filter-card">
+						<div class="portfolio-info">
+							
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-md-6 portfolio-item filter-web">
+						<img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
+						<div class="portfolio-info">
+							<h4>Web 2</h4>
+							<p>Web</p>
+							<a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i
+								class="bx bx-plus"></i></a> <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+						</div>
+					</div>
+
+
+
+
+
+
+
+					<div class="col-12 portfolio-item filter-web">
+						<img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
+						<div class="portfolio-info">
+							<h4>Web 3</h4>
+							<p>Web</p>
+							<a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 3"><i
+								class="bx bx-plus"></i></a> <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+						</div>
+					</div>
+
+					<div class="col-12 portfolio-item filter-we">
+						<div class="portfolio-info">
+							<table>
+								<thead>
+									<tr>
+										<th style="text-align: center">NO</th>
+										<th style="text-align: center">제목</th>
+										<th style="text-align: center">이름</th>
+										<th style="text-align: center">진행상황</th>
+										<th style="text-align: center">등록일</th>
+										<th style="text-align: center">공개여부</th>
+
+									</tr>
+								</thead>
+								<tbody style="text-align: center">
+									<c:forEach var="vo" items="${ list }">
+										<c:if test="${ vo.qna_remove_lev ne 1 }">
+											<tr>
+												<td>${vo.qna_id}</td>
+												<c:if test="${ login.user_role_id eq 2}">
+													<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+												</c:if>
+												<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
+													<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+												</c:if>
+												<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
+													<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+												</c:if>
+												<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
+													<th>${vo.qna_title}</th>
+												</c:if>
+												<c:if test="${ empty login.user_id}">
+													<th>${vo.qna_title}</th>
+												</c:if>
+
+												<td>${vo.user_id}</td>
+												<c:if test="${ vo.qna_status eq 0 }">
+													<td style="color: red;">처리중</td>
+												</c:if>
+												<c:if test="${ vo.qna_status ne 0 }">
+													<td style="color: blue;">답변완료</td>
+												</c:if>
+												<td>${vo.qna_regdate}</td>
+												<c:if test="${ vo.qna_public_lev eq 0 }">
+													<td style="color: red;">비공개</td>
+												</c:if>
+												<c:if test="${ vo.qna_public_lev eq 1 }">
+													<td style="color: blue;">공개</td>
+												</c:if>
+											</tr>
+										</c:if>
+										<c:if test="${ vo.qna_remove_lev eq 1 }">
+											<tr>
+												<td>${vo.qna_id}</td>
+												<td colspan="5">삭제된 문의글 입니다.</td>
+											</tr>
+										</c:if>
+
+									</c:forEach>
+								</tbody>
+							</table>
+
+							<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
+						</div>
+					</div>
+
+					<div class="col-12 portfolio-item filter-w row">
+						<div class="portfolio-info">
+					
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</section>
+		<!-- End Portfolio Section -->
+		<!-- ======= myPage list ======= -->
+		<div>
+			<ul>
+				<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
+				<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
+				<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
+				<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
+				<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
+			</ul>
+		</div>
+		<!-- ======= end myPage list ======= -->
+
+		마이페이지 기본 첫화면
+
+		<h2>회원정보 수정</h2>
+		<form>
+			<div>
+				ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }">
+			</div>
+			<div>
+				PW : <input name="user_pw">
+			</div>
+			<div>
+				<input type="button" value="확인" onClick="send(this.form)">
+			</div>
+		</form>
+
+	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -158,10 +368,10 @@
 								Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
 							</div>
 						</div>
-						</div>
 					</div>
 				</div>
-			</div>	
+			</div>
+		</div>
 	</footer>
 	<!-- End Footer -->
 
@@ -180,10 +390,10 @@
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
-	
+
 	<!-- send function -->
 	<script src="./resources/js/httpRequest.js"></script>
-	
+
 	<script>
 		function send(f) {
 			let user_id = f.user_id.value;
@@ -192,24 +402,46 @@
 			var url = "checkInfo.do";
 
 			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
-			var param = "user_id=" + user_id + "&user_pw=" + encodeURIComponent(user_pw);
+			var param = "user_id=" + user_id + "&user_pw="
+					+ encodeURIComponent(user_pw);
 
 			sendRequest(url, param, resFn, "Post");
 		}
 
 		//콜백메서드
-		function resFn(){
-			if(xhr.readyState == 4 && xhr.status == 200){
+		function resFn() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
 
 				var data = xhr.responseText;
 
-				if(data == 'no_user_pw'){
+				if (data == 'no_user_pw') {
 					alert("비밀번호가 일치하지 않습니다");
-				}else{
-					location.href="editInfo.do";
+				} else {
+					location.href = "editInfo.do";
 				}
 			}
 		}
+
+		 function myQna( user_id ) {
+
+			var url = "myQna.do";
+
+			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
+			var param = "user_id="+user_id;
+			alert(user_id);
+			sendRequest(url, param, resFns, "POST");
+		}
+
+		//콜백메서드
+		function resFns() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+
+				var data = xhr.responseText;
+				if (data == 'success') {
+					location.href = "redirect:myPage.do";
+				}	
+			}
+		} 
 	</script>
 </body>
 </html>
