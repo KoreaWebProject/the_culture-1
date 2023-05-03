@@ -26,15 +26,15 @@
 				</div>
 				<div class="pw_wrap">
 					<div class="pw_name">비밀번호</div>
-						<input type="password" name="user_pw" class="pw_input">
+						<input type="password" name="user_pw" class="pw_input" id="user_pw">
 				</div>
 				<div class="pwck_wrap">
 					<div class="pwck_name">비밀번호 확인</div>
-						<input type="password" name="user_pwck" class="pwck_input">
+						<input type="password" name="user_pwck" class="pwck_input" id="user_pwck">
 				</div>
 				<div class="user_wrap">
 					<div class="user_name">이름</div>
-						<input name="user_name" class="user_input" value="${result.name}">
+						<input name="user_name" class="user_input" value="${result.name}" id="user_name">
 				</div>
 				<div class="birth_wrap">
 					<div class="birth_name">생년월일</div>
@@ -91,13 +91,13 @@
 				<div class="addr_wrap">
 					<div class="addr_name">주소</div>
 					<div class="zip_code_wrap">
-							<input id="user_zip_code" name="user_zip_code">
-							<input type="button" value="주소찾기" onclick="kakao_addr()">
+							<input id="user_zip_code" name="user_zip_code" readonly="readonly">
+							<input type="button" id="postButton" value="주소찾기" onclick="kakao_addr()">
 					</div>
 					<div class="clearfix"></div>
 					</div>
 					<div class="addr1_wrap">
-							<input id="user_addr1" name="user_addr1">
+							<input id="user_addr1" name="user_addr1" readonly="readonly">
 					</div>
 					<div class="addr2_wrap">
 							<input type="text" id="user_addr2" name="user_addr2">
@@ -116,8 +116,7 @@
 		<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 	<script>
-
-
+		//소셜 로그인 세션에 대한 정보 불러온 상태에서 가입
     //가져온 값에 대해서는 변경 불가
     if('${result.name}'){
       console.log('가져올 이름이 있어요( •́ ▾ •̀ )');
@@ -125,9 +124,24 @@
     }
     if('${result.birthyear}'){
       console.log('가져올 생일이 있어요( •́ ▾ •̀ )' + '${result.birthyear}');
-      $('.birth_year').val('${result.birthyear}').prop("selected",true);
-      $(".birth_year").prop('disabled',true);
+			//생년
+      $('.birth_year').val(${result.birthyear}).prop("selected",true);
+      $('.birth_year').prop('disabled',true);
     }
+    if( '${result.birthday}'){
+      console.log('가져올 생일이 있어요( •́ ▾ •̀ )'+ '${result.birthday}');
+			var birth_month = '${result.birthday}'.substring(0,2);	//'12-23' 이런 식으로 넘어와서 0부터 2까지
+			var birth_day = '${result.birthday}'.substring(3,5);		//3부터 5까지 잘라서 씀
+			//월
+      $('.birth_month').val(birth_month).prop("selected",true);
+      $('.birth_month').prop('disabled',true);
+
+			//일
+      $('.birth_day').val(birth_day).prop("selected",true);
+      $('.birth_day').prop('disabled',true);
+    }
+
+
     if('${result.gender}'){
       console.log('가져올 성별이 있어요( •́ ▾ •̀ )' + '${result.gender}');
       $("input[class='contact'][value='${result.gender}']").prop("checked", true);  //만약 젠더값이 있다면 class가 contect인 radio 에서 value가 'result.gender'인것을 체크
@@ -138,7 +152,7 @@
       $("input[name='user_mail']").prop("disabled", true);
     }
 
-
+		//다음POST API
 		function kakao_addr() {
 		    daum.postcode.load(function(){
 		      new daum.Postcode({
@@ -181,6 +195,7 @@
 		    })
 		}
 
+		//아이디
 		function idCheck() {
 			  var user_id = document.getElementById("user_id").value;
 
@@ -196,6 +211,7 @@
 			sendRequest(url, null, resFn2, 'POST');
 
 			}
+
 
 		function resFn2(){
 			if(xhr.readyState == 4 && xhr.status == 200){
@@ -214,11 +230,9 @@
 			}
 		}
 
+
+		//폼 전송 시 데이터 같이 전송 및 회원가입 실행
 		function send(f){
-      $("input[name='user_name']").prop("disabled", false);
-      $("input[name='user_mail']").prop("disabled", false);
-      $(".birth_year").prop('disabled',false);
-      $(".contact").prop('disabled',false);
 			let user_id = f.user_id.value;
 			let user_pw = f.user_pw.value;
 			let user_pwck = f.user_pwck.value;
@@ -236,32 +250,72 @@
 			//id유효성
 			if(user_id == ''){
 				alert("ID를 입력하세요");
+				$('#user_id').focus();
+				return;
+			}
+			//pw유효성
+			if(user_pw == ''){
+				alert("PW를 입력하세요");
+				$('#user_pw').focus();
+				return;
+			}
+			//pw체크유효성
+			if(user_pw !== user_pwck){
+				alert("비밀번호가 일치하지 않습니다");
+				$('#user_pwck').focus();
 				return;
 			}
 
-			//pw유효성
-			if(user_pw !== user_pwck){
-				alert("비밀번호가 일치하지 않습니다");
+			//이름유효성
+			if(user_name == ''){
+				alert("이름을 입력하세요");
+				$('#user_name').focus();
+				return;
+			}
+			//생년월일
+			if(birth_year == '년'){
+				alert("생년월일을 정확히 기입하시오");
+				document.getElementsByName("birth_year")[0].focus();
+				return;
+			}
+			if(birth_month == '월'){
+				alert("생년월일을 정확히 기입하시오");
+				document.getElementsByName("birth_month")[0].focus();
+				return;
+			}
+			if(birth_day == '일'){
+				alert("생년월일을 정확히 기입하시오");
+				document.getElementsByName("birth_day")[0].focus();
 				return;
 			}
 
 			//라디오버튼 유효성
-		    var user_gender = $('input:radio[name="contact"]:checked').val();
-		    if(user_gender == null){
-		    	alert("성별을 선택하세요");
-		    	return;
-		    }
-		    
-		    if(user_zip_code == '' && user_addr1 == ''){
-		    	alert("주소를 입력하세요");
-		    	return;
-		    }
-		    
-		    if(!birth_year && !birth_month && !birth_day){
-	            alert("생년월일을 선택하세요");
-	            $('#birth_year').focus();
-	            return;
-	        }
+			var user_gender = $('input:radio[name="contact"]:checked').val();
+			if(user_gender == null){
+				alert("성별을 선택하세요");
+				//성별 div로 테두리?
+				return;
+			}
+
+			//이메일 유효성검사
+			if (!user_mail) {
+				alert("이메일을 작성하시오.");
+				$('.user_mail').focus();
+				return;
+			}
+			//주소 의 필수 zipcode와 addr1 유효성
+			if (!user_zip_code) {
+				alert("주소를 입력하시오");
+				$('#user_zip_code').focus();
+				return;
+			}
+
+			$("input[name='user_name']").prop("disabled", false);
+			$("input[name='user_mail']").prop("disabled", false);
+			$(".birth_year").prop('disabled',false);
+			$(".birth_month").prop('disabled',false);
+			$(".birth_day").prop('disabled',false);
+			$(".contact").prop('disabled',false);
 
 		    var url = "joinin.do";
 		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2;

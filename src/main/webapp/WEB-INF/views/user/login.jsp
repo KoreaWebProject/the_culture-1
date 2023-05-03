@@ -55,15 +55,15 @@
 					<!-- 카카오 로그인 버튼 -->
 					<tr>
 						<td colspan="2" align="center">
-				 			<!-- <img src="resources/img/kakao_login.png" href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=602c023b6ce1daeba7c38f4497a12be6&redirect_uri=https://localhost:9090/kakaologin" onclick="kakaoLogin();"> -->
-							<img src="resources/img/kakao_login.png" width="200" href="javascript:void(0)" onclick="KakaoLogin();"></a>
+				 			<a class="p-2" onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a2fec8e26b856f784cee55f1fb98be1b&redirect_uri=http://localhost:9090/kakao-callback.do'">
+							<img src="resources/img/kakao_login.png" width="200" ></a>
 						</td>
 					</tr>
 					<!-- 네이버 로그인 창으로 이동 -->
 					<tr>
 						<td colspan="2" align="center">
 							<a href="${url}">
-								<!--NaverLoginBO.java 파일에 REDIRECT_URI란의 주소로 이동된다.(callback uri)-->
+								<!--SocialLoginService.java 파일에 REDIRECT_URI란의 주소로 이동된다.(callback uri)-->
 							<img width="200" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
 							</a>
 						</td>
@@ -104,7 +104,11 @@
 				}else if(data == 'joined_out'){
 					alert("이미 탈퇴한 회원입니다");
 				}else{
-					location.href="culture.do";
+					// 목록을 보다가 로그인 시 메인으로 가버림
+					// location.href="culture.do";
+					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
+					// history.back();
+					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
 				}
 			}
 		}
