@@ -44,9 +44,13 @@ public class PlayInfoController {
     //조건값 삽입
     paramMap.put("play_id", play_id);
     //게시글 데이터 가져오기  (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
-    PlayInfoVO vo = infoService.getPlayInfo(paramMap);
+    PlayInfoVO playInfoVO = infoService.getPlayInfo(paramMap);
+    paramMap.put("loc_id", playInfoVO.getLoc_id());
+    System.out.println(paramMap.get("loc_id"));
+    LocInfoVO locInfoVO = infoService.getLocInfo(paramMap);
 
-    model.addAttribute("info", vo);
+    model.addAttribute("playInfo", playInfoVO);
+    model.addAttribute("locInfo", locInfoVO);
     return MyCommon.playInfo.VIEW_PATH + "playInfo.jsp";
   }
 
