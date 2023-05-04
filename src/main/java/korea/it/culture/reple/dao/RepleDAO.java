@@ -1,4 +1,4 @@
-package korea.it.culture.main.dao;
+package korea.it.culture.reple.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

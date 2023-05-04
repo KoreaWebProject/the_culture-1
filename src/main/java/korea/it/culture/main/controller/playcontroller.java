@@ -11,8 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import korea.it.culture.main.dao.PlayDAO;
-import korea.it.culture.main.dao.RepleDAO;
 import korea.it.culture.main.dao.TodayDAO;
+import korea.it.culture.reple.dao.RepleDAO;
 import korea.it.culture.main.util.Common;
 import korea.it.culture.main.util.Paging;
 import korea.it.culture.main.util.Pagingupdate;

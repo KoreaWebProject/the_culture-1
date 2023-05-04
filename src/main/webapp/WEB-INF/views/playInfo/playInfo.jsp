@@ -158,9 +158,9 @@ String root = request.getContextPath();
 				class="btn  btn-outline-danger" for="btnradio2">공연장</label> <input
 				type="radio" class="btn-check" name="btnradio" id="btnradio3"
 				autocomplete="off"
-				onclick="location.href='<%=root%>/reple.do?loc_id=${info.loc_id}'"
+				onclick="location.href='/reple.do?play_id=${info.play_id}'"
 				style="cursor: pointer"> <label
-				class="btn  btn-outline-danger" for="btnradio3">공연장</label>
+				class="btn  btn-outline-danger" for="btnradio3">후기</label>
 		</div>
 
 		<div class="container d-flex justify-content-center"
@@ -177,8 +177,8 @@ String root = request.getContextPath();
     <label class="btn  btn-outline-danger" for="btnradio1">소개</label>
     <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="location.href='loc.do?loc_id=${info.loc_id}'" style="cursor: pointer">
     <label class="btn  btn-outline-danger" for="btnradio2">공연장</label>
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="location.href='<%=root%>reple.do?loc_id=${info.loc_id}'" style="cursor: pointer">
-    <label class="btn  btn-outline-danger" for="btnradio3">공연장</label>
+    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="location.href='reple.do?play_id=${info.play_id}'" style="cursor: pointer">
+    <label class="btn  btn-outline-danger" for="btnradio3">후기</label>
   </div>
 
 	<!-- Vendor JS Files -->

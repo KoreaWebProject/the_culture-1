@@ -3,7 +3,7 @@ package korea.it.culture.playInfo.controller;
 import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.playInfo.util.MyCommon;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
-
+import korea.it.culture.reple.vo.RepleVO;
 import korea.it.culture.playInfo.vo.LocInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,55 +21,61 @@ import java.util.Map;
 @Controller
 public class PlayInfoController {
 
+	private PlayInfoService infoService;
 
-  private PlayInfoService infoService;
+	@Autowired
+	public PlayInfoController(PlayInfoService infoService) {
+		this.infoService = infoService;
+	}
 
-  @Autowired
-  public PlayInfoController(PlayInfoService infoService) {
-    this.infoService = infoService;
-  }
+	/**
+	 * playId를 list에서 받아와 map에 저장 후 쿼리문 실행 결과값 vo를 model에 add 후 playInfo 로 전송
+	 * 
+	 * @param model
+	 * @param play_id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/info.do", method = RequestMethod.GET)
+	public String viewInfo(Model model, @RequestParam("play_id") String play_id) throws Exception {
+		// 조건 값을 저장할 parameter용 map
+		Map<String, Object> paramMap = new HashMap<>();
+		// 조건값 삽입
+		paramMap.put("play_id", play_id);
+		// 게시글 데이터 가져오기 (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
+		PlayInfoVO vo = infoService.getPlayInfo(paramMap);
 
-  /**
-   * playId를 list에서 받아와 map에 저장 후 쿼리문 실행
-   * 결과값 vo를 model에 add 후 playInfo 로 전송
-   * @param model
-   * @param play_id
-   * @return
-   * @throws Exception
-   */
-  @RequestMapping(value = "/info.do", method = RequestMethod.GET)
-  public String viewInfo(Model model, @RequestParam("play_id") String play_id) throws Exception{
-    //조건 값을 저장할 parameter용 map
-    Map<String, Object> paramMap = new HashMap<>();
-    //조건값 삽입
-    paramMap.put("play_id", play_id);
-    //게시글 데이터 가져오기  (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
-    PlayInfoVO vo = infoService.getPlayInfo(paramMap);
+		model.addAttribute("info", vo);
+		return MyCommon.playInfo.VIEW_PATH + "playInfo.jsp";
+	}
 
-    model.addAttribute("info", vo);
-    return MyCommon.playInfo.VIEW_PATH + "playInfo.jsp";
-  }
+	/**
+	 * 공연장 정보를 가져오기 위함
+	 * 
+	 * @param model
+	 * @param loc_id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/loc.do", method = RequestMethod.GET)
+	public String locInfo(Model model, @RequestParam("loc_id") String loc_id) throws Exception {
+		// 조건 값을 저장할 parameter용 map
+		Map<String, Object> paramMap = new HashMap<>();
+		// 조건값 삽입
+		paramMap.put("loc_id", loc_id);
+		// 게시글 데이터 가져오기 (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
+		LocInfoVO vo = infoService.getLocInfo(paramMap);
 
+		model.addAttribute("loc", vo);
+		return MyCommon.playInfo.VIEW_PATH + "locInfo.jsp";
+	}
+	
+	@RequestMapping(value = "/reple.do", method = RequestMethod.GET)
+	public String Reple(Model model, @RequestParam("play_id") String play_id) throws Exception {
+		// 게시글 데이터 가져오기 (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
+		RepleVO vo = infoService.getReple(play_id);
 
-  /**
-   * 공연장 정보를 가져오기 위함
-   * @param model
-   * @param loc_id
-   * @return
-   * @throws Exception
-   */
-  @RequestMapping(value = "/loc.do", method = RequestMethod.GET)
-  public String locInfo(Model model, @RequestParam("loc_id") String loc_id) throws Exception{
-    //조건 값을 저장할 parameter용 map
-    Map<String, Object> paramMap = new HashMap<>();
-    //조건값 삽입
-    paramMap.put("loc_id", loc_id);
-    //게시글 데이터 가져오기  (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
-    LocInfoVO vo = infoService.getLocInfo(paramMap);
-
-    model.addAttribute("loc", vo);
-    return MyCommon.playInfo.VIEW_PATH + "locInfo.jsp";
-  }
-
-
+		model.addAttribute("info", vo);
+		return MyCommon.playInfo.VIEW_PATH + "reple.jsp";
+	}
 }
