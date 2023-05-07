@@ -1,5 +1,7 @@
 package korea.it.culture.playInfo.controller;
 
+import korea.it.culture.main.dao.PlayDAO;
+import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.playInfo.util.MyCommon;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
@@ -23,10 +25,12 @@ public class PlayInfoController {
 
 
   private PlayInfoService infoService;
+  private PlayDAO playDAO;
 
   @Autowired
-  public PlayInfoController(PlayInfoService infoService) {
+  public PlayInfoController(PlayInfoService infoService, PlayDAO playDAO) {
     this.infoService = infoService;
+    this.playDAO = playDAO;
   }
 
   /**
@@ -41,14 +45,21 @@ public class PlayInfoController {
   public String viewInfo(Model model, @RequestParam("play_id") String play_id) throws Exception{
     //조건 값을 저장할 parameter용 map
     Map<String, Object> paramMap = new HashMap<>();
+
+    PlayVO playVO = playDAO.selectone(play_id);
+
     //조건값 삽입
-    paramMap.put("play_id", play_id);
     //게시글 데이터 가져오기  (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
+    //작품의 상세정보 담아오기
+    paramMap.put("play_id", play_id);
     PlayInfoVO playInfoVO = infoService.getPlayInfo(paramMap);
+
+    //작품의 시설 상세정보 담아오기
     paramMap.put("loc_id", playInfoVO.getLoc_id());
-    System.out.println(paramMap.get("loc_id"));
     LocInfoVO locInfoVO = infoService.getLocInfo(paramMap);
 
+
+    model.addAttribute("play", playVO);
     model.addAttribute("playInfo", playInfoVO);
     model.addAttribute("locInfo", locInfoVO);
     return MyCommon.playInfo.VIEW_PATH + "playInfo.jsp";

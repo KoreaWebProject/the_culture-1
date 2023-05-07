@@ -189,9 +189,9 @@
 
 		<div class="gender_wrap">
 			<div class="gender_name">성별</div>
-			<input type="radio" id="gender_male" name="contact" value="남"
+			<input type="radio" id="gender_male" name="contact" value="M"
 			<c:if test="${login.user_gender eq 'M'}">checked="checked"</c:if>>남
-			<input type="radio" id="gender_female" name="contact" value="여"
+			<input type="radio" id="gender_female" name="contact" value="F"
 			<c:if test="${login.user_gender eq 'F'}">checked="checked"</c:if>>여
 		</div>
 

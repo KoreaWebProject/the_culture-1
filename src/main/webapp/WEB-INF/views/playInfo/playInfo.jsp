@@ -95,8 +95,8 @@ String root = request.getContextPath();
 
 	<main class=" container ">
 	
-		<h2>뽀로로</h2>
-  <div>연극</div>
+		<h2>${play.play_prfnm}</h2>
+  <div>${play.play_genrenm}</div>
   <hr  style="margin-bottom: 50px;">
   <div class=" container row d-flex justify-content-evenly " style="margin-bottom: 50px;">
     <img class="col-3  img-thumbnail rounded float-start"
@@ -104,11 +104,11 @@ String root = request.getContextPath();
     <table class="col-6" border="1">
       <tr>
         <th style="width: 100px;">공연기간</th>
-        <td style="width: 500px;"></td>
+        <td style="width: 500px;">${play.play_from}  ~  ${play.play_to}</td>
       </tr>
       <tr>
         <th>공연장소</th>
-        <td></td>
+        <td>${play.play_locnm}</td>
       </tr>
       <tr>
         <th>공연시간</th>
@@ -129,7 +129,7 @@ String root = request.getContextPath();
       <tr>
         <th>제작진</th>
         <c:if test="${fn:trim(playInfo.play_prfcrew) eq ''}">
-          <td>해당사항없음</td>
+          <td>해당정보 없음</td>
         </c:if>
         <c:if test="${fn:trim(playInfo.play_prfcrew) ne ''}">
           <td>${playInfo.play_prfcrew}</td>
@@ -138,11 +138,16 @@ String root = request.getContextPath();
       </tr>
       <tr>
         <th>주최-주관</th>
-        <td></td>
+				<c:if test="${fn:trim(playInfo.play_entrpsnm) eq ''}">
+					<td>해당정보 없음</td>
+				</c:if>
+				<c:if test="${fn:trim(playInfo.play_entrpsnm) ne ''}">
+					<td>${playInfo.play_entrpsnm}</td>
+				</c:if>
       </tr>
       <tr>
         <th>기획-제작</th>
-        <td></td>
+        <td>해당정보 없음</td>
       </tr>
     </table>
 
@@ -192,20 +197,20 @@ String root = request.getContextPath();
 			<!--공연장 정보-->
 			<%--				<div class="bxo_vcb" style>--%>
 			<h4 class="nb_tit1">
-				${loc.loc_name}
+				${locInfo.loc_name}
 			</h4>
 			<ul class="ro_utb nvw">
 
 				<li>
 					<dl>
 						<dt>좌석수</dt>
-						<dd>${loc.loc_seatscale}</dd>
+						<dd>${locInfo.loc_seatscale} 석</dd>
 					</dl>
 				</li>
 				<li>
 					<dl>
 						<dt>주소</dt>
-						<dd>${loc.loc_addr}</dd>
+						<dd>${locInfo.loc_addr}</dd>
 					</dl>
 				</li>
 				<li>
@@ -214,7 +219,7 @@ String root = request.getContextPath();
 						<dd style="word-break:break-all;" wrap="hard">
 							<!-- Java 모바일 체크 -->
 
-							<a href="${loc.loc_url}" target="_blank" title="새 창 열림">${loc.loc_url}</a>
+							<a href="${locInfo.loc_url}" target="_blank" title="새 창 열림">${locInfo.loc_url}</a>
 
 						</dd>
 					</dl>
