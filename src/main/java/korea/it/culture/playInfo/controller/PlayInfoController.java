@@ -1,5 +1,6 @@
 package korea.it.culture.playInfo.controller;
 
+import korea.it.culture.login.vo.UserVO;
 import korea.it.culture.main.dao.PlayDAO;
 import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.dao.PlayInfoService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +25,8 @@ import java.util.Map;
 @Controller
 public class PlayInfoController {
 
-
+  @Autowired // 자동주입 : spring으로부터 자동생성 가능한 객체를 new없이 알아서 생성해준다
+  HttpServletRequest request;
   private PlayInfoService infoService;
   private PlayDAO playDAO;
 
@@ -90,6 +93,17 @@ public class PlayInfoController {
     model.addAttribute("loc", vo);
     return MyCommon.playInfo.VIEW_PATH + "locInfo.jsp";
   }
+
+  @RequestMapping(value = "/favorite.do")
+  public String favorite(PlayVO playVO, UserVO userVO){
+
+    System.out.println("저왔어유");
+    System.out.println(playVO.getPlay_id());
+    System.out.println(userVO.getUser_id());
+
+    return "redirect:" + request.getHeader("Referer");
+  }
+
 
 
 }
