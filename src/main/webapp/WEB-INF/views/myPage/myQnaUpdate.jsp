@@ -39,12 +39,27 @@
 							width : 850,
 							height : 450,
 							clipboard_handleImages : false,
-							language : "ko",
-							readOnly : true
+							language : "ko"
 						});
 
 		// ...
 	});
+
+	function send(f) {
+		alert(f.qna_id.value);
+		let qna_title = f.qna_title.value.trim();
+		var qna_contents = CKEDITOR.instances.qna_contents.getData();
+
+		//유효성 체크
+		if (qna_title == '' || qna_contents == '') {
+			alert("수정하실 제목 및 내용을 입력하시오");
+			return;
+		}
+
+		f.action = "modify.do";
+		f.method = "post";
+		f.submit();
+	}
 </script>
 </head>
 <body>
@@ -56,11 +71,12 @@
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
+					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
 					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -96,25 +112,13 @@
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
+
 			</ul>
+
 		</nav>
+
 	</div>
 	<!-- ======= end menubar ======= -->
-
-	<!-- ======= myPage list ======= -->
-	<div>
-		<ul>
-			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
-			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
-			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
-			<li><a href="#"
-				onclick="location.href='myQna.do?user_id=${login.user_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">나의 문의
-					내역</a></li>
-			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
-		</ul>
-	</div>
-	<!-- ======= end myPage list ======= -->
-
 	<main class="container">
 		<div class="row justify-content-center" style="padding-bottom: 5px;">
 			<hr>
@@ -124,12 +128,12 @@
 					<table>
 						<tr>
 							<th class="col-2">제목</th>
-							<td>${vo.qna_title}</td>
+							<td class="row"><input class="col-6" type="text" name="qna_title" value="${ vo.qna_title }"></td>
 						</tr>
 
 						<tr>
 							<th>작성자</th>
-							<td>${vo.user_id }</td>
+							<td class="row">${ login.user_id }</td>
 						</tr>
 
 						<tr>
@@ -138,7 +142,23 @@
 						</tr>
 
 						<tr>
-							<th class="col-2">등록일</th>
+							<th>공개여부</th>
+							<td>
+								<div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="qna_public_lev" id="public1" value="1" checked> <label class="form-check-label"
+											for="1">공개</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="qna_public_lev" id="public2" value="0"> <label class="form-check-label" for="0">비공개</label>
+									</div>
+
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<th class="col-2">등록/수정일</th>
 							<td>${ vo.qna_regdate }</td>
 						</tr>
 
@@ -152,77 +172,83 @@
 							</c:if>
 						</tr>
 
+
+
 						<tr>
 							<td colspan="2">
 								<div class="d-flex justify-content-center">
-								
-										<input type="button" class="btn btn-outline-primary" onClick="location.href='qna_del.do?qna_id=${vo.qna_id}'" style="margin-left: 50px;"
-											value='삭제하기'>
-								
-
-									<input type="button" class="btn btn-outline-primary" onClick="window.location = document.referrer;" style="margin-left: 50px;" value='목록으로'>
+									<input type="hidden" name="qna_id" value="${vo.qna_id}" /> <input type="hidden" name="page" value="${param.page}" /> <input type="hidden"
+										name="search" value="${param.search}" /> <input type="hidden" name="search_text" value="${param.search_text}" /> <input type="button"
+										value="수정하기" class="btn btn-outline-primary" onClick="send(this.form);">
+									<c:if test="${login.user_role_id == 2 or login.user_id eq vo.user_id}">
+										<input type="button" value="삭제하기" class="btn btn-outline-primary"
+											onClick="location.href='qna_del.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
+											style="margin-left: 50px;">
+									</c:if>
+									<input type="button" value="목록으로" class="btn btn-outline-primary"
+										onClick="window.location = document.referrer;"
+										style="margin-left: 50px;">
 								</div>
 							</td>
 						</tr>
 					</table>
-					<hr>
-					<h2 style="margin-top: 20px; font-weight: bold">문의 답글</h2>
-
-					<c:forEach var="list" items="${ list }">
-						<c:if test="${ list.qna_re_remove_lev eq 0}">
-							<div class="col-11 d-flex justify-content-right row">
-
-								<table class="col-12" style="margin-top: 20px; word-wrap: break-word; table-layout: fixed;">
-									<tr>
-										<th>작성자</th>
-										<td colspan="3">${login.user_id}</td>
-
-									</tr>
-									<tr>
-										<th>제목</th>
-										<td colspan="3">${ vo.qna_title }에대한문의답글입니다</td>
-
-									</tr>
-
-
-									<tr>
-										<th>내용</th>
-										<td colspan="3">
-											<div class="col-11 " style="white-space: pre-line;">${ list.qna_re_contents }</div>
-										</td>
-
-									</tr>
-
-									<tr>
-										<th>등록일</th>
-										<td>${ list.qna_re_regdate }</td>
-
-									</tr>
-
-								</table>
-							</div>
-							<div class="col-1 d-flex justify-content-right align-items-start">
-								<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
-									<td><input class="btn btn-outline-primary" style="margin-top: 20px;" type="button" value="답글삭제"
-										onClick="location.href='qna_reple_del.do?qna_id=${vo.qna_id}&qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"></td>
-								</c:if>
-							</div>
-
-						</c:if>
-						<c:if test="${ list.qna_re_remove_lev eq 1}">
-							<div class="col-11  d-flex justify-content-right row">
-								<table style="margin-top: 20px;">
-									<tr>
-										<th>삭제된 답글입니다</th>
-									</tr>
-								</table>
-							</div>
-						</c:if>
-					</c:forEach>
 				</form>
+				<hr>
+				<h2 style="margin-top: 20px; font-weight: bold">문의 답글</h2>
+
+				<c:forEach var="list" items="${ list }">
+					<c:if test="${ list.qna_re_remove_lev eq 0}">
+						<div class="col-11 d-flex justify-content-right row">
+
+							<table class="col-12" style="margin-top: 20px; word-wrap:break-word; table-layout: fixed;" >
+								<tr>
+									<th>작성자</th>
+									<td colspan="3">${login.user_id}</td>
+
+								</tr>
+								<tr>
+									<th>제목</th>
+									<td colspan="3">${ vo.qna_title }에대한문의답글입니다</td>
+
+								</tr>
+
+
+								<tr>
+									<th>내용</th>
+									<td colspan="3">
+										<div class="col-11 " style="white-space: pre-line;">${ list.qna_re_contents }</div>
+									</td>
+
+								</tr>
+
+								<tr>
+									<th>등록일</th>
+									<td>${ list.qna_re_regdate }</td>
+
+								</tr>
+
+							</table>
+						</div>
+						<div class="col-1 d-flex justify-content-right align-items-start">
+							<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
+								<td><input class="btn btn-outline-primary" style="margin-top: 20px;" type="button" value="답글삭제"
+									onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"></td>
+							</c:if>
+						</div>
+
+					</c:if>
+					<c:if test="${ list.qna_re_remove_lev eq 1}">
+						<div class="col-11  d-flex justify-content-right row">
+							<table style="margin-top: 20px;">
+								<tr>
+									<th>삭제된 답글입니다</th>
+								</tr>
+							</table>
+						</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
-
 	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -269,42 +295,5 @@
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
-
-	<!-- 현 접속자가 관리자일 경우 답글 달기 기능 및 답글 삭제 활성화 -->
-	<div>
-		<hr>
-		<h1>여긴 답글!</h1>
-
-		<div>
-			<c:if test="${login.user_role_id == 2}">
-				<input type="button" value="답글달기"
-					onClick="location.href='qna_reple_reg.do?qna_id=${ vo.qna_id }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'">
-				<input type="button" value="완료하기" onClick="location.href='qna_clear.do?qna_id=${vo.qna_id}'">
-			</c:if>
-		</div>
-		<div>
-			<c:forEach var="list" items="${ list }">
-				<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
-					<div>
-						<input type="button" value="답글삭제" onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }'">
-					</div>
-				</c:if>
-				<div>
-					<c:if test="${ list.qna_re_remove_lev eq 0}">
-						<div>${ vo.qna_title }에대한답변입니다</div>
-						<div>${ list.qna_re_contents }</div>
-						<div>등록일</div>
-						<div>${ list.qna_re_regdate }</div>
-						<div>수정일</div>
-						<div>${ list.qna_re_update }</div>
-						<div>
-							<hr>
-						</div>
-					</c:if>
-					<c:if test="${ list.qna_re_remove_lev eq 1}">삭제된 답글입니다</c:if>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
 </body>
 </html>

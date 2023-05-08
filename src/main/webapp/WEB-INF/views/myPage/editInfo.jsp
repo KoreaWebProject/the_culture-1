@@ -105,7 +105,7 @@
 							<ul id="portfolio-flters">
 
 								<li class="filter-active" data-filter=".filter-app"><img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a
-									class="col-8" href="#" style="margin-left: 10px;">정보수정</a></li>
+									class="col-8" href="location.href='mypage.do'" style="margin-left: 10px;">정보수정</a></li>
 
 								<li data-filter=".filter-card"><img src="./resources/assets/img/clients/comment.png" class="img-fluid" alt=""><a class="col-8"
 									href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'" style="margin-left: 10px;">후기내역</a></li>

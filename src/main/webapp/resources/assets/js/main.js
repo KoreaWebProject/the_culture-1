@@ -218,12 +218,15 @@
   /**
    * Porfolio isotope and filter
    */
+	
+
 window.onload = function() {
   let portfolioContainer = document.querySelector('.portfolio-container');
   if (portfolioContainer) {
-    let filterSelector = '.filter-app';
+    let filterSelector = localStorage.getItem('activeFilter') || '.filter-app';
     let activeItem = portfolioContainer.querySelector('[data-filter="' + filterSelector + '"]');
-    if (activeItem && activeItem.classList.contains('filter-active')) {
+    if (activeItem) {
+      activeItem.classList.add('filter-active');
       portfolioContainer.insertBefore(activeItem, portfolioContainer.firstChild);
     }
 
@@ -243,10 +246,7 @@ window.onload = function() {
         }
         this.classList.add('filter-active');
 
-        let activeItem = portfolioContainer.querySelector('[data-filter="' + filterSelector + '"]');
-        if (activeItem) {
-          portfolioContainer.insertBefore(activeItem, portfolioContainer.firstChild);
-        }
+        localStorage.setItem('activeFilter', filterSelector);
 
         portfolioIsotope.arrange({
           filter: filterSelector
@@ -258,7 +258,6 @@ window.onload = function() {
     }
   }
 }
-
   /**
    * Initiate portfolio lightbox 
    */

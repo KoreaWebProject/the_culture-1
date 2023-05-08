@@ -4,11 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="p">
 	<select id="rank_list" resultType="play">
-		Select p.*
-		From play p inner
-		join reple r
-		on p.play_id = r.play_id
-		Order by r.reple_rating desc
+		Select *
+      From play p inner
+      join (select play_id, trunc(avg(reple_rating),1) reple_rating from reple group by play_id) r
+      on p.play_id = r.play_id 
+      Order by r.reple_rating desc
 	</select>
 	
 	
