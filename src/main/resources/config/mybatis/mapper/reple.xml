@@ -3,6 +3,20 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="r">
+	<!-- 공연 검색 -->
+	<select id="getReple" parameterType="String" resultType="reple">
+		select * from reple where play_id = #{play_id}
+	</select>
+	
+	<!-- 작성자 검색 -->
+	<select id="getUser" parameterType="String" resultType="reple">
+		select * from reple where user_id = #{user_id}, reple_contents = ${reple_contents}
+	</select>
+	
+	<insert id="insertReple" parameterType="reple">
+		INSERT INTO reple VALUES(reple_no_seq.nextVal, #{play_id}, #{user_id}, #{reple_contents},
+		#{reple_rating}, sysdate, 0, 0)
+	</insert>
 
 </mapper>
 

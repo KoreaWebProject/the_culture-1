@@ -48,7 +48,7 @@
 								<input id="user_id" class="form-control col" placeholder="아이디">
 							</div>
 							<div class="col-3">
-								<input type="button" class="btn btn-primary " id="postButton" value="중복확인"  onclick="idCheck()">
+								<input type="button" class="btn btn-primary " id="idCheckButton" value="중복확인"  onclick="idCheck()">
 							</div>
 							</div>
 
@@ -167,9 +167,6 @@
 <script>
 	//소셜 로그인 세션에 대한 정보 불러온 상태에서 가입
     //가져온 값에 대해서는 변경 불가
-    /* if('${result.name}'){
-      $("input[name='user_name']").prop("disabled", true);
-    } */
     if('${result.birthyear}'){
 			//생년
       $('.birth_year').val(${result.birthyear}).prop("selected",true);
@@ -271,7 +268,7 @@
 			//유효성 체크
 			if(!checkAll(f)){
 				return;
-			};
+			}
 			
 			//생년월일
 			if(birth_year == '년'){
@@ -303,15 +300,19 @@
 				$('#user_zip_code').focus();
 				return;
 			}
+
 			/* $("input[name='user_name']").prop("disabled", false); */
 			$("input[name='user_mail']").prop("disabled", false);
 			$(".birth_year").prop('disabled',false);
 			$(".birth_month").prop('disabled',false);
 			$(".birth_day").prop('disabled',false);
 			$(".contact").prop('disabled',false);
+
 		    var url = "joinin.do";
 		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2;
 		    sendRequest(url, param, resFn, "get");
+		
+						
 		}
 		
 		function resFn(){
