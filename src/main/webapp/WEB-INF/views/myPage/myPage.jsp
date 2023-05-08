@@ -132,7 +132,7 @@
 	<h2>회원정보 수정</h2>
 	<form>
 		<div>ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }"></div>
-		<div>PW : <input name="user_pw"></div>
+		<div>PW : <input name="user_pw" type="password"></div>
 		<div><input type="button" value="확인" onClick="send(this.form)"></div>
 	</form>
 	<!-- ======= Footer ======= -->

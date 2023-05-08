@@ -203,13 +203,13 @@
 		<div class="addr_wrap">
 			<div class="addr_name">주소</div>
 			<div class="zip_code_wrap">
-				<input id="user_zip_code" name="user_zip_code" value="${ login.user_zip_code }"> 
+				<input id="user_zip_code" name="user_zip_code" value="${ login.user_zip_code }" readonly>
 				<input type="button" value="주소찾기" onclick="kakao_addr()">
 			</div>
 			<div class="clearfix"></div>
 		</div>
 		<div class="addr1_wrap">
-			<input id="user_addr1" name="user_addr1" value="${ login.user_addr1 }">
+			<input id="user_addr1" name="user_addr1" value="${ login.user_addr1 }" readonly>
 		</div>
 		<div class="addr2_wrap">
 			<input type="text" id="user_addr2" name="user_addr2" value="${ login.user_addr2 }">

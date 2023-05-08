@@ -57,6 +57,11 @@ public class PlayInfoController {
     //작품의 시설 상세정보 담아오기
     paramMap.put("loc_id", playInfoVO.getLoc_id());
     LocInfoVO locInfoVO = infoService.getLocInfo(paramMap);
+    System.out.println(locInfoVO.getLoc_url());
+    //http:// 프로토콜이 포함되어있지 않으면 포함시킨 후 보내기
+    if (!locInfoVO.getLoc_url().contains("://")) {
+      locInfoVO.setLoc_url("http://" + locInfoVO.getLoc_url());
+    }
 
 
     model.addAttribute("play", playVO);
