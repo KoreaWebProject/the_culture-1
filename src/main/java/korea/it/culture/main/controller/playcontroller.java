@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +42,7 @@ public class playcontroller {
 
 	@RequestMapping(value = { "/", "/culture.do" })
 	public String selectList(Model model) {
+		
 		List<PlayVO> list = playdao.selectList();
 		List<TodayVO> tlist = todaydao.selectList();
 

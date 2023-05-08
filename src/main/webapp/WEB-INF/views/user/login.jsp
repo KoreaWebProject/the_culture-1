@@ -172,6 +172,7 @@
 					// location.href="culture.do";
 					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
 					// history.back();
+					console.log(document.referrer);
 					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
 				}
 			}

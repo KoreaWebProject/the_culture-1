@@ -1,9 +1,9 @@
-package korea.it.culture.main.vo;
+package korea.it.culture.playInfo.vo;
 
 public class RepleVO {
 	private int reple_id, reple_remove_lev, reple_good;
-	private String user_id, play_id, reple_contents, reple_regdate, reple_update;
-	public double reple_rating;
+	private String play_id, user_id, reple_contents, reple_regidate;
+	private double reple_rating;
 
 	public int getReple_id() {
 		return reple_id;
@@ -37,20 +37,20 @@ public class RepleVO {
 		this.reple_good = reple_good;
 	}
 
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-
 	public String getPlay_id() {
 		return play_id;
 	}
 
 	public void setPlay_id(String play_id) {
 		this.play_id = play_id;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getReple_contents() {
@@ -61,20 +61,12 @@ public class RepleVO {
 		this.reple_contents = reple_contents;
 	}
 
-	public String getReple_regdate() {
-		return reple_regdate;
+	public String getReple_regidate() {
+		return reple_regidate;
 	}
 
-	public void setReple_regdate(String reple_regdate) {
-		this.reple_regdate = reple_regdate;
-	}
-
-	public String getReple_update() {
-		return reple_update;
-	}
-
-	public void setReple_update(String reple_update) {
-		this.reple_update = reple_update;
+	public void setReple_regidate(String reple_regidate) {
+		this.reple_regidate = reple_regidate;
 	}
 
 }
