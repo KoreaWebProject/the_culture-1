@@ -5,15 +5,18 @@ import korea.it.culture.playInfo.util.MyCommon;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
 import korea.it.culture.reple.vo.RepleVO;
 import korea.it.culture.playInfo.vo.LocInfoVO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Handles requests for the application home page.
@@ -22,6 +25,9 @@ import java.util.Map;
 public class PlayInfoController {
 
 	private PlayInfoService infoService;
+
+	@Autowired
+	HttpServletRequest request;
 
 	@Autowired
 	public PlayInfoController(PlayInfoService infoService) {
@@ -69,13 +75,33 @@ public class PlayInfoController {
 		model.addAttribute("loc", vo);
 		return MyCommon.playInfo.VIEW_PATH + "locInfo.jsp";
 	}
-	
-	@RequestMapping(value = "/reple.do", method = RequestMethod.GET)
+
+	/**
+	 * 후기
+	 * 
+	 * @param model
+	 * @param play_id
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/reple.do")
 	public String Reple(Model model, @RequestParam("play_id") String play_id) throws Exception {
 		// 게시글 데이터 가져오기 (vo에 service안에있는 detail메서드에 파라미터 맵을 보내서 .)
-		RepleVO vo = infoService.getReple(play_id);
 
-		model.addAttribute("info", vo);
+		List<RepleVO> reple_list = infoService.getReple(play_id);
+
+		model.addAttribute("reple_list", reple_list);
+		model.addAttribute("play_id", play_id);
 		return MyCommon.playInfo.VIEW_PATH + "reple.jsp";
 	}
+
+	@RequestMapping(value = "/review.do")
+	public String review(RepleVO vo) throws Exception {
+
+		System.out.println(vo);
+		infoService.insertReple(vo);
+
+		return "redirect:reple.do?play_id=" + vo.getPlay_id();
+	}
+
 }

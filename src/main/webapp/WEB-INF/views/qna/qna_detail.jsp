@@ -62,7 +62,7 @@
 					<span>${login.user_name}님<span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -268,41 +268,5 @@
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
 	
-	<!-- 현 접속자가 관리자일 경우 답글 달기 기능 및 답글 삭제 활성화 -->
-	<div>
-		<hr>
-		<h1>여긴 답글!</h1>
-
-		<div>
-			<c:if test="${login.user_role_id == 2}">
-				<input type="button" value="답글달기"
-					onClick="location.href='qna_reple_reg.do?qna_id=${ vo.qna_id }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'">
-				<input type="button" value="완료하기" onClick="location.href='qna_clear.do?qna_id=${vo.qna_id}'">
-			</c:if>
-		</div>
-		<div>
-			<c:forEach var="list" items="${ list }">
-				<c:if test="${ list.qna_re_remove_lev eq 0 and login.user_role_id == 2}">
-					<div>
-						<input type="button" value="답글삭제" onClick="location.href='qna_reple_del.do?qna_re_ref=${ list.qna_re_ref }'">
-					</div>
-				</c:if>
-				<div>
-					<c:if test="${ list.qna_re_remove_lev eq 0}">
-						<div>${ vo.qna_title }에대한답변입니다</div>
-						<div>${ list.qna_re_contents }</div>
-						<div>등록일</div>
-						<div>${ list.qna_re_regdate }</div>
-						<div>수정일</div>
-						<div>${ list.qna_re_update }</div>
-						<div>
-							<hr>
-						</div>
-					</c:if>
-					<c:if test="${ list.qna_re_remove_lev eq 1}">삭제된 답글입니다</c:if>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
 </body>
 </html>

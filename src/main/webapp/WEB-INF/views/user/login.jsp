@@ -16,6 +16,8 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <title>The Culture</title>
 
+		<script src="./resources/js/httpRequest.js"></script>
+		<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -76,15 +78,17 @@
 							<button type="button" id="btn1" class="btn col-12"  onclick="location.href='${url}'">네이버 로그인</button>
 							
 							<div id="atag" class="d-flex justify-content-center"
-							style="font-size: 13px;">
-								<!-- <a href="#">비밀번호 찾기 |</a> 
-								<a href="#">아이디 찾기 |</a>  -->
+							style="font-size: 13px; margin-top: 20px;">
+							 <a href="#">비밀번호 찾기 |</a> 
+								<a href="#">아이디 찾기 |</a>  
 								<a href="#" onclick="location.href='join.do'">회원가입</a>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
+		
+		
 		</main>
 		
 		<footer>
@@ -106,7 +110,8 @@
 			</div>
 		</footer>
 	</body>
-
+	<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 	<script>
 		//로그인
 		function login(f){
@@ -133,9 +138,43 @@
 					// location.href="culture.do";
 					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
 					// history.back();
+					console.log(document.referrer);
 					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
 				}
 			}
 		}
+		
+		
+		//카카오로그인
+		  function KakaoLogin() {
+		    $.ajax({
+		        url: 'logintest.do',
+		        type: 'get',
+		        async: false,
+		        dataType: 'text',
+		        success: function (res) {
+		            location.href = res;
+		        },fail: function (error) {
+		            alert(error);
+		        }
+		    });
+
+		  }
+
+		  $(document).ready(function() {
+				
+		      var kakaoInfo = '${kakaoInfo}';
+
+		      if(kakaoInfo != ""){
+		          var data = JSON.parse(kakaoInfo);
+
+		          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
+		          alert(
+		          "user : \n" + "email : "
+		          + data['email']  
+		          + "\n nickname : " 
+		          + data['nickname']);
+		      }
+		  });  
 	</script>
 </html>

@@ -218,33 +218,46 @@
   /**
    * Porfolio isotope and filter
    */
-  window.addEventListener('load', () => {
-    let portfolioContainer = select('.portfolio-container');
-    if (portfolioContainer) {
-      let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item'
-      });
+	
 
-      let portfolioFilters = select('#portfolio-flters li', true);
+window.onload = function() {
+  let portfolioContainer = document.querySelector('.portfolio-container');
+  if (portfolioContainer) {
+    let filterSelector = localStorage.getItem('activeFilter') || '.filter-app';
+    let activeItem = portfolioContainer.querySelector('[data-filter="' + filterSelector + '"]');
+    if (activeItem) {
+      activeItem.classList.add('filter-active');
+      portfolioContainer.insertBefore(activeItem, portfolioContainer.firstChild);
+    }
 
-      on('click', '#portfolio-flters li', function(e) {
+    let portfolioIsotope = new Isotope(portfolioContainer, {
+      itemSelector: '.portfolio-item',
+      filter: filterSelector
+    });
+
+    let portfolioFilters = document.querySelectorAll('#portfolio-flters li');
+    for (let i = 0; i < portfolioFilters.length; i++) {
+      portfolioFilters[i].addEventListener('click', function(e) {
         e.preventDefault();
-        portfolioFilters.forEach(function(el) {
-          el.classList.remove('filter-active');
-        });
+        let filterSelector = this.getAttribute('data-filter');
+
+        for (let j = 0; j < portfolioFilters.length; j++) {
+          portfolioFilters[j].classList.remove('filter-active');
+        }
         this.classList.add('filter-active');
 
+        localStorage.setItem('activeFilter', filterSelector);
+
         portfolioIsotope.arrange({
-          filter: this.getAttribute('data-filter')
+          filter: filterSelector
         });
         portfolioIsotope.on('arrangeComplete', function() {
           AOS.refresh()
         });
-      }, true);
+      });
     }
-
-  });
-
+  }
+}
   /**
    * Initiate portfolio lightbox 
    */

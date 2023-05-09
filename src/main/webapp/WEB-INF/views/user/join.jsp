@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -7,11 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
 <title>The Culture</title>
@@ -22,17 +18,11 @@
 
 <!-- Vendor CSS Files -->
 <link href="./resources/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="./resources/assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
-	href="./resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="./resources/assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="./resources/assets/vendor/glightbox/css/glightbox.min.css"
-	rel="stylesheet">
-<link href="./resources/assets/vendor/swiper/swiper-bundle.min.css"
-	rel="stylesheet">
+<link href="./resources/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resources/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="./resources/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="./resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="./resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
@@ -41,48 +31,49 @@
 <body>
 
 	<header>
-		<a href="#" onclick="location.href='culture.do'"
-			class=" cotainer logo d-flex justify-content-center"
-			style="margin-top: 20px;"> <img
+		<a href="#" onclick="location.href='culture.do'" class=" cotainer logo d-flex justify-content-center" style="margin-top: 20px;"> <img
 			src="resources/img/the_culture_logo.png" alt="" width="165px"></a>
 	</header>
 
 	<main>
 		<div class="content row  d-flex justify-content-center ">
 			<div class="col-5 container d-flex justify-content-center row">
-				<div class="col-7 row"
-					style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px;">
-					<div class="d-flex justify-content-center"
-						style="margin-top: 10px; font-weight: bold; font-size: 20px; color: #3b8af2;">회원가입</div>
+				<div class="col-7 row" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px;">
+					<div class="d-flex justify-content-center" style="margin-top: 10px; font-weight: bold; font-size: 20px; color: #3b8af2;">회원가입</div>
 					<form method="post">
 						<div class="id_wrap" class="zip_code_wrap d-flex justify-content-evenly">
 							<div class="id_name" style="margin-top: 20px; font-weight: bold; font-size: 12px;">아이디</div>
-							
-							<input id="user_id" class="form-control col" placeholder="아이디"> 
-							<input type="button" class="btn btn-primary " id="postButton" value="중복확인" style="margin-top: 10px;" onclick="idCheck()">
+							<div class=" d-flex justify-content-between">
+							<div class="col-8">
+								<input id="user_id" class="form-control col" placeholder="아이디">
+							</div>
+							<div class="col-3">
+								<input type="button" class="btn btn-primary " id="idCheckButton" value="중복확인"  onclick="idCheck()">
+							</div>
+							</div>
+
 						</div>
 						<div class="pw_wrap">
 							<div class="pw_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">비밀번호</div>
 							<input type="password" name="user_pw" class="form-control col" id="user_pw" placeholder="비밀번호">
 						</div>
 						<div class="pwck_wrap">
-							<div class="pwck_name"  style="font-weight: bold; font-size: 12px; margin-top: 10px;">비밀번호 확인</div>
+							<div class="pwck_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">비밀번호 확인</div>
 							<input type="password" name="user_pwck" class="form-control col" id="user_pwck" placeholder="비밀번호 확인">
 						</div>
 						<div class="user_wrap">
-							<div class="user_name"  style="font-weight: bold; font-size: 12px; margin-top: 10px;">이름</div>
-							<input name="user_name" class="form-control col" value="${result.name}" id="user_name"  placeholder="이름">
+							<div class="user_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">이름</div>
+							<input name="user_name" class="form-control col" value="${result.name}" id="user_name" placeholder="이름">
 						</div>
 						<div class="birth_wrap">
 							<div class="birth_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">생년월일</div>
-							<div class="user_birth">
+							<div class="d-flex justify-content-evenly">
 								<select class="form-select birth_year w-30" name="birth_year">
 									<option value="년">년</option>
 									<c:forEach var="i" begin="1900" end="2023">
 										<option value="${i}">${i}</option>
 									</c:forEach>
-								</select> 
-								<select class=" form-select birth_month justify-content-center" name="birth_month" >
+								</select> <select class=" form-select birth_month justify-content-center" name="birth_month" style="margin-left: 10px;">
 									<option value="월">월</option>
 									<c:forEach var="i" begin="1" end="12">
 										<c:choose>
@@ -94,8 +85,7 @@
 											</c:otherwise>
 										</c:choose>
 									</c:forEach>
-								</select> 
-								<select class="form-select birth_day" name="birth_day">
+								</select> <select class="form-select birth_day" name="birth_day" style="margin-left: 10px;">
 									<option value="일">일</option>
 									<c:forEach var="i" begin="1" end="31">
 										<c:choose>
@@ -112,7 +102,7 @@
 						</div>
 
 						<div class="gender_wrap">
-							<div class="gender_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;"> 성별 </div>
+							<div class="gender_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">성별</div>
 							<div class="form-check form-check-inline">
 								<input type="radio" id="gender_male" name="contact" class="contact" value="M">남자
 							</div>
@@ -127,37 +117,26 @@
 						</div>
 
 						<div class="addr_wrap">
-							<div class="addr_name"
-								style="font-weight: bold; font-size: 12px; margin-top: 10px;">우편번호</div>
+							<div class="addr_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">우편번호</div>
 							<div class="zip_code_wrap d-flex justify-content-evenly">
-								<input id="user_zip_code" class="form-control col"
-									name="user_zip_code" readonly="readonly" placeholder="우편번호">
-								<button type="button" class="btn btn-primary " id="postButton"
-									onclick="kakao_addr();"
-									style="margin-left: 10px; margin-right: 20px;">주소찾기</button>
+								<input id="user_zip_code" class="form-control col" name="user_zip_code" readonly="readonly" placeholder="우편번호">
+								<button type="button" class="btn btn-primary " id="postButton" onclick="kakao_addr();" style="margin-left: 10px; margin-right: 20px;">주소찾기</button>
 							</div>
 
 							<div class="clearfix"></div>
 						</div>
 
-						<div class=""
-							style="font-weight: bold; font-size: 12px; margin-top: 10px;">
-							<input class="form-control col" id="user_addr1" name="user_addr1"
-								placeholder="주소" style="font-size: 13px;" readonly="readonly">
+						<div class="" style="font-weight: bold; font-size: 12px; margin-top: 10px;">
+							<input class="form-control col" id="user_addr1" name="user_addr1" placeholder="주소" style="font-size: 13px;" readonly="readonly">
 						</div>
 
-						<div class=""
-							style="font-weight: bold; font-size: 12px; margin-top: 10px;">
-							<input class="form-control col" type="text" id="user_addr2"
-								name="user_addr2" placeholder="상세주소" style="font-size: 13px;">
+						<div class="" style="font-weight: bold; font-size: 12px; margin-top: 10px;">
+							<input class="form-control col" type="text" id="user_addr2" name="user_addr2" placeholder="상세주소" style="font-size: 13px;">
 						</div>
 
 						<div class="d-flex justify-content-evenly">
-							<input type="button" class="btn btn-primary col" style="margin-top: 10px;" value="가입하기"
-								onclick="send(this.form);"> 
-							<input type="button"
-								class="btn btn-danger col" style="margin-top: 10px; margin-left: 10px;" value="취소"
-								onclick="location.href='cancel.do'">
+							<input type="button" class="btn btn-primary col" style="margin-top: 10px;" value="가입하기" onclick="send(this.form);"> <input
+								type="button" class="btn btn-danger col" style="margin-top: 10px; margin-left: 10px;" value="취소" onclick="location.href='cancel.do'">
 						</div>
 					</form>
 				</div>
@@ -167,17 +146,13 @@
 	</main>
 
 	<footer>
-		<div class="content row  d-flex justify-content-center "
-			style="margin-top: 20px;">
+		<div class="content row  d-flex justify-content-center " style="margin-top: 20px;">
 			<div class="col-5 container d-flex justify-content-center row">
-				<div id="atag2" class="d-flex justify-content-center"
-					style="font-size: 10px;">
-					<a href="#">이용약관 |</a> <a href="#">개인정보처리방침 |</a> <a href="#">책임의
-						한계와 법적고지 |</a> <a href="#">회원정보 고객센터</a>
+				<div id="atag2" class="d-flex justify-content-center" style="font-size: 10px;">
+					<a href="#">이용약관 |</a> <a href="#">개인정보처리방침 |</a> <a href="#">책임의 한계와 법적고지 |</a> <a href="#">회원정보 고객센터</a>
 				</div>
 				<div class="d-flex justify-content-center" style="font-size: 13px;">
-					<span style="font-weight: bold; color: #3b8af2">CULTURE</span>
-					&nbsp; Copyright © NAVER Corp. All Rights Reserved.
+					<span style="font-weight: bold; color: #3b8af2">CULTURE</span> &nbsp; Copyright © NAVER Corp. All Rights Reserved.
 				</div>
 			</div>
 		</div>
@@ -186,18 +161,12 @@
 </body>
 
 <script src="./resources/js/httpRequest.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.4.js"
-	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-	crossorigin="anonymous"></script>
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
 	//소셜 로그인 세션에 대한 정보 불러온 상태에서 가입
     //가져온 값에 대해서는 변경 불가
-    /* if('${result.name}'){
-      $("input[name='user_name']").prop("disabled", true);
-    } */
     if('${result.birthyear}'){
 			//생년
       $('.birth_year').val(${result.birthyear}).prop("selected",true);
@@ -299,7 +268,7 @@
 			//유효성 체크
 			if(!checkAll(f)){
 				return;
-			};
+			}
 			
 			//생년월일
 			if(birth_year == '년'){
@@ -331,15 +300,19 @@
 				$('#user_zip_code').focus();
 				return;
 			}
+
 			/* $("input[name='user_name']").prop("disabled", false); */
 			$("input[name='user_mail']").prop("disabled", false);
 			$(".birth_year").prop('disabled',false);
 			$(".birth_month").prop('disabled',false);
 			$(".birth_day").prop('disabled',false);
 			$(".contact").prop('disabled',false);
+
 		    var url = "joinin.do";
 		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2;
 		    sendRequest(url, param, resFn, "get");
+		
+						
 		}
 		
 		function resFn(){

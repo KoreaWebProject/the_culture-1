@@ -80,7 +80,7 @@
 					<span>${login.user_name}님<span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
 
 			</div>

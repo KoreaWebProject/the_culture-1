@@ -1,8 +1,8 @@
-package korea.it.culture.reple.vo;
+package korea.it.culture.main.vo;
 
 public class RepleVO {
 	private int reple_id, reple_remove_lev, reple_good;
-	private String user_id, play_id, reple_contents, reple_regdate, reple_update, play_prfnm;
+	private String user_id, play_id, reple_contents, reple_regdate, reple_update;
 	public double reple_rating;
 
 	public int getReple_id() {
@@ -74,13 +74,5 @@ public class RepleVO {
 
 	public void setReple_update(String reple_update) {
 		this.reple_update = reple_update;
-	}
-
-	public String getPlay_prfnm() {
-		return play_prfnm;
-	}
-
-	public void setPlay_prfnm(String play_prfnm) {
-		this.play_prfnm = play_prfnm;
 	}
 }

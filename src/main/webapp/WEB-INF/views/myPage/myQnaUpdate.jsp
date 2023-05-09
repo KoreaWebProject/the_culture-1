@@ -76,7 +76,7 @@
 
 				<c:if test="${not empty login.user_id}">
 					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -186,7 +186,7 @@
 											style="margin-left: 50px;">
 									</c:if>
 									<input type="button" value="목록으로" class="btn btn-outline-primary"
-										onClick="location.href='qna_main.do?page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"
+										onClick="window.location = document.referrer;"
 										style="margin-left: 50px;">
 								</div>
 							</td>

@@ -41,10 +41,10 @@ String root = request.getContextPath();
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span> 
+					<span>${login.user_name}님<span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
-					<a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
 			</div>
 		</div>
@@ -150,17 +150,18 @@ String root = request.getContextPath();
 			style="margin-bottom: 30px;">
 			<input type="radio" class="btn-check" name="btnradio" id="btnradio1"
 				autocomplete="off" checked> <label
-				class="btn  btn-outline-danger" for="btnradio1">소개</label> <input
+				class="btn  btn-outline-danger" for="btnradio1">소개</label> 
+				<input
 				type="radio" class="btn-check" name="btnradio" id="btnradio2"
 				autocomplete="off"
 				onclick="location.href='loc.do?loc_id=${info.loc_id}'"
-				style="cursor: pointer"> <label
-				class="btn  btn-outline-danger" for="btnradio2">공연장</label> <input
-				type="radio" class="btn-check" name="btnradio" id="btnradio3"
-				autocomplete="off"
-				onclick="location.href='/reple.do?play_id=${info.play_id}'"
-				style="cursor: pointer"> <label
-				class="btn  btn-outline-danger" for="btnradio3">후기</label>
+				style="cursor: pointer"> 
+				<label
+				class="btn  btn-outline-danger" for="btnradio2">공연장</label> 
+				<input type="radio" class="btn-check" name="btnradio" id="btnradio3"
+				autocomplete="off" onclick="location.href='reple.do?play_id=${info.play_id}'"
+				style="cursor: pointer"> 
+				<label class="btn  btn-outline-danger" for="btnradio3">후기</label>
 		</div>
 
 		<div class="container d-flex justify-content-center"
@@ -168,18 +169,14 @@ String root = request.getContextPath();
 			<div>
 				<img src="${info.play_styurls}" alt="" style="max-width: 100%; height: auto;">
 			</div>
+			
 		</div>
 	</main>
 
-  <div class="btn-group container" role="group"
-       aria-label="Basic radio toggle button group" style="margin-bottom: 30px;">
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked >
-    <label class="btn  btn-outline-danger" for="btnradio1">소개</label>
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" onclick="location.href='loc.do?loc_id=${info.loc_id}'" style="cursor: pointer">
-    <label class="btn  btn-outline-danger" for="btnradio2">공연장</label>
-    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" onclick="location.href='reple.do?play_id=${info.play_id}'" style="cursor: pointer">
-    <label class="btn  btn-outline-danger" for="btnradio3">후기</label>
-  </div>
+	<div id="preloader"></div>
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
 	<script
