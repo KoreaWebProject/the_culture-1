@@ -156,12 +156,12 @@
 								<c:when test="${i % 2 eq 0 }">
 									<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}"
 										value="${i}" class="rate_radio" title="${i}점">
-									<label for="rating${i}" style="background-image: url('/resources/img/starrate_r.png');"></label>
+									<label for="rating${i}" style="background-image: url('./resources/img/starrate_r.png');"></label>
 								</c:when>
 								<c:otherwise>
 									<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}"
 										value="${i}" class="rate_radio" title="${i}점">
-									<label for="rating${i}" style="background-image: url('/resources/img/starrate_l.png');"></label>
+									<label for="rating${i}" style="background-image: url('./resources/img/starrate_l.png');"></label>
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
@@ -200,14 +200,14 @@
 													id="rating${i}_${vo.reple_id}" value="${i}" class="rate_radio2" title="${i}점"
 													checked="checked" disabled="disabled">
 												<label for="rating${i}_${vo.reple_id}"
-													style="background-image: url('/resources/img/starrate_r.png');"></label>
+													style="background-image: url('./resources/img/starrate_r.png');"></label>
 											</c:when>
 											<c:otherwise>
 												<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating"
 													id="rating${i}_${vo.reple_id}" value="${i}" class="rate_radio2" title="${i}점"
 													disabled="disabled">
 												<label for="rating${i}_${vo.reple_id}"
-													style="background-image: url('/resources/img/starrate_r.png');"></label>
+													style="background-image: url('./resources/img/starrate_r.png');"></label>
 											</c:otherwise>
 										</c:choose>
 									</c:when>
@@ -218,14 +218,14 @@
 													id="rating${i}_${vo.reple_id}" value="${i}" class="rate_radio2" title="${i}점"
 													checked="checked" disabled="disabled">
 												<label for="rating${i}_${vo.reple_id}"
-													style="background-image: url('/resources/img/starrate_l.png');"></label>
+													style="background-image: url('./resources/img/starrate_l.png');"></label>
 											</c:when>
 											<c:otherwise>
 												<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating"
 													id="rating${i}_${vo.reple_id}" value="${i}" class="rate_radio2" title="${i}점"
 													disabled="disabled">
 												<label for="rating${i}_${vo.reple_id}"
-													style="background-image: url('/resources/img/starrate_l.png');"></label>
+													style="background-image: url('./resources/img/starrate_l.png');"></label>
 											</c:otherwise>
 										</c:choose>
 									</c:otherwise>

@@ -87,42 +87,8 @@
 					</div>
 				</div>
 			</div>
-			<br>
-			<div class="login" align="center">
-				<table>
-					<tr>
-						<th>ID</th>
-						<td><input name="user_id"></td>
-					</tr>
-
-					<tr>
-						<th>비밀번호</th>
-						<td><input type="password" name="user_pw"></td>
-					</tr>
-
-					<tr>
-						<td colspan="2" align="center">
-							<input type="button" class="btn" value="로그인" onclick="login(this.form)" >
-							<input type="button" class="btn" value="회원가입" onclick="location.href='join.do'">
-						</td>
-					</tr>
-					<!-- 카카오 로그인 버튼 -->
-					<tr>
-						<td colspan="2" align="center">
-				 			<a class="p-2" onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=a2fec8e26b856f784cee55f1fb98be1b&redirect_uri=http://localhost:9090/kakao-callback.do'">
-							<img src="resources/img/kakao_login.png" width="200" ></a>
-						</td>
-					</tr>
-					<!-- 네이버 로그인 창으로 이동 -->
-					<tr>
-						<td colspan="2" align="center">
-							<a href="${url}">
-								<!--SocialLoginService.java 파일에 REDIRECT_URI란의 주소로 이동된다.(callback uri)-->
-							<img width="200" src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png"/>
-							</a>
-						</td>
-					</tr>
-				</table>
+		
+		
 		</main>
 		
 		<footer>
