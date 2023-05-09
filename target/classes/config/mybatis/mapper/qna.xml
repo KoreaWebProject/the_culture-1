@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from
 		(select * from QNA where qna_remove_lev = 0    
 		)q
-		)where user_id = #{user_qid} and no between #{start} and #{end}
+		)where user_id = #{user_id} and no between #{start} and #{end}
 	</select>
 	
 	<!-- 접속한 아이디의 전체 문의글 수 조회 -->

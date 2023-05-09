@@ -63,8 +63,8 @@ public class MyPageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("user_qid", user_id);
-;
+		map.put("user_id", user_id);
+
 		List<QnaVO> list = qna_dao.selectMyList(map);
 		
 		System.out.println(list.size());
@@ -215,7 +215,7 @@ public class MyPageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("user_qid", user_id);
+		map.put("user_id", user_id);
 
 		List<QnaVO> list = qna_dao.selectMyList(map);
 
