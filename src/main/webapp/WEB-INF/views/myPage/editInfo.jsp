@@ -387,6 +387,7 @@
 			<div>
 				<input type="button" value="확인" onClick="send(this.form)">
 
+
 			</div>
 		</form>
 

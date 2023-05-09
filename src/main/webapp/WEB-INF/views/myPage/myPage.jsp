@@ -95,6 +95,7 @@
 	</div>
 	<!-- ======= end menubar ======= -->
 
+
 	<main class="container">
 		<hr>
 		<div class="d-flex justify-content-between">
@@ -475,6 +476,7 @@
 		</form>
 
 	</main>
+
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">

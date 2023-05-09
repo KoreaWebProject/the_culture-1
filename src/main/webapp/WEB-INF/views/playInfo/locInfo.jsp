@@ -118,7 +118,7 @@
 	<!-- ======= end menubar ======= -->
 
 <!--공연장 정보-->
-<div class="bxo_vcb" style>
+<div class="bxo_vcb">
   <div class="tib">
     <h4 class="nb_tit1">
       ${loc.loc_name}
