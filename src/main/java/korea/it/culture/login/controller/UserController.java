@@ -56,6 +56,7 @@ public class UserController {
 
 		//네이버로그인 인증 URL을 생성한 후 model에 담기
 		model.addAttribute("url", naverAuthUrl);
+		System.out.println("레퍼럴   "+request.getHeader("Referer"));
 
 		return "/WEB-INF/views/user/login.jsp";
 	}

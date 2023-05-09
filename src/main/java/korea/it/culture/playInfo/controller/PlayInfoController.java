@@ -67,7 +67,6 @@ public class PlayInfoController {
     //공연 정보에 접속할 때 세션에 로그인정보를 조회해 로그인되어있으면 즐겨찾기 조회를 한다
     session = request.getSession();
     UserVO userVO = (UserVO) session.getAttribute("login");
-    System.out.println(userVO);
     if (userVO!=null){
       System.out.println("브이오 왔습!!" + userVO.getUser_id());
       paramMap.put("user_id", userVO.getUser_id());

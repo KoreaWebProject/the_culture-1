@@ -191,7 +191,7 @@ String root = request.getContextPath();
 		</div>
 
 		<div class="container d-flex justify-content-center"
-			style="margin-bottom: 30px; display: block" id="divContainer">
+			style="margin-bottom: 70px; display: block" id="divContainer">
 			<div id="styurls" style="display: block">
 				<img src="${playInfo.play_styurls}" alt="" style="max-width: 100%; height: auto;">
 			</div>
@@ -202,57 +202,45 @@ String root = request.getContextPath();
 			</div>
 		</div>
 
-		<div style="display: none" id="locInfo">
-			<!--공연장 정보-->
-			<%--				<div class="bxo_vcb" style>--%>
-			<h4 class="nb_tit1">
-				${locInfo.loc_name}
-			</h4>
-			<ul class="ro_utb nvw">
+		<div style="margin-left: 50px; display: none" id="locInfo">
+				<!--공연장 정보-->
+				<%--				<div class="bxo_vcb" style>--%>
+			<div style="margin-bottom: 20px">
+				<h4 class="nb_tit1" >
+					${locInfo.loc_name}
+				</h4>
+			</div>
 
-				<li>
-					<dl>
-						<dt>좌석수</dt>
-						<dd>${locInfo.loc_seatscale} 석</dd>
-					</dl>
-				</li>
-				<li>
-					<dl>
-						<dt>주소</dt>
-						<dd>${locInfo.loc_addr}</dd>
-					</dl>
-				</li>
-				<li>
-					<dl>
-						<dt>홈페이지</dt>
-						<dd style="word-break:break-all;" wrap="hard">
-							<!-- Java 모바일 체크 -->
+			<table class="col-12" border="1">
+				<div>
+				<tr>
+					<th style="width: 100px;">좌석수</th>
+					<td style="width: 500px;">${locInfo.loc_seatscale} 석</td>
+				</tr>
+				</div>
+				<tr>
+					<th>주소</th>
+					<td>${locInfo.loc_addr}</td>
+				</tr>
+				<tr>
+					<th>홈페이지</th>
+					<td><a href="${locInfo.loc_url}" target="_blank" title="새 창 열림">${locInfo.loc_url}</a></td>
+				</tr>
+				<tr>
+					<th colspan="2">공연장위치</th>
 
-							<a href="${locInfo.loc_url}" target="_blank" title="새 창 열림">${locInfo.loc_url}</a>
-
-						</dd>
-					</dl>
-				</li>
-				<li>
-					<dl class="bkv">
-						<dt>공연장 위치</dt>
-					</dl>
-				</li>
-
-			</ul>
-			<%--				</div>--%>
-			<!--공연장 정보 -->
-		</div>
+				</tr>
+			</table>
 
 			<!--지도 표시 영역-->
 			<!--스크립트에서 id 참조 중 지도를 표시 할 div임-->
-			<div id="map" style="width:70%;height:350px; display: none">
+			<div id="map" style="width:100%;height:350px; display: none">
 				<!--표시즁~~◠ ͜ ◠-->
 				<!--표시즁~~◠ ͜ ◠-->
 				<!--표시즁~~◠ ͜ ◠-->
 				<!--표시즁~~◠ ͜ ◠-->
 			</div>
-
+		</div>
 
 
 
@@ -284,31 +272,6 @@ String root = request.getContextPath();
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
 
-	<div>
-		<ul>
-
-			<li>공연 시설ID:${info.loc_id}</li>
-			<li>공연ID:${playInfo.play_id}</li>
-			<li>출연진 정보:${playInfo.play_prfcast}</li>
-			<li>제작진 정보:${playInfo.play_prfcrew}</li>
-			<li>공연런타임:${playInfo.play_prfruntime}</li>
-			<li>관람연령:${playInfo.play_prfage}</li>
-			<li>제작사였구나:${playInfo.play_entrpsnm}</li>
-			<li>티켓가격${playInfo.play_ticketprice}</li>
-			<li>포스터 이미지 ${playInfo.play_poster}</li>
-			<li>상세정보 이미지${playInfo.play_styurls}</li>
-			<li>공연시작 일시${playInfo.play_dtguidance}</li>
-
-			<li>공연장ID: ${locInfo.loc_id} </li>
-			<li>이름:${locInfo.loc_name}</li>
-			<li>번호:${locInfo.loc_tel}</li>
-			<li>홈피:${locInfo.loc_url}</li>
-			<li>주소:${locInfo.loc_addr}</li>
-			<li>위:${locInfo.loc_la}</li>
-			<li>경도:${locInfo.loc_lo}</li>
-			<li>객석수:${locInfo.loc_seatscale}</li>
-		</ul>
-	</div>
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
