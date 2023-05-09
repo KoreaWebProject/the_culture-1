@@ -1,7 +1,7 @@
 package korea.it.culture.playInfo.dao;
 
+import korea.it.culture.playInfo.vo.FavoriteVO;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
-import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.vo.LocInfoVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +43,30 @@ public class PlayInfoService {
     System.out.println("service에 getLocInfo 메서드 진입");
     LocInfoVO vo = sqlSession.selectOne("pInfo.getLocInfo", paramMap);
     return vo;
+  }
+
+
+  /**
+   * 작품 즐겨찾기
+   * @param vo
+   * @return
+   * @throws Exception
+   */
+  public int favorite(FavoriteVO vo) throws Exception {
+    System.out.println("service에 favorite메서드 진입");
+
+    int res = sqlSession.insert("pInfo.favorite", vo);
+    System.out.println("res?" + res);
+    return res;
+  }
+
+
+  public FavoriteVO getFavorite(Map<String, Object> paramMap) throws Exception{
+    System.out.println("service에 getFavorite메서드 진입");
+    FavoriteVO vo = sqlSession.selectOne("pInfo.getFavorite", paramMap);
+    return vo;
+
+
   }
 
 }
