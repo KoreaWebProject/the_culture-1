@@ -322,6 +322,7 @@
 				if(data == 'yes'){
 					alert("회원가입 성공");
 				}
+				
 				location.href = "login_main.do";//전체목록 갱신
 			}
 		}
@@ -363,6 +364,14 @@
 	            form.userId.value = "";
 	            form.userId.focus();
 	            return false;
+	        }
+	        
+	        if(xhr.readyState == 4 && xhr.status == 200){
+				var data = xhr.responseText;
+				if( data == 'yes_id' ){
+					alert("아이디를 다시 확인하세요");
+	        		return false;
+				}
 	        }
 	        return true; //확인이 완료되었을 때
 	    }

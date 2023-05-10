@@ -124,25 +124,6 @@
 							</ul>
 						</div>
 					</div>
-					<!-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">정보수정</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/comment.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">후기내역</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/star.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">즐겨찾기</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/qna.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">문의내역</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">회원탈퇴</a>
-				</div> -->
 				</div>
 
 			</div>
@@ -152,17 +133,6 @@
 
 			<div class="container" data-aos="fade-up">
 
-
-				<!-- 	<div class="row" data-aos="fade-up" data-aos-delay="100">
-				<div class="col-lg-12 d-flex justify-content-center">
-					<ul id="portfolio-flters">
-						<li data-filter="*" class="filter-active">All</li>
-						<li data-filter=".filter-app">App</li>
-						<li data-filter=".filter-card">Card</li>
-						<li data-filter=".filter-web">Web</li>
-					</ul>
-				</div>
-			</div> -->
 
 				<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 					<div class="col-12 portfolio-item filter-app">
