@@ -98,7 +98,7 @@ public class PlayInfoController {
 	@RequestMapping(value = "/review.do")
 	public String review(RepleVO vo) throws Exception {
 
-		System.out.println(vo);
+		//System.out.println(vo);
 		infoService.insertReple(vo);
 
 		return "redirect:reple.do?play_id=" + vo.getPlay_id();

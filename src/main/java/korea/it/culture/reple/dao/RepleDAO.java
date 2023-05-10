@@ -14,9 +14,4 @@ public class RepleDAO {
 		this.sqlSession = sqlSession;
 		System.out.println(this.sqlSession);
 	}
-	
-	
-	
-	
-	
 }

@@ -152,7 +152,6 @@
 					<div class="row" data-aos="fade-up" data-aos-delay="100">
 						<div class=" col-12 d-flex justify-content-center ">
 							<ul id="portfolio-flters">
-
 								<li data-filter=".filter-app" id="1" class="filter-active"><img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a
 									class="col-8" href="#" style="margin-left: 10px;">정보수정</a></li>
 
@@ -356,8 +355,11 @@
 									</c:forEach>
 								</div>
 								<div>${vo.reple_contents}</div>
+								<div><hr></div>
 							</div>
 						</c:forEach>
+						
+						<%-- <div align="center" style="font-size: 20px; margin-top: 20px;">${ replePageMenu }</div> --%>
 					</div>
 
 					<!-- 즐겨찾기 -->

@@ -47,7 +47,7 @@ public class Paging {
 			sb.append("<a href ='"+pageURL+"&page=");
 			//sb.append(nowPage - blockPage);
 			sb.append( startPage-1 );
-			sb.append("&"+search_param);
+			//sb.append("&"+search_param);
 			sb.append("'>◀</a>");
 		}
 		else
@@ -65,7 +65,7 @@ public class Paging {
 			else{//현재 페이지가 아니면
 				sb.append("&nbsp;<a href='"+pageURL+"&page=");
 				sb.append(i);
-				sb.append("&"+search_param);
+				//sb.append("&"+search_param);
 				sb.append("' style='color:gray;'>");
 				sb.append(i);
 				sb.append("</a>");
@@ -79,7 +79,7 @@ public class Paging {
 			sb.append("<a href='"+pageURL+"&page=");
 			
 			sb.append(endPage + 1);
-			sb.append("&"+search_param);
+			//sb.append("&"+search_param);
 			sb.append("'>▶</a>");
 		}
 		else

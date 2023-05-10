@@ -69,5 +69,10 @@ public class PlayInfoService {
 		List<RepleVO> list = sqlSession.selectList("r.getMyReple", user_id);
 	    return list;
 	}
+
+	public int getRowID(String user_id) {
+		int res = sqlSession.selectOne("r.reple_u_count", user_id);
+		return res;
+	}
   
 }

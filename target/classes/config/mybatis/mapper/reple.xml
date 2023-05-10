@@ -23,6 +23,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMyReple" parameterType="String" resultType="reple">
 		select r.*, p.play_prfnm from reple r, play p where r.user_id = #{user_id} and r.play_id = p.play_id
 	</select>
+	
+	<!-- 내 리플 개수 세기 -->
+	<select id="reple_u_count" resultType="int" parameterType="String">
+		select count(*) from reple where user_id = #{user_id} and REPLE_REMOVE_LEV = 0
+	</select>
 </mapper>
 
 
