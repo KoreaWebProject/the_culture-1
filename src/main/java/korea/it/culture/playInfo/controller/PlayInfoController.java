@@ -112,6 +112,18 @@ public class PlayInfoController {
     infoService.favorite(vo);
     return "redirect:" + request.getHeader("Referer");
   }
+  @RequestMapping(value = "/deleteFavorite.do")
+  public String deleteFavorite(@RequestParam("user_id") String user_id, @RequestParam("play_id") String play_id) throws Exception {
+
+    System.out.println("저왔어유");
+    System.out.println("user_id" + user_id);
+    System.out.println("play_id" + play_id);
+    FavoriteVO vo = new FavoriteVO();
+    vo.setPlay_id(play_id);
+    vo.setUser_id(user_id);
+    infoService.deleteFavorite(vo);
+    return "redirect:" + request.getHeader("Referer");
+  }
 
 
 

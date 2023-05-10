@@ -155,14 +155,20 @@ String root = request.getContextPath();
 
   <div>
     <button type="button" class="btn btn-dark" onclick="location.href='<%=root%>/list.do'" style="cursor:pointer;">목록보기</button>
-    <button type="button" class="btn btn-light" onclick="favorites()" style="cursor:pointer;" id="favoriteButton">
+		<c:if test="${empty favoriteVO.user_id}">
+    <button type="button" class="btn btn-light" onclick="favorites()" style="cursor:pointer;" >
 			즐겨찾기	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
 			<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
 		</svg>
 		</button>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-				<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-			</svg>
+		</c:if>
+		<c:if test="${not empty favoriteVO.user_id}">
+    <button type="button" class="btn btn-dark" onclick="deleteFavorites()" style="cursor:pointer;" >
+			즐겨찾기	해제<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+			<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+		</svg>
+		</button>
+		</c:if>
 
   </div>
 	
@@ -308,19 +314,22 @@ String root = request.getContextPath();
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
 <script>
-	let user_id = '${favoriteVO.user_id}';
-	if(user_id){
-		alert("즐겨찾기 되어있는 작품입니다!");
-		$('#favoriteButton').attr('class', 'btn btn-dark')
-
-
-	}
 
 	function favorites(){
-		if (window.confirm("즐겨찾기에 추가하시겠습니까?")) {
+		if(!'${login.user_id}'){
+			alert("로그인이 필요한 서비스입니다.");
+			return;
+		}else if (window.confirm("즐겨찾기에 추가하시겠습니까?")) {
 			//유저 아이디와 공연 아이디를 보내 즐겨찾기에 추가하고 새로고침
 			location.href="favorite.do?user_id=${login.user_id}&play_id=${play.play_id}"
 			alert("즐겨찾기 목록에 추가했습니다.")
+		}
+	}
+	function deleteFavorites(){
+		if (window.confirm("즐겨찾기 목록에서 삭제하시겠습니까?")) {
+			//유저 아이디와 공연 아이디를 보내 즐겨찾기에 추가하고 새로고침
+			location.href="deleteFavorite.do?user_id=${favoriteVO.user_id}&play_id=${favoriteVO.play_id}"
+			alert("즐겨찾기 목록에서 삭제했습니다.")
 		}
 	}
 	<%--window.onload = location.href="loc.do?loc_id=${info.loc_id}";--%>

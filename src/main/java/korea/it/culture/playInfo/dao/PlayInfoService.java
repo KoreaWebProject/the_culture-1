@@ -68,5 +68,12 @@ public class PlayInfoService {
 
 
   }
+  public int deleteFavorite(FavoriteVO vo) throws Exception {
+    System.out.println("service에 deleteFavorite메서드 진입");
+
+    int res = sqlSession.delete("pInfo.deleteFavorite", vo);
+    System.out.println("res?" + res);
+    return res;
+  }
 
 }
