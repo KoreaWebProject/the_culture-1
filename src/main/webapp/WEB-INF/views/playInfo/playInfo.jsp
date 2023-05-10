@@ -34,7 +34,6 @@ String root = request.getContextPath();
 	position: relative;
 	display: inline-block;
 	margin-left: -4px;
-
 	z-index: 10;
 	width: 15px;
 	height: 35px;
@@ -223,39 +222,42 @@ String root = request.getContextPath();
 		</div>
 		<div style="display: none" id="test">
 			<div class="container row d-flex justify-content-center">
-				<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative; padding-bottom: 20px;">
+				<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative;">
 					<h4 class="d-flex justify-content-center" style="margin-top: 20px;">후기 작성하기</h4>
 
-					<div class="rating d-flex align-items-center justify-content-center " style="text-align: center">
-						<form>
-							<input type="hidden" name="reple_rating" id="rate" value="0" /> <input type="hidden" name="play_id" value="${play_id}"> <input
-								type="hidden" name="user_id" value="${login.user_id}">
-							<div class="review_rating">
-								<!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
-								<c:forEach var="i" begin="1" end="10">
-									<c:choose>
-										<c:when test="${i % 2 eq 0 }">
-											<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
-											<label for="rating${i}" style="background-image: url('./resources/img/starrate_r.png');" value="${i}"></label>
-										</c:when>
-										<c:otherwise>
-											<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
-											<label for="rating${i}" style="background-image: url('./resources/img/starrate_l.png');" value="${i}"></label>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-							</div>
-							<label class="rating-emoji" style="font-size: 25px; margin-top: 10px;">😢</label>
 
-							<div style="top: 15px; left: 10px; position: relative;">
-								<textarea rows="3" cols="92" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px;"></textarea>
-							</div>
-							<div class="d-flex justify-content-center" style="margin-top: 10px;">
-								<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="register(this.form);"> <input
-									type="button" style="margin-left: 20px;" class="btn btn-outline-secondary" onclick="win_close();" value="닫기">
-							</div>
-						</form>
-					</div>
+					<form>
+						<input type="hidden" name="reple_rating" id="rate" value="0" /> <input type="hidden" name="play_id" value="${play_id}"> <input
+							type="hidden" name="user_id" value="${login.user_id}">
+						<div class="rating" style="text-align: center; position: relative;">
+							<!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+
+							<c:forEach var="i" begin="1" end="10">
+								<c:choose>
+									<c:when test="${i % 2 eq 0 }">
+										<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
+										<label for="rating${i}" style="background-image: url('./resources/img/starrate_r.png');" value="${i}"></label>
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
+										<label for="rating${i}" style="background-image: url('./resources/img/starrate_l.png');" value="${i}"></label>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<span style="position: absolute;"> <label class="rating-emoji" style="font-size: 25px;">😢</label>
+							</span>
+						</div>
+
+						<div style="font-weight: bold; margin-left: 10px;">${login.user_id}</div>
+						<div style="top: 15px; left: 10px; position: relative;">
+							<textarea rows="3" cols="92" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px;"></textarea>
+						</div>
+						<div class="d-flex justify-content-center" style="margin-top: 10px;">
+							<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="register(this.form);"> <input
+								type="button" style="margin-left: 20px;" class="btn btn-outline-secondary" onclick="win_close();" value="닫기">
+						</div>
+					</form>
+
 				</div>
 
 			</div>
@@ -265,53 +267,81 @@ String root = request.getContextPath();
 			</div>
 
 			<c:forEach var="vo" items="${reple_list}">
+
 				<div class="container row d-flex justify-content-center">
-					<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative; padding-bottom: 50px; border-radius: 0px 0px 60px 0px">
+					<c:if test="${ vo.reple_remove_lev eq 0 }">
+						<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative; padding-bottom: 50px; border-radius: 0px 0px 60px 0px">
 
-						<c:forEach var="i" begin="1" end="10">
-							<c:choose>
-								<c:when test="${i % 2 eq 0 }">
-									<c:choose>
-										<c:when test="${vo.reple_rating ge i / 2.0}">
-											<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
-												class="rate_radio2" title="${i}점" checked="checked" disabled="disabled">
-											<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_r.png');"></label>
-										</c:when>
-										<c:otherwise>
-											<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
-												class="rate_radio2" title="${i}점" disabled="disabled">
-											<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_r.png');"></label>
-										</c:otherwise>
-									</c:choose>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-										<c:when test="${vo.reple_rating ge i / 2.0}">
-											<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
-												class="rate_radio2" title="${i}점" checked="checked" disabled="disabled">
-											<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_l.png');"></label>
-										</c:when>
-										<c:otherwise>
-											<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
-												class="rate_radio2" title="${i}점" disabled="disabled">
-											<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_l.png');"></label>
-										</c:otherwise>
-									</c:choose>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<div style="top: 50px; left: 15px; position: absolute; font-size: 13px;">
-							<span>${vo.user_id} </span><span style="color: #c1c1c1;">| ${vo.reple_regdate}</span>
-						</div>
+							<c:forEach var="i" begin="1" end="10">
+								<c:choose>
+									<c:when test="${i % 2 eq 0 }">
+										<c:choose>
+											<c:when test="${vo.reple_rating ge i / 2.0}">
+												<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
+													class="rate_radio2" title="${i}점" checked="checked" disabled="disabled">
+												<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_r.png');"></label>
+											</c:when>
+											<c:otherwise>
+												<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
+													class="rate_radio2" title="${i}점" disabled="disabled">
+												<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_r.png');"></label>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${vo.reple_rating ge i / 2.0}">
+												<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
+													class="rate_radio2" title="${i}점" checked="checked" disabled="disabled">
+												<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_l.png');"></label>
+											</c:when>
+											<c:otherwise>
+												<input type="checkbox" style="visibility: hidden; position: absolute;" name="rating" id="rating${i}_${vo.reple_id}" value="${i}"
+													class="rate_radio2" title="${i}점" disabled="disabled">
+												<label for="rating${i}_${vo.reple_id}" style="background-image: url('./resources/img/starrate_l.png');"></label>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+							<div style="top: 50px; left: 15px; position: absolute; font-size: 13px;">
+								<span>${vo.user_id} </span><span style="color: #c1c1c1;">| ${vo.reple_regdate}</span>
+							</div>
 
-						<div style="top: 25px; right: 40px; position: absolute; border-radius: 10px; background: #86e186; padding: 3px 15px;">
-							<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> ${vo.reple_good } <span style="padding-top: 20px;"></span>
-						</div>
+							<div style="top: 25px; right: 40px; position: absolute;">
+								<c:choose>
+									<c:when test="${vo.good_check eq 1}">
+										<button id="${vo.reple_id}" value="1" onclick="good('${vo.reple_id}')"
+											style="border: #c1c1c1 1px solid; background: #c1c1c1; width: 60px; border-radius: 10px; padding: 3px 5px;">
+											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> ${vo.reple_good } 
+										</button>
+									</c:when>
+									<c:when test="${vo.good_check eq 0}">
+										<button id="${vo.reple_id}" value="0" onclick="good('${vo.reple_id}')"
+											style="border: #c1c1c1 1px solid; background: none; width: 60px; border-radius: 10px; padding: 3px 5px;">
+											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> ${vo.reple_good } 
+										</button>
+									</c:when>
+								</c:choose>
+							</div>
 
-						<div style="top: 43px; left: 10px; position: relative;">
-							<pre id="ba" style="word-wrap: break-word; overflow: auto; white-space: pre-wrap; padding-right: 15px; word-break: keep-all;">${vo.reple_contents}</pre>
+							<div style="top: 43px; left: 10px; position: relative;">
+								<pre id="ba" style="word-wrap: break-word; overflow: auto; white-space: pre-wrap; padding-right: 15px; word-break: keep-all;">${vo.reple_contents}</pre>
+							</div>
+							<c:if test="${login.user_id eq vo.user_id}">
+								<div style="bottom: 5px; right: 60px; position: absolute;">
+									<input class="btn btn-outline-secondary" style="height: 27px; width: 50px; font-size: 8px;" type="button" value="삭제"
+										onclick="location.href='repledel.do?reple_id=${vo.reple_id}'">
+								</div>
+							</c:if>
 						</div>
-					</div>
+					</c:if>
+					<c:if test="${ vo.reple_remove_lev eq 1 }">
+						<div class="col-8 " style="border: solid black 3px; margin-top: 20px; border-radius: 0px 0px 60px 0px;">
+
+							<div class="d-flex justify-content-center align-items-center" style="font-size: 20px; font-weight: bold; height: 80px;">삭제된 후기 입니다.</div>
+						</div>
+					</c:if>
 				</div>
 			</c:forEach>
 
@@ -558,12 +588,49 @@ String root = request.getContextPath();
 
 </script>
 <script>
+
 		document.addEventListener('DOMContentLoaded', function() {
 			//별점선택 이벤트 리스너
 			document.querySelector('.rating').addEventListener('click',
 					function(e) {
 						let elem = e.target;
+
 						console.log(elem.value);
+						const ratingEmoji = document.querySelector('.rating-emoji');
+						switch (elem.value) {
+					       case '1':
+					         ratingEmoji.innerHTML = '😞'; // 1점
+					         break;
+					       case '2':
+						         ratingEmoji.innerHTML = '😞'; // 1점
+						         break;
+					       case '3':
+						         ratingEmoji.innerHTML = '😕'; // 2점
+						         break;
+					       case '4':
+					         ratingEmoji.innerHTML = '😕'; // 2점
+					         break;
+					       case '5':
+						         ratingEmoji.innerHTML = '😐'; // 3점
+						         break;
+					       case '6':
+					         ratingEmoji.innerHTML = '😐'; // 3점
+					         break;
+					       case '7':
+						         ratingEmoji.innerHTML = '😊'; // 4점
+						         break;
+					       case '8':
+					         ratingEmoji.innerHTML = '😊'; // 4점
+					         break;
+					       case '9':
+						         ratingEmoji.innerHTML = '😍'; // 5점
+						         break;
+					       case '10':
+					         ratingEmoji.innerHTML = '😍'; // 5점
+					         break;
+					       default:
+					         break;
+					     }
 						let reple_rating = document.getElementById('rate');
 						if(!isNaN(elem.value) && elem.value != "undefined"){							
 						reple_rating.value = elem.value / 2;
@@ -573,6 +640,14 @@ String root = request.getContextPath();
 						}
 					})
 		});
+		
+	/* 	function rate(i) {
+			let reple_rating = document.getElementById('rate');
+			let value = document.getElementById('rating'+i);
+			console.log(reple_rating);
+			console.log(value);
+			reple_rating.value = value / 2;
+		} */
 
 		//별점 마킹 모듈 프로토타입으로 생성
 		function Rating() {
@@ -604,10 +679,7 @@ String root = request.getContextPath();
 			var param = "play_id="+play_id+"&user_id="+user_id+"&reple_contents="+encodeURIComponent(reple_contents)+"&reple_rating="+reple_rating;
 			
 			
-			console.log(play_id);
-			console.log(user_id);
-			console.log(reple_contents);
-			console.log(reple_rating);
+
 			sendRequest(url, param, resFn, "POST")
 	
 		}
@@ -618,8 +690,10 @@ String root = request.getContextPath();
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var data = xhr.responseText;
 				if(data == 'success'){
-		
+					$('#divContainer').css("display", "none");
+					$('#styurls').css("display", "none");
 					location.href="info.do?play_id=${play_id}";
+					$('#divContainer').css("display", "none");
 					return;
 				}else{
 					alert('오류');
@@ -636,5 +710,48 @@ String root = request.getContextPath();
       // window.open("팝업될 문서 경로","팝업될 문서 이름","옵션(위치, bar표시, 크기 등)");
     	window.open(page, name, 'height=460, width=475, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
     };
+  </script>
+<script type="text/javascript">
+ /*  	function good( go ){
+  	const good = document.getElementById(go);
+  	if(good.value == 0){
+  		good.style.background="#c1c1c1";
+  		good.value = 1;
+  		
+  	}
+  	else if(good.value == 1){
+  		good.style.background="none";
+  		good.value = 0;
+  	}
+  	} */
+  	
+  	
+  	 function good( go ){
+  		const good = document.getElementById(go);
+  		
+			var url = "replegood.do";
+			var param = "play_id=" + "${play_id}" + "&reple_id=" + go + "&good_check=" + good.value+"&user_id="+"${login.user_id}";
+			sendRequest(url, param, resF, "Post");
+		} 
+  	
+  	function resF() {
+  	
+  		if(xhr.readyState == 4 && xhr.status == 200){
+  			var data = JSON.parse(xhr.responseText);
+  			var reple_id = data.reple_id;
+  			const good = document.getElementById(reple_id);
+			if(data.result == 'plus'){
+				good.style.background="#c1c1c1";
+				console.log(good.innerHTML);
+		  		good.value = 1;
+			} else if (data.result == 'minus'){
+				good.style.background="none";
+		  		good.value = 0;
+			}
+			
+  		}
+  	}
+  	
+  	
   </script>
 </html>
