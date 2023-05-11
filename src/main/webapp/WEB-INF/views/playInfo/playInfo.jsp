@@ -124,9 +124,10 @@ String root = request.getContextPath();
 	<main class=" container ">
 
 		<h2>${play.play_prfnm}</h2>
+
 		<div>${play.play_genrenm}</div>
 		<hr style="margin-bottom: 50px;">
-		<div class=" container row d-flex justify-content-evenly " style="margin-bottom: 50px;">
+		<div class=" container row d-flex justify-content-evenly " style="margin-bottom: 20px;">
 			<img class="col-3  img-thumbnail rounded float-start" src="${playInfo.play_poster}">
 			<table class="col-6" border="1">
 				<tr>
@@ -151,7 +152,12 @@ String root = request.getContextPath();
 				</tr>
 				<tr>
 					<th>출연진</th>
+					<c:if test="${fn:trim(playInfo.play_prfcast) eq ''}">
+						<td>해당정보 없음</td>
+					</c:if>
+					<c:if test="${fn:trim(playInfo.play_prfcast) ne ''}">
 					<td>${playInfo.play_prfcast}</td>
+					</c:if>
 				</tr>
 				<tr>
 					<th>제작진</th>
@@ -180,19 +186,44 @@ String root = request.getContextPath();
 
 		</div>
 
-		<div>
-			<button type="button" class="btn btn-dark" onclick="location.href='<%=root%>/list.do'" style="cursor: pointer;">목록보기</button>
-			<button type="button" class="btn btn-dark" onclick="favorites()" style="cursor: pointer;">
-				즐겨찾기
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+
+		<div style="margin-bottom: 40px; margin-left: 15%">
+			<c:if test="${empty favoriteVO.user_id}">
+				<button type="button" class="btn btn-light" onclick="favorites()" style="cursor: pointer;" title="즐겨찾기 추가">
+					즐겨찾기
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
 			<path
-						d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+							d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
 		</svg>
-			</button>
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+				</button>
+			</c:if>
+			<c:if test="${not empty favoriteVO.user_id}">
+				<button type="button" class="btn btn-dark" onclick="deleteFavorites()" style="cursor: pointer;" title="즐겨찾기 해제">
+					즐겨찾기
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
 				<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
 			</svg>
-
+				</button>
+			</c:if>
+			
+			<c:if test="${empty param.num }">
+			<button type="button" class="btn btn-light"
+				onclick="location.href='geinfo.do?page=${param.page}&genrenm=${genrenm}&search=${param.search}&search_text=${param.search_text}'"
+				style="cursor: pointer; float: right; margin-right: 12%">목록보기</button>
+			</c:if>
+			
+			<c:if test="${param.num eq 1}">
+			<button type="button" class="btn btn-light"
+				onclick="location.href='culture.do'"
+				style="cursor: pointer; float: right; margin-right: 12%">메인가기</button>
+			</c:if>
+			
+			
+			<c:if test="${param.num eq 2}">
+			<button type="button" class="btn btn-light"
+				onclick="location.href='mypage.do?user_id=${login.user_id}'"
+				style="cursor: pointer; float: right; margin-right: 12%">마이페이지</button>
+			</c:if>
 		</div>
 
 		<div class="btn-group container" role="group" aria-label="Basic radio toggle button group" style="margin-bottom: 30px;">
@@ -215,53 +246,66 @@ String root = request.getContextPath();
 			<%--			<label class="btn  btn-outline-danger" for="btnradio3">공연장</label>--%>
 		</div>
 
-		<div class="container d-flex justify-content-center" style="margin-bottom: 30px; display: block" id="divContainer">
+
+		<div class="container d-flex justify-content-center" style="margin-bottom: 70px; display: block" id="divContainer">
+
 			<div id="styurls" style="display: block">
 				<img src="${playInfo.play_styurls}" alt="" style="max-width: 100%; height: auto;">
 			</div>
 		</div>
 		<div style="display: none" id="test">
 			<c:if test="${!empty login.user_id and login.user_role_id ne 2}">
-			<div class="container row d-flex justify-content-center">
-				<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative;">
-					<h4 class="d-flex justify-content-center" style="margin-top: 20px;">후기 작성하기</h4>
+				<div class="container row d-flex justify-content-center">
+					<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative;">
+						<h4 class="d-flex justify-content-center" style="margin-top: 20px;">후기 작성하기</h4>
 
 
-					<form>
-						<input type="hidden" name="reple_rating" id="rate" value="0" /> <input type="hidden" name="play_id" value="${play_id}"> <input
-							type="hidden" name="user_id" value="${login.user_id}">
-						<div class="rating" style="text-align: center; position: relative;">
-							<!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+						<form>
+							<input type="hidden" name="reple_rating" id="rate" value="0" /> <input type="hidden" name="play_id" value="${play_id}"> <input
+								type="hidden" name="user_id" value="${login.user_id}">
+							<div class="rating" style="text-align: center; position: relative;">
+								<!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
 
-							<c:forEach var="i" begin="1" end="10">
-								<c:choose>
-									<c:when test="${i % 2 eq 0 }">
-										<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
-										<label for="rating${i}" style="background-image: url('./resources/img/starrate_r.png');" value="${i}"></label>
-									</c:when>
-									<c:otherwise>
-										<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
-										<label for="rating${i}" style="background-image: url('./resources/img/starrate_l.png');" value="${i}"></label>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<span style="position: absolute;"> <label class="rating-emoji" style="font-size: 25px;">😢</label>
-							</span>
-						</div>
+								<c:forEach var="i" begin="1" end="10">
+									<c:choose>
+										<c:when test="${i % 2 eq 0 }">
+											<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
+											<label for="rating${i}" style="background-image: url('./resources/img/starrate_r.png');" value="${i}"></label>
+										</c:when>
+										<c:otherwise>
+											<input type="checkbox" style="visibility: hidden; position: absolute;" id="rating${i}" value="${i}" class="rate_radio" title="${i}점">
+											<label for="rating${i}" style="background-image: url('./resources/img/starrate_l.png');" value="${i}"></label>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								<span style="position: absolute;"> <label class="rating-emoji" style="font-size: 25px;">😢</label>
+								</span>
+							</div>
 
-						<div style="font-weight: bold; margin-left: 10px;">${login.user_id}</div>
-						<div style="top: 15px; left: 10px; position: relative;">
-							<textarea rows="3" cols="92" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px;"></textarea>
-						</div>
-						
-						<div class="d-flex justify-content-center" style="margin-top: 10px;">
-							<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="register(this.form);">
-						</div>
-					</form>
+							<div style="font-weight: bold; margin-left: 10px;">${login.user_id}</div>
+							<div style="top: 15px; left: 10px; position: relative;">
+								<textarea rows="3" cols="92" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px;"></textarea>
+							</div>
+							<c:if test="${param.num eq 1 }">
+								<div class="d-flex justify-content-center" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="gomain(this.form);">
+								</div>
+							</c:if>
+							<c:if test="${param.num eq 2 }">
+								<div class="d-flex justify-content-center" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="gomypage(this.form);">
+								</div>
+							</c:if>
+							<c:if test="${empty param.num }">
+								<div class="d-flex justify-content-center" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="register(this.form);">
+								</div>
+							</c:if>
+						</form>
+
+					</div>
 
 				</div>
-
-			</div>
 			</c:if>
 
 			<div>
@@ -315,13 +359,13 @@ String root = request.getContextPath();
 									<c:when test="${vo.good_check eq 1}">
 										<button id="${vo.reple_id}" value="1" onclick="good('${vo.reple_id}')"
 											style="border: #c1c1c1 1px solid; background: #c1c1c1; width: 60px; border-radius: 10px; padding: 3px 5px;">
-											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png">  <span name="${vo.reple_id}">${vo.reple_good }</span> 
+											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> <span name="${vo.reple_id}">${vo.reple_good }</span>
 										</button>
 									</c:when>
 									<c:when test="${vo.good_check eq 0}">
 										<button id="${vo.reple_id}" value="0" onclick="good('${vo.reple_id}')"
 											style="border: #c1c1c1 1px solid; background: none; width: 60px; border-radius: 10px; padding: 3px 5px;">
-											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> <span name="${vo.reple_id}">${vo.reple_good }</span> 
+											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> <span name="${vo.reple_id}">${vo.reple_good }</span>
 										</button>
 									</c:when>
 								</c:choose>
@@ -352,59 +396,50 @@ String root = request.getContextPath();
 
 
 
-		<div style="display: none" id="locInfo">
+
+
+		<div style="margin-left: 50px; display: none" id="locInfo">
 			<!--공연장 정보-->
 			<%--				<div class="bxo_vcb" style>--%>
-			<h4 class="nb_tit1">${locInfo.loc_name}</h4>
-			<ul class="ro_utb nvw">
+			<div style="margin-bottom: 20px">
+				<h4 class="nb_tit1">${locInfo.loc_name}</h4>
+			</div>
 
-				<li>
-					<dl>
-						<dt>좌석수</dt>
-						<dd>${locInfo.loc_seatscale}석</dd>
-					</dl>
-				</li>
-				<li>
-					<dl>
-						<dt>주소</dt>
-						<dd>${locInfo.loc_addr}</dd>
-					</dl>
-				</li>
-				<li>
-					<dl>
-						<dt>홈페이지</dt>
-						<dd style="word-break: break-all;" wrap="hard">
-							<!-- Java 모바일 체크 -->
+			<table class="col-12" border="1">
+				<div>
+					<tr>
+						<th style="width: 100px;">좌석수</th>
+						<td style="width: 500px;">${locInfo.loc_seatscale}석</td>
+					</tr>
+				</div>
+				<tr>
+					<th>주소</th>
+					<td>${locInfo.loc_addr}</td>
+				</tr>
+				<tr>
+					<th>홈페이지</th>
+					<td><a href="${locInfo.loc_url}" target="_blank" title="새 창 열림">${locInfo.loc_url}</a></td>
+				</tr>
+				<tr>
+					<th>전화번호</th>
+					<td>${locInfo.loc_tel}</td>
+				</tr>
+				<tr>
+					<th colspan="2">공연장위치</th>
 
-							<a href="${locInfo.loc_url}" target="_blank" title="새 창 열림">${locInfo.loc_url}</a>
+				</tr>
+			</table>
 
-						</dd>
-					</dl>
-				</li>
-				<li>
-					<dl class="bkv">
-						<dt>공연장 위치</dt>
-					</dl>
-				</li>
 
-			</ul>
-			<%--				</div>--%>
-			<!--공연장 정보 -->
+			<!--지도 표시 영역-->
+			<!--스크립트에서 id 참조 중 지도를 표시 할 div임-->
+			<div id="map" style="width: 100%; height: 350px; display: none">
+				<!--표시즁~~◠ ͜ ◠-->
+				<!--표시즁~~◠ ͜ ◠-->
+				<!--표시즁~~◠ ͜ ◠-->
+				<!--표시즁~~◠ ͜ ◠-->
+			</div>
 		</div>
-
-		<!--지도 표시 영역-->
-		<!--스크립트에서 id 참조 중 지도를 표시 할 div임-->
-		<div id="map" style="width: 70%; height: 350px; display: none">
-			<!--표시즁~~◠ ͜ ◠-->
-			<!--표시즁~~◠ ͜ ◠-->
-			<!--표시즁~~◠ ͜ ◠-->
-			<!--표시즁~~◠ ͜ ◠-->
-		</div>
-
-
-
-
-
 
 	</main>
 
@@ -427,31 +462,7 @@ String root = request.getContextPath();
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
 
-	<div>
-		<ul>
 
-			<li>공연 시설ID:${info.loc_id}</li>
-			<li>공연ID:${playInfo.play_id}</li>
-			<li>출연진 정보:${playInfo.play_prfcast}</li>
-			<li>제작진 정보:${playInfo.play_prfcrew}</li>
-			<li>공연런타임:${playInfo.play_prfruntime}</li>
-			<li>관람연령:${playInfo.play_prfage}</li>
-			<li>제작사였구나:${playInfo.play_entrpsnm}</li>
-			<li>티켓가격${playInfo.play_ticketprice}</li>
-			<li>포스터 이미지 ${playInfo.play_poster}</li>
-			<li>상세정보 이미지${playInfo.play_styurls}</li>
-			<li>공연시작 일시${playInfo.play_dtguidance}</li>
-
-			<li>공연장ID: ${locInfo.loc_id}</li>
-			<li>이름:${locInfo.loc_name}</li>
-			<li>번호:${locInfo.loc_tel}</li>
-			<li>홈피:${locInfo.loc_url}</li>
-			<li>주소:${locInfo.loc_addr}</li>
-			<li>위:${locInfo.loc_la}</li>
-			<li>경도:${locInfo.loc_lo}</li>
-			<li>객석수:${locInfo.loc_seatscale}</li>
-		</ul>
-	</div>
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
@@ -487,25 +498,25 @@ String root = request.getContextPath();
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 
 <script>
-/* 	 console.log(${login.user_id});
-	const user_id = ${login.user_id}
-	const play_id = ${play.play_id}
+
+
 	function favorites(){
-		if (window.confirm("즐겨찾기에 추가하시겠습니까?")) {
-			location.href="favorite.do";
+		if(!'${login.user_id}'){
+			alert("로그인이 필요한 서비스입니다.");
+			return;
+		}else if (window.confirm("즐겨찾기에 추가하시겠습니까?")) {
+			//유저 아이디와 공연 아이디를 보내 즐겨찾기에 추가하고 새로고침
+			location.href="favorite.do?user_id=${login.user_id}&play_id=${play.play_id}"
 			alert("즐겨찾기 목록에 추가했습니다.")
 		}
-	} 
- */
-
-
-
-
-
-
-
-
-
+	}
+	function deleteFavorites(){
+		if (window.confirm("즐겨찾기 목록에서 삭제하시겠습니까?")) {
+			//유저 아이디와 공연 아이디를 보내 즐겨찾기에 추가하고 새로고침
+			location.href="deleteFavorite.do?user_id=${favoriteVO.user_id}&play_id=${favoriteVO.play_id}"
+			alert("즐겨찾기 목록에서 삭제했습니다.")
+		}
+	}
 
 	<%--window.onload = location.href="loc.do?loc_id=${info.loc_id}";--%>
 
@@ -668,7 +679,7 @@ String root = request.getContextPath();
 			});
 		}
 
-		let rating = new Rating();//별점 인스턴스 생성
+		
 		
 		function register(f) {
 			
@@ -703,7 +714,7 @@ String root = request.getContextPath();
 				if(data == 'success'){
 					$('#divContainer').css("display", "none");
 					$('#styurls').css("display", "none");
-					location.href="info.do?play_id=${play_id}";
+					location.href="info.do?play_id=${play_id}&page=${param.page}&genrenm=${param.genrenm}&search=${param.search}&search_text=${param.search_text}";
 					$('#divContainer').css("display", "none");
 					return;
 				}else{
@@ -713,6 +724,96 @@ String root = request.getContextPath();
 			
 		}
 		
+		
+		
+		
+function gomain(f) {
+			
+			let play_id = f.play_id.value;
+			let user_id = f.user_id.value;
+			let reple_contents = f.reple_contents.value;
+			let reple_rating = f.reple_rating.value;
+			
+			if(reple_contents == ""){
+				alert("내용을 입력해 주세요");
+				return;
+			} 
+			if(user_id == null){
+				alert("로그인 후 이용해 주세요");
+				return;
+			}
+			
+			var url = "review.do";
+			var param = "play_id="+play_id+"&user_id="+user_id+"&reple_contents="+encodeURIComponent(reple_contents)+"&reple_rating="+reple_rating;
+			
+			
+
+			sendRequest(url, param, resMain, "POST")
+	
+		}
+		
+		
+		
+		function resMain(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var data = xhr.responseText;
+				if(data == 'success'){
+					$('#divContainer').css("display", "none");
+					$('#styurls').css("display", "none");
+					location.href="info.do?play_id=${play_id}&num=${param.num}";
+					$('#divContainer').css("display", "none");
+					return;
+				}else{
+					alert('오류');
+				}
+			}
+			
+		}
+		
+function gomypage(f) {
+			
+			let play_id = f.play_id.value;
+			let user_id = f.user_id.value;
+			let reple_contents = f.reple_contents.value;
+			let reple_rating = f.reple_rating.value;
+			
+			if(reple_contents == ""){
+				alert("내용을 입력해 주세요");
+				return;
+			} 
+			if(user_id == null){
+				alert("로그인 후 이용해 주세요");
+				return;
+			}
+			
+			var url = "review.do";
+			var param = "play_id="+play_id+"&user_id="+user_id+"&reple_contents="+encodeURIComponent(reple_contents)+"&reple_rating="+reple_rating;
+			
+			
+
+			sendRequest(url, param, resMy, "POST")
+	
+		}
+		
+		
+		
+		function resMy(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				var data = xhr.responseText;
+				if(data == 'success'){
+					$('#divContainer').css("display", "none");
+					$('#styurls').css("display", "none");
+					location.href="info.do?play_id=${play_id}&num=${param.num}";
+					$('#divContainer').css("display", "none");
+					return;
+				}else{
+					alert('오류');
+				}
+			}
+			
+		}
+		
+		let rating = new Rating();//별점 인스턴스 생성
 	</script>
 <script type="text/javascript">
     function win_open(page, name) {

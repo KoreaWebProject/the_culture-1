@@ -5,6 +5,9 @@ import korea.it.culture.main.dao.PlayDAO;
 import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.playInfo.util.MyCommon;
+
+import korea.it.culture.playInfo.vo.FavoriteVO;
+
 import korea.it.culture.playInfo.vo.LocInfoVO;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
 import korea.it.culture.main.vo.RepleVO;
@@ -31,6 +34,7 @@ import java.util.Map;
 @Controller
 public class PlayInfoController {
 
+
 	@Autowired // 자동주입 : spring으로부터 자동생성 가능한 객체를 new없이 알아서 생성해준다
 	HttpServletRequest request;
 	private PlayInfoService infoService;
@@ -54,7 +58,10 @@ public class PlayInfoController {
 	public String viewInfo(Model model, @RequestParam("play_id") String play_id) throws Exception {
 
 		HttpSession session = request.getSession();
-
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
+		String genrenm = request.getParameter("genrenm");
+		String page = request.getParameter("page");
 		// 조건 값을 저장할 parameter용 map
 		Map<String, Object> paramMap = new HashMap<>();
 
@@ -74,6 +81,17 @@ public class PlayInfoController {
 		if (!locInfoVO.getLoc_url().contains("://")) {
 			locInfoVO.setLoc_url("http://" + locInfoVO.getLoc_url());
 		}
+		
+	    //공연 정보에 접속할 때 세션에 로그인정보를 조회해 로그인되어있으면 즐겨찾기 조회를 한다
+	    session = request.getSession();
+	    UserVO userVO = (UserVO) session.getAttribute("login");
+	    if (userVO!=null){
+	      System.out.println("브이오 왔습!!" + userVO.getUser_id());
+	      paramMap.put("user_id", userVO.getUser_id());
+	      FavoriteVO favoriteVO = infoService.getFavorite(paramMap);
+	      model.addAttribute("favoriteVO", favoriteVO);
+	    }
+
 
 		List<RepleVO> reple_list = infoService.getReple(play_id);
 
@@ -93,6 +111,10 @@ public class PlayInfoController {
 			}
 		}
 
+		model.addAttribute("genrenm",genrenm);
+		model.addAttribute("search",search);
+		model.addAttribute("search_text",search_text);
+		model.addAttribute("page",page);
 		model.addAttribute("reple_list", reple_list);
 		model.addAttribute("good_list", good_list);
 		model.addAttribute("play_id", play_id);
@@ -123,6 +145,30 @@ public class PlayInfoController {
 		return MyCommon.playInfo.VIEW_PATH + "locInfo.jsp";
 	}
 
+  @RequestMapping(value = "/favorite.do")
+  public String favorite(@RequestParam("user_id") String user_id, @RequestParam("play_id") String play_id) throws Exception {
+
+    System.out.println("저왔어유");
+    FavoriteVO vo = new FavoriteVO();
+    vo.setPlay_id(play_id);
+    vo.setUser_id(user_id);
+    infoService.favorite(vo);
+    return "redirect:" + request.getHeader("Referer");
+  }
+  @RequestMapping(value = "/deleteFavorite.do")
+  public String deleteFavorite(@RequestParam("user_id") String user_id, @RequestParam("play_id") String play_id) throws Exception {
+
+    System.out.println("저왔어유");
+    System.out.println("user_id" + user_id);
+    System.out.println("play_id" + play_id);
+    FavoriteVO vo = new FavoriteVO();
+    vo.setPlay_id(play_id);
+    vo.setUser_id(user_id);
+    infoService.deleteFavorite(vo);
+    return "redirect:" + request.getHeader("Referer");
+  }
+
+
 	/**
 	 * 후기
 	 * 
@@ -142,15 +188,7 @@ public class PlayInfoController {
 		return MyCommon.playInfo.VIEW_PATH + "reple.jsp";
 	}
 
-	@RequestMapping(value = "/favorite.do")
-	public String favorite(PlayVO playVO, UserVO userVO) {
 
-		System.out.println("저왔어유");
-		System.out.println(playVO.getPlay_id());
-		System.out.println(userVO.getUser_id());
-
-		return "redirect:" + request.getHeader("Referer");
-	}
 
 	@RequestMapping(value = "/review.do")
 	@ResponseBody

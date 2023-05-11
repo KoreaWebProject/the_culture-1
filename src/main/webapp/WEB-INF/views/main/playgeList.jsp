@@ -43,11 +43,6 @@
   ======================================================== -->
 
 <script>
-	function info(index) {
-
-		document.getElementById('info' + index).submit();
-	}
-
 	function search() {
 		//조회 카테고리 검색
 		let search = document.getElementById("search").value;
@@ -138,15 +133,15 @@
 			
 			<div class="wrapper row justify-content-center">
 				<c:forEach var="vo" items="${ select }" varStatus="status">
-					<a href="#" onclick="info('${vo.play_id }');" class="card col-3">
-						<form action="info.do" id="info${vo.play_id}">
-							<input type="hidden" name="play_id" value="${vo.play_id }"> <input type="hidden" name="play_from" value="${vo.play_from }"> <input
-								type="hidden" name="play_to" value="${vo.play_to }"> <input type="hidden" name="play_poster" value="${vo.play_poster }"> <input
-								type="hidden" name="play_prfnm" value="${vo.play_prfnm }"> <input type="hidden" name="play_genrenm" value="${vo.play_genrenm }">
-							<input type="hidden" name="play_prfstate" value="${vo.play_prfstate }"> <input type="hidden" name="play_locnm"
-								value="${vo.play_locnm }">
+					<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&page=${param.page}&genrenm=${genrenm}&search=${param.search}&search_text=${param.search_text}'"class="card col-3">
+					
 							<div>
-								<img src="${vo.play_poster}" />
+								<img style="z-index: 0; " src="${vo.play_poster}" />
+								<c:forEach var="favorite" items="${ favorite }">
+								<c:if test="${vo.play_id eq favorite.play_id}">
+								<div style=" font-size:35px;  ; color:#e9d023; z-index: 1; position:absolute; bottom: 210px; left: 0">★</div>
+								</c:if>
+								</c:forEach>
 								<div class="info">
 									<span>${vo.play_prfnm}<span>
 											<p></p>
@@ -155,7 +150,7 @@
 											<p>종료날짜 : ${vo.play_to}</p>
 								</div>
 							</div>
-						</form>
+
 					</a>
 				</c:forEach>
 				<div class="row container d-flex justify-content-center">

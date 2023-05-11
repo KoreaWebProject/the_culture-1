@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import korea.it.culture.login.dao.UserDAO;
 import korea.it.culture.login.vo.UserVO;
+import korea.it.culture.main.dao.PlayDAO;
+import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.myPage.util.MyCommon;
 import korea.it.culture.qna.dao.QnaDAO;
 import korea.it.culture.qna.dao.QnaReDAO;
@@ -37,13 +39,15 @@ public class MyPageController {
 	QnaDAO qna_dao;
 	QnaReDAO qna_re_dao;
 	PlayInfoService infoService;
+	PlayDAO play_dao;
 
 	@Autowired
-	public MyPageController(UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao, PlayInfoService infoService) {
+	public MyPageController(PlayDAO play_dao , UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao, PlayInfoService infoService) {
 		this.user_dao = user_dao;
 		this.qna_dao = qna_dao;
 		this.qna_re_dao = qna_re_dao;
 		this.infoService = infoService;
+		this.play_dao = play_dao;
 	}
 
 	// 마이페이지 첫 화면으로 이동(회원정보 수정 창)
@@ -109,6 +113,9 @@ public class MyPageController {
 		}
 		
 		
+		List<PlayVO> prf_list = play_dao.getmyPrf(user_id);
+		
+		model.addAttribute("prf_list", prf_list);
 		model.addAttribute("reple_list", reple_list);
 		model.addAttribute("good_list", good_list);
 		model.addAttribute("category", cateogy);

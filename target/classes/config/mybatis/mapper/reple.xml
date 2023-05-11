@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getReple" parameterType="String" resultType="reple">
 		select *
 		from reple where play_id = #{play_id}
+		order by reple_good desc
 	</select>
 	
 	
@@ -15,6 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from reple r inner join play p 
 		on r.play_id = p.play_id
 		where user_id = #{user_id} and reple_remove_lev = 0
+		order by r.reple_good desc
 	</select>
 
 	<!-- 작성자 검색 -->

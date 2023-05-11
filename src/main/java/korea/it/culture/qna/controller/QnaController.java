@@ -107,7 +107,14 @@ public class QnaController {
 
 	// 새 글 추가 화면전환 용
 	@RequestMapping("/qna_reg.do")
-	public String insert_form() {
+	public String insert_form(Model model) {
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
+		
+		model.addAttribute("page");
+		model.addAttribute("search");
+		model.addAttribute("search_text");
 		return MyCommon.Qna.VIEW_PATH + "qna_reg.jsp";
 	}
 

@@ -1,7 +1,11 @@
 package korea.it.culture.playInfo.dao;
 
+
 import java.util.List;
 import java.util.Map;
+
+
+import korea.it.culture.playInfo.vo.FavoriteVO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +114,46 @@ public class PlayInfoService {
   public List<User_goodVO> getmyGood(String user_id) {
 		List<User_goodVO> list = sqlSession.selectList("r.getmyGood", user_id);
 	    return list;
+	  }
+
+
+  /**
+   * 작품 즐겨찾기
+   * @param vo
+   * @return
+   * @throws Exception
+   */
+  public int favorite(FavoriteVO vo) throws Exception {
+    System.out.println("service에 favorite메서드 진입");
+
+    int res = sqlSession.insert("pInfo.favorite", vo);
+    System.out.println("res?" + res);
+    return res;
+  }
+
+
+  public FavoriteVO getFavorite(Map<String, Object> paramMap) throws Exception{
+    System.out.println("service에 getFavorite메서드 진입");
+    FavoriteVO vo = sqlSession.selectOne("pInfo.getFavorite", paramMap);
+    return vo;
+
+
+  }
+  public int deleteFavorite(FavoriteVO vo) throws Exception {
+    System.out.println("service에 deleteFavorite메서드 진입");
+
+    int res = sqlSession.delete("pInfo.deleteFavorite", vo);
+    System.out.println("res?" + res);
+    return res;
+  }
+  
+  
+  public  List<FavoriteVO> getFavoriteList(String user_id){
+	    System.out.println("service에 getFavorite메서드 진입");
+	    List<FavoriteVO> list = sqlSession.selectList("pInfo.getFavoriteList", user_id);
+	    return list;
+
+
 	  }
 
 }

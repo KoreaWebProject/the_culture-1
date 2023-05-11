@@ -903,10 +903,7 @@ a {
   width: 230px;
 }
 
-#portfolio-flters li a:hover,
-#portfolio-flters li.filter-active a {
-  color: #106eea;
-}
+
 
 #modifyab {
 	height: 720px !important;

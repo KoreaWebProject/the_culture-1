@@ -427,15 +427,64 @@
 					</div>
 				</div>
 
-				<div class="col-lg-4 col-md-6 portfolio-item filter-web">
+				<div class="col-12 portfolio-item filter-web">
 				<hr>
 					<p id="up">즐겨찾기</p>
-					<img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
 					<div class="portfolio-info">
-						<h4>Web 2</h4>
-						<p>Web</p>
-						<a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox preview-link" title="Web 2"><i
-							class="bx bx-plus"></i></a> <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+					<div class="row justify-content-center">
+			<div class="container d-flex justify-content-between">
+				<p id="up" style="position: relative;">${genrenm}</p>
+			</div>
+			
+			<div class="wrapper row justify-content-center">
+				<c:forEach var="vo" items="${ prf_list }" varStatus="status">
+					<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&num=2'" class="card col-3">
+					
+							<div>
+								<img style="z-index: 0; " src="${vo.play_poster}" />
+								
+								
+								<div style=" font-size:35px;  ; color:#e9d023; z-index: 1; position:absolute; bottom: 210px; left: 0">★</div>
+							
+							
+								<div class="info">
+									<span>${vo.play_prfnm}<span>
+											<p></p>
+											<p>장소 : ${vo.play_locnm}</p>
+											<p>시작날짜 : ${vo.play_from}</p>
+											<p>종료날짜 : ${vo.play_to}</p>
+								</div>
+							</div>
+
+					</a>
+				</c:forEach>
+				<hr>
+				
+			</div>
+		</div>
+				<%-- 	<div class=" container row d-flex justify-content-center">
+						<c:forEach var="vo" items="${ prf_list }" varStatus="status">
+					<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&page=${param.page}&genrenm=${genrenm}&search=${param.search}&search_text=${param.search_text}'"class="card col-3">
+					
+							<div>
+								<img style="z-index: 0; " src="${vo.play_poster}" />
+								<c:forEach var="favorite" items="${ favorite }">
+								<c:if test="${vo.play_id eq favorite.play_id}">
+								<div style=" font-size:35px;  ; color:#e9d023; z-index: 1; position:absolute; bottom: 210px; left: 0">★</div>
+								</c:if>
+								</c:forEach>
+								<div class="info">
+									<span>${vo.play_prfnm}<span>
+											<p></p>
+											<p>장소 : ${vo.play_locnm}</p>
+											<p>시작날짜 : ${vo.play_from}</p>
+											<p>종료날짜 : ${vo.play_to}</p>
+								</div>
+							</div>
+						<!-- </form> -->
+					</a>
+				</c:forEach>
+				</div> --%>
 					</div>
 				</div>
 
@@ -560,32 +609,7 @@
 		</div>
 
 		<!-- End Portfolio Section -->
-		<!-- ======= myPage list ======= -->
-		<div>
-			<ul>
-				<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
-				<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
-				<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
-				<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
-				<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
-			</ul>
-		</div>
-		<!-- ======= end myPage list ======= -->
-
-		마이페이지 기본 첫화면
-
-		<h2>회원정보 수정</h2>
-		<form>
-			<div>
-				ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }">
-			</div>
-			<div>
-				PW : <input name="user_pw">
-			</div>
-			<div>
-				<input type="button" value="확인" onClick="send(this.form)">
-			</div>
-		</form>
+		
 
 	</main>
 
