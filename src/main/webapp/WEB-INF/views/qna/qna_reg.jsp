@@ -177,7 +177,8 @@
 							<td colspan="2">
 								<div class="d-flex justify-content-center">
 									<button class="btn btn-outline-primary" onClick="send(this.form);">작성완료</button>
-									<button class="btn btn-outline-primary" onClick="location.href='qna_main.do'" style="margin-left: 50px;">목록으로</button>
+									<input type="button" class="btn btn-outline-primary" onClick="location.href='qna_main.do?page=${param.page}&search=${param.search}&search_text=${param.search_text}'"  style="margin-left: 50px;" value="목록으로">
+							
 								</div>
 							</td>
 						</tr>

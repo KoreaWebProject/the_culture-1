@@ -45,6 +45,7 @@
 
 		// ...
 	});
+
 </script>
 </head>
 <body>
@@ -208,6 +209,7 @@
 									onClick="location.href='qna_reple_del.do?qna_id=${vo.qna_id}&qna_re_ref=${ list.qna_re_ref }&page=${param.page}&search=${ param.search }&search_text=${ param.search_text }'"></td>
 							</c:if>
 						</div>
+
 					</c:if>
 					<c:if test="${ list.qna_re_remove_lev eq 1}">
 						<div class="col-11  d-flex justify-content-right row">
@@ -221,6 +223,7 @@
 				</c:forEach>
 			</div>
 		</div>
+
 	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">

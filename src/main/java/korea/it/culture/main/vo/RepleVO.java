@@ -1,9 +1,23 @@
 package korea.it.culture.main.vo;
 
 public class RepleVO {
-	private int reple_id, reple_remove_lev, reple_good;
-	private String user_id, play_id, reple_contents, reple_regdate, reple_update;
+	private int reple_id, reple_remove_lev, reple_good, good_check;
+	private String user_id, play_id, reple_contents, reple_regdate;
 	public double reple_rating;
+	
+	
+
+	public int getGood_check() {
+		try {
+			return good_check;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	public void setGood_check(int good_check) {
+		this.good_check = good_check;
+	}
 
 	public int getReple_id() {
 		return reple_id;
@@ -52,6 +66,7 @@ public class RepleVO {
 	public void setPlay_id(String play_id) {
 		this.play_id = play_id;
 	}
+
 	public String getReple_contents() {
 		return reple_contents;
 	}
@@ -68,11 +83,6 @@ public class RepleVO {
 		this.reple_regdate = reple_regdate;
 	}
 
-	public String getReple_update() {
-		return reple_update;
-	}
 
-	public void setReple_update(String reple_update) {
-		this.reple_update = reple_update;
-	}
+
 }

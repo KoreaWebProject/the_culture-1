@@ -56,7 +56,7 @@
 				<c:if test="${empty login.user_id}">
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
@@ -118,7 +118,7 @@
 	<!-- ======= end menubar ======= -->
 
 <!--공연장 정보-->
-<div class="bxo_vcb" style>
+<div class="bxo_vcb">
   <div class="tib">
     <h4 class="nb_tit1">
       ${loc.loc_name}

@@ -11,14 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import korea.it.culture.login.vo.UserVO;
 import korea.it.culture.main.dao.PlayDAO;
+import korea.it.culture.main.dao.RepleDAO;
 import korea.it.culture.main.dao.TodayDAO;
-import korea.it.culture.reple.dao.RepleDAO;
 import korea.it.culture.main.util.Common;
 import korea.it.culture.main.util.Paging;
 import korea.it.culture.main.util.Pagingupdate;
 import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.main.vo.TodayVO;
+import korea.it.culture.playInfo.dao.PlayInfoService;
+import korea.it.culture.playInfo.vo.FavoriteVO;
 
 
 @Controller
@@ -27,16 +30,18 @@ public class playcontroller {
 	PlayDAO playdao;
 	RepleDAO repledao;
 	TodayDAO todaydao;
+	private PlayInfoService infoService;
 
 	@Autowired // 자동주입 : spring으로부터 자동생성 가능한 객체를 new없이 알아서 생성해 준다
 	HttpServletRequest request;
 
 	@Autowired
 	public playcontroller(PlayDAO playdao, TodayDAO todaydao,
-			RepleDAO repledao) {
+			RepleDAO repledao, PlayInfoService infoService) {
 		this.playdao = playdao;
 		this.todaydao = todaydao;
 		this.repledao = repledao;
+		this.infoService = infoService;
 
 	}
 
@@ -54,6 +59,7 @@ public class playcontroller {
 
 	@RequestMapping("/geinfo.do")
 	public String info(Model model) {
+		HttpSession session = request.getSession();
 		String genrenm = request.getParameter("genrenm");
 
 		int nowPage = 1;
@@ -104,6 +110,17 @@ public class playcontroller {
 				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
 
 		List<PlayVO> list = playdao.selectgenre(map);
+		
+		
+	    session = request.getSession();
+	    UserVO userVO = (UserVO) session.getAttribute("login");
+	    if (userVO!=null){
+	      List<FavoriteVO> favorite = infoService.getFavoriteList(userVO.getUser_id());
+
+	      model.addAttribute("favorite", favorite);
+	    }
+
+		
 
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("select", list);

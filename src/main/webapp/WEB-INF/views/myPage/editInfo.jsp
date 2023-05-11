@@ -38,10 +38,6 @@
   ======================================================== -->
 </head>
 <body>
-	
-	<!-- check_login.jsp가 body에서 호출하도록 붙여줌 -->
-	<jsp:include page="check_login.jsp"/>
-	
 	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
@@ -53,11 +49,10 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span> 
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
-					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
+
 			</div>
 		</div>
 	</section>
@@ -124,6 +119,25 @@
 							</ul>
 						</div>
 					</div>
+					<!-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">정보수정</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/comment.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">후기내역</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/star.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">즐겨찾기</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/qna.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">문의내역</a>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+					<img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">회원탈퇴</a>
+				</div> -->
 				</div>
 
 			</div>
@@ -132,6 +146,18 @@
 
 		<section id="portfolio" class="portfolio">
 			<div class="container" data-aos="fade-up">
+
+
+				<!-- 	<div class="row" data-aos="fade-up" data-aos-delay="100">
+				<div class="col-lg-12 d-flex justify-content-center">
+					<ul id="portfolio-flters">
+						<li data-filter="*" class="filter-active">All</li>
+						<li data-filter=".filter-app">App</li>
+						<li data-filter=".filter-card">Card</li>
+						<li data-filter=".filter-web">Web</li>
+					</ul>
+				</div>
+			</div> -->
 
 				<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 
@@ -206,12 +232,10 @@
 											<div class="gender_wrap">
 												<div class="gender_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">성별</div>
 												<div class="form-check form-check-inline">
-													<input type="radio" id="gender_male" name="contact" class="contact" value="M"
-													<c:if test="${login.user_gender eq 'M'}">checked="checked"</c:if>>남자
+													<input type="radio" id="gender_male" name="contact" class="contact" value="M">남자
 												</div>
 												<div class="form-check form-check-inline">
-													<input type="radio" id="gender_female" name="contact" class="contact" value="F"
-													<c:if test="${login.user_gender eq 'F'}">checked="checked"</c:if>>여자
+													<input type="radio" id="gender_female" name="contact" class="contact" value="F">여자
 												</div>
 											</div>
 
@@ -349,6 +373,24 @@
 			</ul>
 		</div>
 		<!-- ======= end myPage list ======= -->
+
+		마이페이지 기본 첫화면
+
+		<h2>회원정보 수정</h2>
+		<form>
+			<div>
+				ID : ${ login.user_id }<input type="hidden" name="user_id" value="${ login.user_id }">
+			</div>
+			<div>
+				PW : <input name="user_pw">
+			</div>
+			<div>
+				<input type="button" value="확인" onClick="send(this.form)">
+
+
+			</div>
+		</form>
+
 	</main>
 
 	<!-- ======= Footer ======= -->

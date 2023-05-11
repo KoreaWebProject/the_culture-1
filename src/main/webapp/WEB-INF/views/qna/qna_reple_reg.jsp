@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -77,9 +78,10 @@
 				<c:if test="${not empty login.user_id}">
 					<span>${login.user_name}님<span>
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a>
-					<a href="#" onclick="location.href='qna_main.do'">고객센터</a>
+					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
 					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
+
 			</div>
 		</div>
 	</section>
@@ -91,6 +93,7 @@
 			<nav class="navbar">
 				<form class="d-flex">
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
 					<button class="btn btn-outline-primary" type="submit">Search</button>
 				</form>
 			</nav>
@@ -113,8 +116,11 @@
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=무용'">무용</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=서커스/마술'">서커스/마술</a></li>
 				<li><a class="nav-link scrollto" href="#" onclick="location.href='geinfo.do?genrenm=복합'">복합</a></li>
+
 			</ul>
+
 		</nav>
+
 	</div>
 	<!-- ======= end menubar ======= -->
 	<main class="container">
@@ -132,12 +138,16 @@
 							<td >
 								<div class="col-11 " style="white-space: pre-line;">${ qna.qna_contents }</div>
 							</td>
+
 						</tr>
+
 
 						<tr>
 							<th class="col-2">내용</th>
 							<td class="row"><textarea class="col-11" rows="10" cols="50" name="qna_re_contents" id="qna_re_contents"></textarea></td>
+
 						</tr>
+
 						<tr>
 							<td colspan="2">
 								<div class="d-flex justify-content-center">
@@ -161,6 +171,7 @@
 						<h3>
 							THE CULTURE<span>.</span>
 						</h3>
+
 
 						<div class="container py-4">
 							<div class="copyright">
@@ -194,9 +205,6 @@
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
-<<<<<<< HEAD
-=======
 
->>>>>>> 06b4ea6257532c0fbf7edbfa7a2f22f08527c395
 </body>
 </html>

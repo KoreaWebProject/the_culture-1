@@ -17,7 +17,11 @@
 		<typeAlias type="korea.it.culture.playInfo.vo.PlayInfoVO" alias="playInfo"/>
 		<typeAlias type="korea.it.culture.playInfo.vo.LocInfoVO" alias="locInfo"/>
 		<typeAlias type="korea.it.culture.main.vo.TodayVO" alias="today"/>
-		<typeAlias type="korea.it.culture.reple.vo.RepleVO" alias="reple"/>
+		<typeAlias type="korea.it.culture.main.vo.RepleVO" alias="reple"/>
+		<typeAlias type="korea.it.culture.playInfo.vo.User_goodVO" alias="good"/>
+		<typeAlias type="korea.it.culture.myPage.vo.MyrepleVO" alias="myreple"/>
+		<typeAlias type="korea.it.culture.playInfo.vo.FavoriteVO" alias="favorite"/>
+
 	</typeAliases>
 
 	<mappers>

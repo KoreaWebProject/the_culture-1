@@ -38,6 +38,13 @@
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
+<!-- =======================================================
+  * Template Name: BizLand
+  * Updated: Mar 10 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 <body>
 	<!-- ======= Top Bar ======= -->
@@ -51,10 +58,10 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님<span> 
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
-					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#"
+							onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#"
+							onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -107,60 +114,28 @@
 		</nav>
 	</div>
 	<!-- ======= end menubar ======= -->
-		
+
 	<!-- ======= myPage list ======= -->
 	<div>
 		<ul>
 			<li><a href="#" onclick="location.href='mypage.do'">회원정보 수정</a></li>
 			<li><a href="#" onclick="location.href='myReview.do?user_id=${login.user_id}'">나의 후기</a></li>
 			<li><a href="#" onclick="location.href='favorite.do?user_id=${login.user_id}'">즐겨찾기</a></li>
-			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'">나의 문의 내역</a></li>
+			<li><a href="#" onclick="location.href='myQna.do?user_id=${login.user_id}'">나의 문의 내역</a></li>
 			<li><a href="#" onclick="location.href='delInfo.do'">회원탈퇴</a></li>
 		</ul>
 	</div>
 	<!-- ======= end myPage list ======= -->
+
+	회원 탈퇴에 관한 안내문구를 출력
+	<form action="userDel.do">
+		<div><input type="checkbox" name="agree" value="agree">동의합니다</div>
+		<div><input type="hidden" name="user_id" value="${ login.user_id }"></div>
+		<div><input type="hidden" name="ori_user_pw" value="${ login.user_pw }"></div>
+		<div>비밀번호 확인 : <input type="password" name="user_pw"></div>
+		<div><input type="button" value="탈퇴하기" onClick="del(this.form);"></div>
+	</form>
 	
-
-	<main class="container">
-		<hr>
-
-		<table class="container">
-			<thead>
-				<tr>
-					<th style="text-align: center">NO</th>
-					<th style="text-align: center">공연제목</th>
-					<th style="text-align: center">작성자</th>
-					<th style="text-align: center">한줄평</th>
-					<th style="text-align: center">별점</th>
-					<th style="text-align: center">좋아요</th>
-
-				</tr>
-			</thead>
-			<tbody style="text-align: center">
-				<c:forEach var="vo" items="${ list }">
-					<c:if test="${ vo.qna_remove_lev ne 1 }">
-						<tr>
-							<td>${vo.reple_id}</td>
-							<td>${vo.play_id}</td><!-- Play table의 공연이름으로 변경 -->
-							<td>${vo.user_id}</td>
-							<td>${vo.reple_contents}</td>
-							<td>${vo.reple_rating}</td>
-							<td>${vo.reple_good}</td>
-						</tr>
-					</c:if>
-					<c:if test="${ vo.reple_remove_lev eq 1 }">
-						<tr>
-							<td>${vo.reple_id}</td>
-							<td colspan="5">삭제된 후기입니다.</td>
-						</tr>
-					</c:if>
-
-				</c:forEach>
-			</tbody>
-		</table>
-
-		<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
-	</main>
 	<!-- ======= Footer ======= -->
 	<footer id="footer">
 		<div class="footer-top">
@@ -212,5 +187,47 @@
 	<script src="./resources/assets/vendor/php-email-form/validate.js"></script>
 	<!-- Template Main JS File -->
 	<script src="./resources/assets/js/main.js"></script>
+
+	<!-- 회원 삭제 function -->
+	<script src="https://code.jquery.com/jquery-3.6.4.js"
+	integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+	crossorigin="anonymous"></script>
+	<script src="./resources/js/httpRequest.js"></script>
+	<script>
+		function del(f) {
+			let user_id = f.user_id.value;
+			let user_pw = f.user_pw.value;
+			let ori_user_pw = f.ori_user_pw.value;
+			let agree;
+			$("input:checkbox[name=agree]:checked").each(function() {
+				agree = $(this).val();
+			});
+			
+			if (agree == null) {
+				alert("탈퇴 동의 체크 필수");
+				return;
+			}
+			if(user_pw != ori_user_pw){
+				alert("패스워드 불일치");
+				return;
+			}
+			
+			var url = "userDel.do";
+			var param = "user_id=" + user_id;
+			sendRequest(url, param, resFn, "post");
+		}
+		
+		function resFn() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				//data = "no" 또는 data = "yes"
+				var data = xhr.responseText;
+	
+				if (data == 'success') {
+					alert("회원 탈퇴 성공");
+				}
+				location.href="culture.do";//메인으로 이동
+			}
+		}
+	</script>
 </body>
 </html>

@@ -14,6 +14,8 @@
 
 <title>THE CULTURE</title>
 
+
+
 <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
@@ -71,7 +73,7 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span> 
+					<span>${login.user_name}님<span> 
 					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
 					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
@@ -129,15 +131,19 @@
 		<figure class="icon-cards mt-3 container">
 			<div class="icon-cards__content">
 				<c:forEach var="vo" items="${ rank }" begin="0" end="4" varStatus="status">
+
+				
 					<div class="icon-cards__item d-flex align-items-center container">
 						
 						<a href="#" onclick="info('${vo.play_id }');">
-							<form action="info.do" id="info${vo.play_id }">
+						<form action="info.do" id="info${vo.play_id }">
 								<input type="hidden" name="play_id" value="${vo.play_id }">
+								<input type="hidden" name="num" value=1>
 								<img src="${vo.play_poster}" width="250px"  style="position: relative;"/>
 								<div class="" style="position: absolute; top: -80px; left:100px; font-size: 30px; font-family: 'Cooper';">NO.${status.count}</div>
-							</form>
-						</a>
+							</form></a>
+
+
 					</div>
 				</c:forEach>
 			</div>
@@ -190,8 +196,11 @@
 		</section>
 		<!-- End Featured Services Section -->
 		
+		
 	</main>
 	<!-- End #main -->
+
+
 
 	<!-- ======= Footer ======= -->
 	<footer id="footer">

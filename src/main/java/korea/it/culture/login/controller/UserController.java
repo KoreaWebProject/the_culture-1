@@ -69,7 +69,7 @@ public class UserController {
 
 		//네이버로그인 인증 URL을 생성한 후 model에 담기
 		model.addAttribute("url", naverAuthUrl);
-		System.out.println(request.getHeader("Referer"));
+		System.out.println("레퍼럴   "+request.getHeader("Referer"));
 
 		return "/WEB-INF/views/user/login.jsp";
 	}
@@ -177,7 +177,7 @@ public class UserController {
 	public String cancel(HttpSession session) {
 		session = request.getSession();
 		session.invalidate();
-		return "redirect:login_main.do";
+		return "redirect:culture.do";
 	}
 
 	//네이버 로그인 성공시 callback호출 메소드

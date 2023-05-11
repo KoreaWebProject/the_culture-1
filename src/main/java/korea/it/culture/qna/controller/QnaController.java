@@ -107,7 +107,14 @@ public class QnaController {
 
 	// 새 글 추가 화면전환 용
 	@RequestMapping("/qna_reg.do")
-	public String insert_form() {
+	public String insert_form(Model model) {
+		String page = request.getParameter("page");
+		String search = request.getParameter("search");
+		String search_text = request.getParameter("search_text");
+		
+		model.addAttribute("page");
+		model.addAttribute("search");
+		model.addAttribute("search_text");
 		return MyCommon.Qna.VIEW_PATH + "qna_reg.jsp";
 	}
 
@@ -122,6 +129,7 @@ public class QnaController {
 	// 문의글 자세히 보기
 	@RequestMapping("/qna_view.do")
 	public String qna_view(Model model) {
+
 		System.out.println(request.getParameter("qna_id"));
 		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
 		String page = request.getParameter("page");
@@ -134,9 +142,9 @@ public class QnaController {
 
 		model.addAttribute("vo", vo);// 바인딩
 		model.addAttribute("list", list);// 바인딩
-		model.addAttribute("page", page);
-		model.addAttribute("search", search);
-		model.addAttribute("search_text", search_text);
+		model.addAttribute("page");
+		model.addAttribute("search");
+		model.addAttribute("search_text");
 		// 세션에서 현재 사용자 id를 가져와서 바인딩 해줌
 
 		return MyCommon.Qna.VIEW_PATH + "qna_detail.jsp";
@@ -179,9 +187,11 @@ public class QnaController {
 		reVo.setQna_id(qna_id);
 		QnaVO vo = qna_dao.selectOne(qna_id);
 		
-		model.addAttribute("page", page);
-		model.addAttribute("search", search);
-		model.addAttribute("search_text", search_text);
+		
+		
+		model.addAttribute("page");
+		model.addAttribute("search");
+		model.addAttribute("search_text");
 		model.addAttribute("reVo", reVo);
 		model.addAttribute("qna",vo);
 		return MyCommon.Qna.VIEW_PATH + "qna_reple_reg.jsp";

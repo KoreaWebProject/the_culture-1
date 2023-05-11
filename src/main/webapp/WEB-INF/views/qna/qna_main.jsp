@@ -139,7 +139,7 @@
 			<c:if test="${not empty login.user_id and login.user_role_id == 0}">
 				<input type="hidden" name="user_id" value="${login.user_id}">
 				<button class="btn btn-outline-secondary"
-					onClick="location.href='qna_reg.do'"
+					onClick="location.href='qna_reg.do?page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
 					style="position: absolute; top: 3px; right: 0px;">문의하기</button>
 			</c:if>
 		</div>
@@ -164,8 +164,10 @@
 							<c:if test="${ login.user_role_id eq 2}">
 								<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
 							</c:if>
+
 							<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0 and vo.qna_status ne 0}">
 							<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>
+
 							</c:if>
 							<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
 								<th><a href="qna_view.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}">${vo.qna_title}</a></th>

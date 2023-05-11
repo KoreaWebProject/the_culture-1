@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import korea.it.culture.login.dao.UserDAO;
 import korea.it.culture.login.vo.UserVO;
+import korea.it.culture.main.dao.PlayDAO;
+import korea.it.culture.main.vo.PlayVO;
 import korea.it.culture.myPage.util.MyCommon;
-import korea.it.culture.myPage.util.Paging;
-import korea.it.culture.playInfo.dao.PlayInfoService;
 import korea.it.culture.qna.dao.QnaDAO;
 import korea.it.culture.qna.dao.QnaReDAO;
 import korea.it.culture.qna.util.Common;
+import korea.it.culture.myPage.util.Paging;
+import korea.it.culture.myPage.vo.MyrepleVO;
+import korea.it.culture.playInfo.dao.PlayInfoService;
+import korea.it.culture.playInfo.vo.User_goodVO;
 import korea.it.culture.qna.vo.QnaReVO;
 import korea.it.culture.qna.vo.QnaVO;
-import korea.it.culture.reple.vo.RepleVO;
 
 @Controller
 public class MyPageController {
@@ -36,18 +39,20 @@ public class MyPageController {
 	QnaDAO qna_dao;
 	QnaReDAO qna_re_dao;
 	PlayInfoService infoService;
+	PlayDAO play_dao;
 
 	@Autowired
-	public MyPageController(UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao, PlayInfoService infoService) {
+	public MyPageController(PlayDAO play_dao , UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao, PlayInfoService infoService) {
 		this.user_dao = user_dao;
 		this.qna_dao = qna_dao;
 		this.qna_re_dao = qna_re_dao;
 		this.infoService = infoService;
+		this.play_dao = play_dao;
 	}
 
 	// 마이페이지 첫 화면으로 이동(회원정보 수정 창)
 	@RequestMapping("/mypage.do")
-	public String moveMyPage(Model model, String cateogy) throws Exception {
+	public String moveMyPage(Model model, String cateogy) {
 		int nowPage = 1; // 1로 첫페이지 번호를 가정
 		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
 		// 1~ 5;
@@ -67,38 +72,57 @@ public class MyPageController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("end", end);
-		map.put("user_pid", user_id);
-		
+		map.put("user_qid", user_id);
+;
 		List<QnaVO> list = qna_dao.selectMyList(map);
-		List<RepleVO> reple_list = infoService.getMyReple(user_id);
 		
 		System.out.println(list.size());
 		
 		// 페이지 메뉴 생성
 		int row_id = qna_dao.getRowID(user_id);
-		//System.out.println(row_id);
+		System.out.println(row_id);
 		// 하단 페이지 메뉴 생성
-		String pageMenu = Paging.getPaging("mypage.do?user_id="+user_id, nowPage, // 현재페이지
+		String pageMenu = Paging.getPaging("mypage.do", nowPage, // 현재페이지
 				row_id, // 전체 게시글 수
-				"", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
+				user_id, Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
 				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
 		
-		/*
-		 * int rp_row_id = infoService.getRowID(user_id);
-		 * 
-		 * System.out.println("후기 게시글 수 : "+rp_row_id);
-		 * 
-		 * // 하단 페이지 메뉴 생성 String replepageMenu =
-		 * Paging.getPaging("mypage.do?user_id="+user_id, nowPage, // 현재페이지 rp_row_id,
-		 * // 전체 게시글 수 "", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
-		 * Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
-		 * 
-		 * model.addAttribute("replePageMenu", replepageMenu);
-		 */
+		
+		List<MyrepleVO> reple_list = infoService.getmyReple(user_id);
+		List<User_goodVO> good_list = infoService.getmyGood(user_id);
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute("login") != null) {
+			UserVO vo = (UserVO) session.getAttribute("login");
+			System.out.println(vo.getUser_id());
+			for (int i = 0; i < reple_list.size(); i++) {
+				for (User_goodVO good : good_list) {
+					if (reple_list.get(i).getReple_id() == good.getReple_id()
+							&& vo.getUser_id().equals(good.getUser_id())) {
+						reple_list.get(i).setGood_check(1);
+						break;
+					}
+				}
+			}
+		}
+		
+		for(int i =0; i<reple_list.size(); i++) {
+			System.out.println(reple_list.get(i).getPlay_prfnm());
+			System.out.println(reple_list.get(i).getPlay_poster());
+			System.out.println(reple_list.get(i).getGood_check());
+		}
+		
+		
+		List<PlayVO> prf_list = play_dao.getmyPrf(user_id);
+		
+		model.addAttribute("prf_list", prf_list);
 		model.addAttribute("reple_list", reple_list);
+		model.addAttribute("good_list", good_list);
 		model.addAttribute("category", cateogy);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("list", list);
+		
+		
 		
 		return MyCommon.MyPage.VIEW_PATH + "myPage.jsp";
 	}
@@ -147,6 +171,12 @@ public class MyPageController {
 	}
 
 	// 회원 탈퇴 확인 페이지로 이동
+	@RequestMapping("/delInfo.do")
+	public String delPage() {
+		return MyCommon.MyPage.VIEW_PATH + "delPage.jsp";
+	}
+
+	// 회원 탈퇴 확인 페이지로 이동
 	@ResponseBody
 	@RequestMapping("/userDel.do")
 	public String delUser(HttpSession session, String user_id) {
@@ -163,69 +193,6 @@ public class MyPageController {
 		return result;
 	}
 
-	// 나의 문의내역 화면으로 이동
-//	@RequestMapping("/myQna.do") 
-//	public String moveMyQna(Model model) { 
-//		int nowPage = 1; // 1로 첫페이지 번호를 가정
-//	
-//		String user_id = request.getParameter("user_id"); 
-//		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
-//	
-//		if (page != null && !page.isEmpty()) {// 올바른 값을 받았다면 nowPage =
-//			Integer.parseInt(page); }
-//	
-//		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산 
-//		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1; 
-//		int end = nowPage * Common.Board.BLOCKLIST;
-//	
-//		HashMap<String, Object> map = new HashMap<String, Object>(); 
-//		map.put("start", start); 
-//		map.put("end", end); 
-//		map.put("user_id", user_id);
-//		
-//		// 검색관련 내용 
-//		String search = request.getParameter("search");// 카테고리 
-//		String search_text = request.getParameter("search_text");// 검색어
-//		
-//		// 검색어가 입력되어 있는 경우 
-//		if (search != null && !search.equalsIgnoreCase("all")) {
-//			switch (search) { 
-//			case "name_subject_content": 
-//				map.put("name", search_text);
-//				map.put("subject", search_text); 
-//				map.put("content", search_text); 
-//				break; 
-//			case "name": 
-//				map.put("name", search_text); 
-//				break; 
-//			case "subject":
-//				map.put("subject", search_text); 
-//				break; 
-//			case "content": 
-//				map.put("content", search_text); 
-//				break;
-//			
-//			default: 
-//				break; 
-//			}// switch 
-//		}
-//		List<QnaVO> list = qna_dao.selectMyList(map);
-//		
-//		// 페이지 메뉴 생성 
-//		int row_id = qna_dao.getRowID(user_id);
-//		
-//		String search_param = String.format("search=%s&search_text=%s", search, search_text);
-//		
-//		// 하단 페이지 메뉴 생성 
-//		String pageMenu = Paging.getPaging("myQna.do?user_id="+user_id, nowPage, // 현재페이지 
-//				row_id, // 전체게시글 수 
-//				search_param, Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
-//				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
-//		//바인딩 
-//		model.addAttribute("pageMenu", pageMenu); model.addAttribute("list", list);
-//	
-//		return MyCommon.MyPage.VIEW_PATH + "myQna.jsp";
-//	}
 	
 
 	// 내가 남긴 문의글 자세히 보기
@@ -260,35 +227,52 @@ public class MyPageController {
 
 			return MyCommon.MyPage.VIEW_PATH + "myQnaUpdate.jsp";
 		}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// 나의 후기 jsp로 이동
-	/*
-	 * @RequestMapping("/myReview.do") public String moveMyReviewPage(Model model) {
-	 * String user_id = request.getParameter("user_id");
-	 * 
-	 * int nowPage = 1; // 1로 첫페이지 번호를 가정 String page =
-	 * request.getParameter("page");// 기본자료형은 null값을 판단하지 못함 if (page != null &&
-	 * !page.isEmpty()) {// 올바른 값을 받았다면 nowPage = Integer.parseInt(page); }
-	 * 
-	 * // 한페이지에 표시될 게시물의 시작과 끝 번호를 계산 int start = (nowPage - 1) *
-	 * Common.Board.BLOCKLIST + 1; int end = nowPage * Common.Board.BLOCKLIST;
-	 * 
-	 * HashMap<String, Object> map = new HashMap<String, Object>(); map.put("start",
-	 * start); map.put("end", end); map.put("user_id", user_id);
-	 * 
-	 * List<QnaVO> list = qna_dao.selectMyList(map);
-	 * 
-	 * // 페이지 메뉴 생성 int row_id = qna_dao.getRowID(user_id);
-	 * 
-	 * // 하단 페이지 메뉴 생성 String pageMenu = Paging.getPaging("myReview.do", nowPage, //
-	 * 현재페이지 row_id, // 전체 게시글 수 "", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
-	 * Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
-	 * 
-	 * // pageMenu를 바인딩 model.addAttribute("pageMenu", pageMenu);
-	 * 
-	 * model.addAttribute("list", list);
-	 * 
-	 * return MyCommon.MyPage.VIEW_PATH + "myReview.jsp"; }
-	 */
+	@RequestMapping("/myReview.do")
+	public String moveMyReviewPage(Model model) {
+		String user_id = request.getParameter("user_id");
+		
+		int nowPage = 1; // 1로 첫페이지 번호를 가정
+		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
+		if (page != null && !page.isEmpty()) {// 올바른 값을 받았다면
+			nowPage = Integer.parseInt(page);
+		}
+
+		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산
+		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
+		int end = nowPage * Common.Board.BLOCKLIST;
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+		map.put("user_qid", user_id);
+
+		List<QnaVO> list = qna_dao.selectMyList(map);
+
+		// 페이지 메뉴 생성
+		int row_id = qna_dao.getRowID(user_id);
+
+		// 하단 페이지 메뉴 생성
+		String pageMenu = Paging.getPaging("myQna.do", nowPage, // 현재페이지
+				row_id, // 전체 게시글 수
+				"", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
+				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
+
+		// pageMenu를 바인딩
+		model.addAttribute("pageMenu", pageMenu);
+
+		model.addAttribute("list", list);
+		
+		return MyCommon.MyPage.VIEW_PATH + "myReview.jsp";
+	}
 
 }

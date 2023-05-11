@@ -48,10 +48,6 @@
 </script>
 </head>
 <body>
-
-	<!-- check_login.jsp가 body에서 호출하도록 붙여줌 -->
-	<jsp:include page="check_login.jsp"/>
-	
 	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
@@ -63,10 +59,8 @@
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
-					<span>${login.user_name}님</span> 
-					<a href="#" onclick="location.href='logout.do'">로그아웃</a> 
-					<a href="#" onclick="location.href='qna_main.do'">Q&A</a> 
-					<a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
+					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
 
 			</div>
@@ -301,6 +295,8 @@
 						<div>${ list.qna_re_contents }</div>
 						<div>등록일</div>
 						<div>${ list.qna_re_regdate }</div>
+						<div>수정일</div>
+						<div>${ list.qna_re_update }</div>
 						<div>
 							<hr>
 						</div>

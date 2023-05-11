@@ -71,7 +71,6 @@
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
-					<a href="#">마이페이지</a>
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
@@ -200,7 +199,7 @@
 					<c:if test="${ list.qna_re_remove_lev eq 0}">
 						<div class="col-11 d-flex justify-content-right row">
 
-							<table class="col-12" style="margin-top: 20px; word-wrap:break-word; table-layout: fixed;" >
+							<table class="col-12" style="margin-top: 20px; word-wrap: break-word; table-layout: fixed;">
 								<tr>
 									<th>작성자</th>
 									<td colspan="3">${login.user_id}</td>

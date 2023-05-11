@@ -140,6 +140,7 @@
 					// history.back();
 					console.log(document.referrer);
 					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
+					alert(document.referrer);
 				}
 			}
 		}
