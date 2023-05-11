@@ -186,7 +186,7 @@ public class PlayInfoController {
 	@ResponseBody
 	public Map<String, Object> replegood(User_goodVO goodvo) throws Exception {
 		Map<String, Object> result = new HashMap<>();
-
+		int num = 0;
 		if (goodvo.getGood_check() == 0) {
 			infoService.goodplus(goodvo);
 			infoService.goodpluscount(goodvo.getReple_id());
@@ -196,9 +196,12 @@ public class PlayInfoController {
 		else if (goodvo.getGood_check() == 1) {
 			infoService.gooddelete(goodvo);
 			infoService.goodmicount(goodvo.getReple_id());
+			
 			result.put("result", "minus");
-		}
 
+		}
+		num = infoService.goodcount(goodvo.getReple_id());
+		result.put("goodnum", num);
 		result.put("reple_id", goodvo.getReple_id());
 		return result;
 	}

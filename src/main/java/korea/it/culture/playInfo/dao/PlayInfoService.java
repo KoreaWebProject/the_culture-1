@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import korea.it.culture.playInfo.vo.LocInfoVO;
 import korea.it.culture.playInfo.vo.PlayInfoVO;
 import korea.it.culture.main.vo.RepleVO;
+import korea.it.culture.myPage.vo.MyrepleVO;
 import korea.it.culture.playInfo.vo.User_goodVO;
 
 @Repository
@@ -60,6 +61,12 @@ public class PlayInfoService {
     return list;
   }
   
+  public List<MyrepleVO> getmyReple(String user_id) {
+		System.out.println("service에 getRepleVO 메서드 진입");
+		List<MyrepleVO> list = sqlSession.selectList("r.getmyReple", user_id);
+	    return list;
+	  }
+  
   public int insertReple(RepleVO vo) {
 	  
 	  int res = sqlSession.insert("r.insertReple", vo);
@@ -90,8 +97,18 @@ public class PlayInfoService {
 	  return res;
   }
   
+  public int goodcount(int reple_id) {
+	  int res = sqlSession.selectOne("r.goodcount", reple_id);
+	  return res;
+  }
+
   public List<User_goodVO> getGood(String play_id) {
 		List<User_goodVO> list = sqlSession.selectList("r.getGood", play_id);
+	    return list;
+	  }
+  
+  public List<User_goodVO> getmyGood(String user_id) {
+		List<User_goodVO> list = sqlSession.selectList("r.getmyGood", user_id);
 	    return list;
 	  }
 

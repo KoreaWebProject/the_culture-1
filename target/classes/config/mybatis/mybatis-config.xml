@@ -19,6 +19,7 @@
 		<typeAlias type="korea.it.culture.main.vo.TodayVO" alias="today"/>
 		<typeAlias type="korea.it.culture.main.vo.RepleVO" alias="reple"/>
 		<typeAlias type="korea.it.culture.playInfo.vo.User_goodVO" alias="good"/>
+		<typeAlias type="korea.it.culture.myPage.vo.MyrepleVO" alias="myreple"/>
 	</typeAliases>
 
 	<mappers>

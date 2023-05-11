@@ -20,6 +20,9 @@ import korea.it.culture.qna.dao.QnaDAO;
 import korea.it.culture.qna.dao.QnaReDAO;
 import korea.it.culture.qna.util.Common;
 import korea.it.culture.myPage.util.Paging;
+import korea.it.culture.myPage.vo.MyrepleVO;
+import korea.it.culture.playInfo.dao.PlayInfoService;
+import korea.it.culture.playInfo.vo.User_goodVO;
 import korea.it.culture.qna.vo.QnaReVO;
 import korea.it.culture.qna.vo.QnaVO;
 
@@ -33,12 +36,14 @@ public class MyPageController {
 	UserDAO user_dao;
 	QnaDAO qna_dao;
 	QnaReDAO qna_re_dao;
+	PlayInfoService infoService;
 
 	@Autowired
-	public MyPageController(UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao) {
+	public MyPageController(UserDAO user_dao, QnaDAO qna_dao, QnaReDAO qna_re_dao, PlayInfoService infoService) {
 		this.user_dao = user_dao;
 		this.qna_dao = qna_dao;
 		this.qna_re_dao = qna_re_dao;
+		this.infoService = infoService;
 	}
 
 	// 마이페이지 첫 화면으로 이동(회원정보 수정 창)
@@ -77,8 +82,35 @@ public class MyPageController {
 				row_id, // 전체 게시글 수
 				user_id, Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
 				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
-
-
+		
+		
+		List<MyrepleVO> reple_list = infoService.getmyReple(user_id);
+		List<User_goodVO> good_list = infoService.getmyGood(user_id);
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute("login") != null) {
+			UserVO vo = (UserVO) session.getAttribute("login");
+			System.out.println(vo.getUser_id());
+			for (int i = 0; i < reple_list.size(); i++) {
+				for (User_goodVO good : good_list) {
+					if (reple_list.get(i).getReple_id() == good.getReple_id()
+							&& vo.getUser_id().equals(good.getUser_id())) {
+						reple_list.get(i).setGood_check(1);
+						break;
+					}
+				}
+			}
+		}
+		
+		for(int i =0; i<reple_list.size(); i++) {
+			System.out.println(reple_list.get(i).getPlay_prfnm());
+			System.out.println(reple_list.get(i).getPlay_poster());
+			System.out.println(reple_list.get(i).getGood_check());
+		}
+		
+		
+		model.addAttribute("reple_list", reple_list);
+		model.addAttribute("good_list", good_list);
 		model.addAttribute("category", cateogy);
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("list", list);

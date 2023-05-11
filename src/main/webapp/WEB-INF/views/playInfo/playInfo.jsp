@@ -79,7 +79,7 @@ String root = request.getContextPath();
 
 				<c:if test="${not empty login.user_id}">
 					<span>${login.user_name}님<span> <a href="#" onclick="location.href='logout.do'">로그아웃</a> <a href="#"
-							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do'">마이페이지</a>
+							onclick="location.href='qna_main.do'">Q&A</a> <a href="#" onclick="location.href='mypage.do?user_id=${login.user_id}'">마이페이지</a>
 				</c:if>
 			</div>
 		</div>
@@ -221,6 +221,7 @@ String root = request.getContextPath();
 			</div>
 		</div>
 		<div style="display: none" id="test">
+			<c:if test="${!empty login.user_id and login.user_role_id ne 2}">
 			<div class="container row d-flex justify-content-center">
 				<div class="col-8" style="border: solid black 3px; margin-top: 20px; position: relative;">
 					<h4 class="d-flex justify-content-center" style="margin-top: 20px;">후기 작성하기</h4>
@@ -252,18 +253,19 @@ String root = request.getContextPath();
 						<div style="top: 15px; left: 10px; position: relative;">
 							<textarea rows="3" cols="92" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px;"></textarea>
 						</div>
+						
 						<div class="d-flex justify-content-center" style="margin-top: 10px;">
-							<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="register(this.form);"> <input
-								type="button" style="margin-left: 20px;" class="btn btn-outline-secondary" onclick="win_close();" value="닫기">
+							<input type="button" class="btn btn-outline-secondary" name="save" id="save" value="등록" onclick="register(this.form);">
 						</div>
 					</form>
 
 				</div>
 
 			</div>
+			</c:if>
 
 			<div>
-				<button type="button" onclick="win_open('replewrite.do?play_id=${play_id}', 'a')">팝업 1</button>
+				<button type="button" onclick="win_open('replewrite.do?play_id=${play_id}', 'a')">귀요밍</button>
 			</div>
 
 			<c:forEach var="vo" items="${reple_list}">
@@ -313,13 +315,13 @@ String root = request.getContextPath();
 									<c:when test="${vo.good_check eq 1}">
 										<button id="${vo.reple_id}" value="1" onclick="good('${vo.reple_id}')"
 											style="border: #c1c1c1 1px solid; background: #c1c1c1; width: 60px; border-radius: 10px; padding: 3px 5px;">
-											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> ${vo.reple_good } 
+											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png">  <span name="${vo.reple_id}">${vo.reple_good }</span> 
 										</button>
 									</c:when>
 									<c:when test="${vo.good_check eq 0}">
 										<button id="${vo.reple_id}" value="0" onclick="good('${vo.reple_id}')"
 											style="border: #c1c1c1 1px solid; background: none; width: 60px; border-radius: 10px; padding: 3px 5px;">
-											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> ${vo.reple_good } 
+											<img style="padding-bottom: 5px;" width="17px;" src="./resources/assets/img/like.png"> <span name="${vo.reple_id}">${vo.reple_good }</span> 
 										</button>
 									</c:when>
 								</c:choose>
@@ -328,7 +330,7 @@ String root = request.getContextPath();
 							<div style="top: 43px; left: 10px; position: relative;">
 								<pre id="ba" style="word-wrap: break-word; overflow: auto; white-space: pre-wrap; padding-right: 15px; word-break: keep-all;">${vo.reple_contents}</pre>
 							</div>
-							<c:if test="${login.user_id eq vo.user_id}">
+							<c:if test="${login.user_id eq vo.user_id or login.user_role_id eq 2}">
 								<div style="bottom: 5px; right: 60px; position: absolute;">
 									<input class="btn btn-outline-secondary" style="height: 27px; width: 50px; font-size: 8px;" type="button" value="삭제"
 										onclick="location.href='repledel.do?reple_id=${vo.reple_id}'">
@@ -675,6 +677,15 @@ String root = request.getContextPath();
 			let reple_contents = f.reple_contents.value;
 			let reple_rating = f.reple_rating.value;
 			
+			if(reple_contents == ""){
+				alert("내용을 입력해 주세요");
+				return;
+			} 
+			if(user_id == null){
+				alert("로그인 후 이용해 주세요");
+				return;
+			}
+			
 			var url = "review.do";
 			var param = "play_id="+play_id+"&user_id="+user_id+"&reple_contents="+encodeURIComponent(reple_contents)+"&reple_rating="+reple_rating;
 			
@@ -712,19 +723,7 @@ String root = request.getContextPath();
     };
   </script>
 <script type="text/javascript">
- /*  	function good( go ){
-  	const good = document.getElementById(go);
-  	if(good.value == 0){
-  		good.style.background="#c1c1c1";
-  		good.value = 1;
-  		
-  	}
-  	else if(good.value == 1){
-  		good.style.background="none";
-  		good.value = 0;
-  	}
-  	} */
-  	
+
   	
   	 function good( go ){
   		const good = document.getElementById(go);
@@ -740,13 +739,16 @@ String root = request.getContextPath();
   			var data = JSON.parse(xhr.responseText);
   			var reple_id = data.reple_id;
   			const good = document.getElementById(reple_id);
+  			const count = document.getElementsByName(reple_id);
 			if(data.result == 'plus'){
 				good.style.background="#c1c1c1";
-				console.log(good.innerHTML);
+				count[0].innerHTML=data.goodnum;
 		  		good.value = 1;
 			} else if (data.result == 'minus'){
 				good.style.background="none";
+				count[0].innerHTML=data.goodnum;
 		  		good.value = 0;
+
 			}
 			
   		}

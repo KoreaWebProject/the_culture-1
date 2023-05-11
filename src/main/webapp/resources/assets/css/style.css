@@ -912,5 +912,39 @@ a {
 	height: 720px !important;
 }
 
+.rate_radio+label {
+	position: relative;
+	display: inline-block;
+	margin-left: -4px;
+	z-index: 10;
+	width: 15px;
+	height: 35px;
+	background-repeat: no-repeat;
+	background-size: 15px 35px;
+	cursor: pointer;
+	background-color: #f0f0f0;
+}
+
+.rate_radio:checked+label {
+	background-color: #fc3;
+}
+
+.rate_radio2+label {
+	position: relative;
+	display: inline-block;
+	margin-left: -4px;
+	z-index: 10;
+	width: 15px;
+	height: 35px;
+	background-repeat: no-repeat;
+	background-size: 15px 35px;
+	cursor: pointer;
+	background-color: #f0f0f0;
+}
+
+.rate_radio2:checked+label {
+	background-color: #fc3;
+}
+
 
 
