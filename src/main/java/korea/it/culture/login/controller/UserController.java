@@ -177,7 +177,7 @@ public class UserController {
 	public String cancel(HttpSession session) {
 		session = request.getSession();
 		session.invalidate();
-		return "redirect:login_main.do";
+		return "redirect:culture.do";
 	}
 
 	//네이버 로그인 성공시 callback호출 메소드

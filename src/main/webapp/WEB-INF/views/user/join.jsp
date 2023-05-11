@@ -431,7 +431,7 @@
 		//이름 검사
 		function checkName(name) {
 	        if (!checkExistData(name, "이름을"))
-	            return false;
+	            return false; 
 	 
 	        var nameRegExp = /^[가-힣]{2,50}$/;
 	        if (!nameRegExp.test(name)) {
