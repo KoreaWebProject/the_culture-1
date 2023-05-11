@@ -132,10 +132,6 @@
 
 
 	<main class="container">
-		<hr>
-		<div class="d-flex justify-content-between">
-			<h2 style="margin-bottom: 30px;">마이페이지</h2>
-		</div>
 		<!-- ======= Clients Section ======= -->
 		<section id="clients" class="clients section-bg">
 			<div class="container" data-aos="zoom-in">
@@ -202,6 +198,8 @@
 
 			<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
 				<div class="col-12 portfolio-item filter-app">
+					<hr>
+					<p id="up">정보수정</p>
 					<div class="portfolio-info" id="modify">
 						<form class="col-12 d-flex justify-content-center">
 							<div class="content row  d-flex justify-content-center ">
@@ -337,6 +335,8 @@
 
 
 				<div class="col-12 portfolio-item filter-card">
+					<hr>
+					<p id="up">후기내역</p>
 					<div class="portfolio-info">
 						<c:forEach var="vo" items="${reple_list}">
 
@@ -344,8 +344,9 @@
 								<c:if test="${ vo.reple_remove_lev eq 0 }">
 									<div class="col-8"
 										style="border: solid black 3px; margin-top: 20px; position: relative; padding-bottom: 50px; border-radius: 0px 0px 60px 0px">
-										<img style="width: 50px; top: 3px; left: 10px; position: absolute;" src="${vo.play_poster }" onclick="location.href='info.do?play_id=${vo.play_id}'">
-										<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}'"><div style="top: 5px; left: 63px; position: absolute; font-size: 13px;">"${vo.play_prfnm }"</div></a>
+										<img style="width: 50px; top: 3px; left: 10px; position: absolute;" src="${vo.play_poster }"
+											onclick="location.href='info.do?play_id=${vo.play_id}'"> <a href="#" onclick="location.href='info.do?play_id=${vo.play_id}'"><div
+												style="top: 5px; left: 63px; position: absolute; font-size: 13px;">"${vo.play_prfnm }"</div></a>
 
 										<div style="top: 23px;; left: 55px; position: relative;">
 											<c:forEach var="i" begin="1" end="10">
@@ -403,7 +404,8 @@
 										</div>
 
 										<div style="top: 43px; left: 10px; position: relative;">
-											<pre id="ba" style="word-wrap: break-word; overflow: auto; white-space: pre-wrap; padding-top: 20px; padding-right: 15px; word-break: keep-all;">${vo.reple_contents}</pre>
+											<pre id="ba"
+												style="word-wrap: break-word; overflow: auto; white-space: pre-wrap; padding-top: 20px; padding-right: 15px; word-break: keep-all;">${vo.reple_contents}</pre>
 										</div>
 										<c:if test="${login.user_id eq vo.user_id or login.user_role_id eq 2}">
 											<div style="bottom: 5px; right: 60px; position: absolute;">
@@ -426,6 +428,8 @@
 				</div>
 
 				<div class="col-lg-4 col-md-6 portfolio-item filter-web">
+				<hr>
+					<p id="up">즐겨찾기</p>
 					<img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
 					<div class="portfolio-info">
 						<h4>Web 2</h4>
@@ -444,6 +448,8 @@
 
 
 				<div class="col-12 portfolio-item filter-we">
+				<hr>
+					<p id="up">문의내역</p>
 					<div class="portfolio-info">
 						<table>
 							<thead>
@@ -508,6 +514,8 @@
 				</div>
 
 				<div class="col-12 portfolio-item filter-w row">
+				<hr>
+					<p id="up">회원탈퇴</p>
 					<div class="portfolio-info d-flex justify-content-center ">
 						<div class="col-9 ">
 							<h4>・회원탈퇴</h4>
