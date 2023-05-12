@@ -59,6 +59,11 @@ public class UserController {
 	// 메인 화면을 부르면서 네이버 아이디 인증 URL준비
 	@RequestMapping(value = "/login_main.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String loginMain(Model model, HttpSession session) {
+		//로그인 화면 이동 시 이전 화면  url 불러서 확인 후
+		System.out.println("레퍼럴   "+request.getHeader("Referer"));
+		// 이전 url을 세션에 저장
+		session.setAttribute("backURL", request.getHeader("Referer"));
+
 
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = socialLoginService.getAuthorizationUrl(session);
@@ -69,7 +74,6 @@ public class UserController {
 
 		//네이버로그인 인증 URL을 생성한 후 model에 담기
 		model.addAttribute("url", naverAuthUrl);
-		System.out.println("레퍼럴   "+request.getHeader("Referer"));
 
 		return "/WEB-INF/views/user/login.jsp";
 	}
@@ -107,7 +111,7 @@ public class UserController {
 			session = request.getSession();
 			session.setAttribute("login", vo);
 		}
-
+		System.out.println("세션에 저장된 url은" + session.getAttribute("backURL"));
 		return param;
 	}
 
@@ -177,7 +181,7 @@ public class UserController {
 	public String cancel(HttpSession session) {
 		session = request.getSession();
 		session.invalidate();
-		return "redirect:culture.do";
+		return "redirect:login_main.do";
 	}
 
 	//네이버 로그인 성공시 callback호출 메소드
