@@ -144,7 +144,7 @@
 					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
 					// history.back();
 					console.log('${backURL}')
-					if('${backURL}'.includes("join.do")){
+					if('${backURL}'.includes("join.do") || '${backURL}'.includes("callback.do")){
 						alert("이전 페이지가 회원가입입니다. 메인으로 돌아갑니다.")
 						location.href = 'culture.do'
 					}else{
