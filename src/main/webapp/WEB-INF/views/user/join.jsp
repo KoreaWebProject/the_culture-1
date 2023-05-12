@@ -233,6 +233,15 @@
 				    alert("아이디를 입력하세요");
 				    return;
 			  }
+			  
+			  var idRegExp = /^[a-zA-z0-9]{4,12}$/; //아이디 유효성 검사
+		        if (!idRegExp.test(user_id)) {
+		            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+		            form.userId.value = "";
+		            form.userId.focus();
+		            return false;
+		        }
+			  
 			// 중복 체크를 위해 가입된 아이디 목록에서 검색
 			 var url = "idChk?user_id="+user_id;
 			// var param = user_id;

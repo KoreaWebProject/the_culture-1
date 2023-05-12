@@ -160,7 +160,7 @@ public class UserController {
 		session = request.getSession();
 		session.invalidate();
 		//request.getHeader("Referer")로 현재페이지 이전 URL주소 를 가져온다
-		if (request.getHeader("Referer") != null) {
+		if (request.getHeader("Referer") != null && !request.getHeader("Referer").contains("mypage.do")) {
 			//만약 어디 들렸다가 로그아웃하면 계속해서 볼 수 있게 돌려놔준다
 			return "redirect:" + request.getHeader("Referer");
 		} else {
