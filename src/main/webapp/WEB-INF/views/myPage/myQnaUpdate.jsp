@@ -56,7 +56,7 @@
 			return;
 		}
 
-		f.action = "modify.do";
+		f.action = "mymodify.do";
 		f.method = "post";
 		f.submit();
 	}
@@ -71,7 +71,7 @@
 					<a href="#" onclick="location.href='login_main.do'">로그인</a>
 					<a href="#" onclick="location.href='join.do'">회원가입</a>
 					<a href="#" onclick="location.href='qna_main.do'">Q&A</a>
-					
+
 				</c:if>
 
 				<c:if test="${not empty login.user_id}">
@@ -177,17 +177,15 @@
 						<tr>
 							<td colspan="2">
 								<div class="d-flex justify-content-center">
-									<input type="hidden" name="qna_id" value="${vo.qna_id}" /> <input type="hidden" name="page" value="${param.page}" /> <input type="hidden"
-										name="search" value="${param.search}" /> <input type="hidden" name="search_text" value="${param.search_text}" /> <input type="button"
-										value="수정하기" class="btn btn-outline-primary" onClick="send(this.form);">
+									<input type="hidden" name="qna_id" value="${vo.qna_id}" /> 
+									<input type="hidden" name="user_id" value="${login.user_id}" /> 
+									<input type="button" value="수정하기" class="btn btn-outline-primary"
+										onClick="send(this.form);">
 									<c:if test="${login.user_role_id == 2 or login.user_id eq vo.user_id}">
 										<input type="button" value="삭제하기" class="btn btn-outline-primary"
-											onClick="location.href='qna_del.do?qna_id=${vo.qna_id}&page=${param.page}&search=${param.search}&search_text=${param.search_text}'"
-											style="margin-left: 50px;">
+											onClick="location.href='myqna_del.do?qna_id=${vo.qna_id}&user_id=${login.user_id}'" style="margin-left: 50px;">
 									</c:if>
-									<input type="button" value="목록으로" class="btn btn-outline-primary"
-										onClick="window.location = document.referrer;"
-										style="margin-left: 50px;">
+									<input type="button" value="목록으로" class="btn btn-outline-primary" onClick="window.location = document.referrer;" style="margin-left: 50px;">
 								</div>
 							</td>
 						</tr>
@@ -200,7 +198,7 @@
 					<c:if test="${ list.qna_re_remove_lev eq 0}">
 						<div class="col-11 d-flex justify-content-right row">
 
-							<table class="col-12" style="margin-top: 20px; word-wrap:break-word; table-layout: fixed;" >
+							<table class="col-12" style="margin-top: 20px; word-wrap: break-word; table-layout: fixed;">
 								<tr>
 									<th>작성자</th>
 									<td colspan="3">${login.user_id}</td>

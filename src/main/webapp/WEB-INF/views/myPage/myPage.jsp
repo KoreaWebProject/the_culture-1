@@ -149,7 +149,7 @@
 								<li data-filter=".filter-web" id="3"><img src="./resources/assets/img/clients/star.png" class="img-fluid" alt=""><a class="col-8"
 									href="#" style="margin-left: 10px;">즐겨찾기</a></li>
 								<li data-filter=".filter-we" id="4"><img src="./resources/assets/img/clients/qna.png" class="img-fluid" alt=""><a class="col-8"
-									href="#" style="margin-left: 10px;" onclick="myQna('${login.user_id}');">문의내역</a></li>
+									href="#" style="margin-left: 10px;">문의내역</a></li>
 
 								<li data-filter=".filter-w" id="5"><img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a class="col-8"
 									href="#" style="margin-left: 10px;">회원탈퇴</a></li>
@@ -347,7 +347,7 @@
 									<div class="col-8"
 										style="border: solid black 3px; margin-top: 20px; position: relative; padding-bottom: 50px; border-radius: 0px 0px 60px 0px">
 										<img style="width: 50px; top: 3px; left: 10px; position: absolute;" src="${vo.play_poster }"
-											onclick="location.href='info.do?play_id=${vo.play_id}'"> <a href="#" onclick="location.href='info.do?play_id=${vo.play_id}'"><div
+											onclick="location.href='info.do?play_id=${vo.play_id}'"> <a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&num=2'"><div
 												style="top: 5px; left: 63px; position: absolute; font-size: 13px;">"${vo.play_prfnm }"</div></a>
 
 										<div style="top: 23px;; left: 55px; position: relative;">
@@ -518,26 +518,12 @@
 								<c:forEach var="vo" items="${ list }">
 
 									<tr>
-										<%-- <td>${vo.qna_id}</td>
-												<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0}">
-													<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
-												</c:if>
-												<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 1}">
-													<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
-												</c:if>
-												<c:if test="${ login.user_id ne vo.user_id and login.user_role_id eq 0 and vo.qna_public_lev eq 0}">
-													<th>${vo.qna_title}</th>
-												</c:if>
-												<c:if test="${ empty login.user_id}">
-													<th>${vo.qna_title}</th>
-												</c:if> --%>
-
 										<td>${vo.qna_id}</td>
-										<c:if test="${ login.user_id eq vo.user_id and login.user_role_id eq 0 and vo.qna_status ne 0}">
-											<th><a href="myQnaView.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+										<c:if test="${ login.user_role_id eq 0 and vo.qna_status ne 0}">
+											<th><a href="myQnaView.do?qna_id=${vo.qna_id}&user_id=${login.user_id}">${vo.qna_title}</a></th>
 										</c:if>
-										<c:if test="${login.user_id eq vo.user_id and login.user_role_id eq 0 and vo.qna_status ne 1}">
-											<th><a href="myQnaUpdate.do?qna_id=${vo.qna_id}&page=${param.page}">${vo.qna_title}</a></th>
+										<c:if test="${login.user_role_id eq 0 and vo.qna_status ne 1}">
+											<th><a href="myQnaUpdate.do?qna_id=${vo.qna_id}&user_id=${login.user_id}">${vo.qna_title}</a></th>
 										</c:if>
 										<td>${vo.user_id}</td>
 										<c:if test="${ vo.qna_status eq 0 }">
@@ -698,25 +684,7 @@
 			}
 		}
 
-		function myQna(user_id) {
-
-			var url = "myQna.do";
-
-			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
-			var param = "user_id=" + user_id;
-			sendRequest(url, param, resFns, "POST");
-		}
-
-		//콜백메서드
-		function resFns() {
-			if (xhr.readyState == 4 && xhr.status == 200) {
-
-				var data = xhr.responseText;
-				if (data == 'success') {
-					location.href = "redirect:myPage.do";
-				}
-			}
-		}
+	
 	</script>
 	<script type="text/javascript">
 		function good(go, id) {

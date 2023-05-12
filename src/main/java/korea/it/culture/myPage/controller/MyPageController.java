@@ -274,5 +274,26 @@ public class MyPageController {
 		
 		return MyCommon.MyPage.VIEW_PATH + "myReview.jsp";
 	}
+	
+	
+	// 나의 Qna 삭제를 위한 업데이트
+	@RequestMapping("/myqna_del.do")
+	public String myqna_del() {
+		
+		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
+		String user_id = request.getParameter("user_id");
+		qna_dao.update(qna_id);
+		qna_re_dao.delete(qna_id);
+		
+		return "redirect:mypage.do?user_id="+user_id;
+	}
+	
+	
+	@RequestMapping("/mymodify.do")
+	public String modify(Model model, QnaVO qna) {
+		String user_id = request.getParameter("user_id");
+		qna_dao.modify(qna);
+		return "redirect:mypage.do?user_id="+user_id;
+	}
 
 }
