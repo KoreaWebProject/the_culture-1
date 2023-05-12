@@ -225,12 +225,15 @@
 		      }).open();
 		    })
 		}
-		//아이디
+
+
+		//아이디 중복확인 버튼
 		function idCheck() {
 			  var user_id = document.getElementById("user_id").value;
 			  // 입력한 아이디에 대한 유효성 검사
 			  if (user_id == '') {
 				    alert("아이디를 입력하세요");
+						$('#user_id').focus();
 				    return;
 			  }
 			// 중복 체크를 위해 가입된 아이디 목록에서 검색
@@ -250,6 +253,9 @@
 				}
 			}
 		}
+
+
+
 		//폼 전송 시 데이터 같이 전송 및 회원가입 실행
 		function send(f){
 			let user_id = f.user_id.value;
@@ -264,12 +270,14 @@
 			let user_zip_code = f.user_zip_code.value;
 			let user_addr1 = f.user_addr1.value.trim();
 			let user_addr2 = f.user_addr2.value.trim();
-			
-			//유효성 체크
-			if(!checkAll(f)){
+
+			//이름
+			if(user_name == ''){
+				alert("이름을 기입하시오");
+				document.getElementsByName("user_name")[0].focus();
 				return;
 			}
-			
+
 			//생년월일
 			if(birth_year == '년'){
 				alert("생년월일을 정확히 기입하시오");
@@ -294,12 +302,7 @@
 				return;
 			}
 		
-			//주소 의 필수 zipcode와 addr1 유효성
-			if (!user_zip_code) {
-				alert("주소를 입력하시오");
-				$('#user_zip_code').focus();
-				return;
-			}
+
 
 			/* $("input[name='user_name']").prop("disabled", false); */
 			$("input[name='user_mail']").prop("disabled", false);
@@ -307,6 +310,11 @@
 			$(".birth_month").prop('disabled',false);
 			$(".birth_day").prop('disabled',false);
 			$(".contact").prop('disabled',false);
+
+			//유효성 체크
+			if(!checkAll(f)){
+				return;
+			}
 
 		    var url = "joinin.do";
 		    var param = "user_id=" + user_id + "&user_pw=" + user_pw + "&user_name=" + user_name + "&user_birth=" + user_birth + "&user_gender=" + user_gender + "&user_mail=" + user_mail + "&user_zip_code=" + user_zip_code + "&user_addr1=" +  user_addr1 + "&user_addr2=" + user_addr2;
@@ -336,7 +344,9 @@
 	            return false;
 	        } else if (!checkMail(f.user_mail.value)) {
 	            return false;
-	        } else if (!checkName(f.user_name.value)) {
+	        } else if (!checkZipcode(f.user_zip_code.value)) {
+	            return false;
+	        }else if (!checkName(f.user_name.value)) {
 	            return false;
 	        }
 	        return true;
@@ -360,7 +370,6 @@
 	        var idRegExp = /^[a-zA-z0-9]{4,12}$/; //아이디 유효성 검사
 	        if (!idRegExp.test(id)) {
 	            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
-	            form.userId.value = "";
 	            form.userId.focus();
 	            return false;
 	        }
@@ -416,6 +425,16 @@
 	            form.mail.focus();
 	            return false;
 	        }
+	        return true; //확인이 완료되었을 때
+	    }
+		//주소 검사
+		function checkZipcode(zipcode) {
+			//주소 의 필수 zipcode와 addr1 유효성
+			if (!zipcode) {
+				alert("주소를 입력하시오");
+				$('#user_zip_code').focus();
+	            return false;
+			}
 	        return true; //확인이 완료되었을 때
 	    }
 
