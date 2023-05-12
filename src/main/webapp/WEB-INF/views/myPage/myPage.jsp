@@ -763,9 +763,13 @@
 				alert("비밀번호가 일치하지 않습니다");
 				return;
 			}
-
+			
+			if(user_pw == "" || user_pwck == ""){
+				user_pw = "${login.user_pw}";
+			}
+			
 			//빈칸 존재 확인
-			if (!user_pw || user_pwck == "" || user_name == null || user_birth.trim() == null
+			if ( user_name == null || user_birth.trim() == null
 					|| user_mail.trim() == null || user_zip_code.trim() == null
 					|| user_addr1.trim() == null) {
 				alert("빈칸을 채워주세요");
@@ -780,7 +784,7 @@
 			}
 
 			var url = "updateInfo.do";
-			var param = "user_id=" + user_id + "&user_pw=" + user_pw
+			var param = "user_id=" + user_id + "&user_pw=" + encodeURIComponent(user_pw)
 					+ "&user_name=" + user_name + "&user_birth=" + user_birth
 					+ "&user_gender=" + user_gender + "&user_mail=" + user_mail
 					+ "&user_zip_code=" + user_zip_code + "&user_addr1="
@@ -807,10 +811,6 @@
 			let user_pw = f.user_pw.value;
 			let agree = $('input:radio[name="agree"]:checked').val();
 			
-			console.log(user_id);
-			console.log(ori_user_pw);
-			console.log(user_pw);
-			console.log(agree);
 			
 			if(ori_user_pw !== user_pw  || user_pw === ""){
 				alert("비밀번호가 다르거나 입력하셔야 합니다.");
