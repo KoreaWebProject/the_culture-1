@@ -128,10 +128,13 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var data = xhr.responseText;
 				if(data == 'no_user_id'){
+					console.log(data);
 					alert("아이디가 존재하지 않습니다");
-				}else if(data == 'no_user_pw'){
+				}else if(data == 'no_user_pwd'){
+					console.log(data);
 					alert("비밀번호가 일치하지 않습니다");
 				}else if(data == 'joined_out'){
+					console.log(data);
 					alert("이미 탈퇴한 회원입니다");
 				}else{
 					// 목록을 보다가 로그인 시 메인으로 가버림
@@ -149,6 +152,8 @@
 					}
 				}
 			}
+
+
 		}
 		
 		
