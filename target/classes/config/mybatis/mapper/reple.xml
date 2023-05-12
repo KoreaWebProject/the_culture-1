@@ -5,19 +5,84 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="r">
 	<!-- 공연 검색 -->
 	<select id="getReple" parameterType="String" resultType="reple">
-		select * from reple where play_id = #{play_id}
+		select *
+		from reple where play_id = #{play_id}
+		order by reple_good desc
 	</select>
 	
+	
+	<select id="getmyReple" parameterType="String" resultType="myreple">
+		select r.reple_id, r.play_id , r.user_id, r.reple_contents, r.reple_rating, r.reple_regdate, r.reple_remove_lev, r.reple_good, p.play_poster, p.play_prfnm
+		from reple r inner join play p 
+		on r.play_id = p.play_id
+		where user_id = #{user_id} and reple_remove_lev = 0
+		order by r.reple_good desc
+	</select>
+
 	<!-- 작성자 검색 -->
 	<select id="getUser" parameterType="String" resultType="reple">
-		select * from reple where user_id = #{user_id}, reple_contents = ${reple_contents}
+		select *
+		from reple where user_id = #{user_id}, reple_contents =
+		${reple_contents}
+	</select>
+
+
+	<select id="getGood" parameterType="String" resultType="good">
+		select *
+		from user_good where play_id = #{play_id}
 	</select>
 	
+	
+	<select id="getmyGood" parameterType="String" resultType="good">
+		select *
+		from user_good where user_id = #{user_id}
+	</select>
+	
+
+
+	<select id="goodcount" parameterType="int" resultType="int">
+		select
+		reple_good from reple
+		where reple_id = #{reple_id}
+	</select>
+	
+
+
 	<insert id="insertReple" parameterType="reple">
-		INSERT INTO reple VALUES(reple_no_seq.nextVal, #{play_id}, #{user_id}, #{reple_contents},
+		INSERT INTO reple
+		VALUES(reple_no_seq.nextVal, #{play_id}, #{user_id},
+		#{reple_contents},
 		#{reple_rating}, sysdate, 0, 0)
 	</insert>
 
+	<update id="repledel" parameterType="int">
+		update reple set
+		REPLE_REMOVE_LEV = 1
+		where reple_id = #{reple_id}
+	</update>
+
+	<insert id="goodplus" parameterType="good">
+		INSERT INTO user_good
+		VALUES(#{user_id}, #{reple_id}, #{play_id}, 1)
+	</insert>
+
+	<delete id="gooddelete" parameterType="good">
+		delete from user_good
+		where user_id = #{user_id} and reple_id = #{reple_id} and play_id =
+		#{play_id}
+	</delete>
+
+	<update id="goodpluscount" parameterType="int">
+		update reple set
+		reple_good = reple_good + 1
+		where reple_id = #{reple_id}
+	</update>
+
+	<update id="goodmicount" parameterType="int">
+		update reple set
+		reple_good = reple_good - 1
+		where reple_id = #{reple_id}
+	</update>
 </mapper>
 
 

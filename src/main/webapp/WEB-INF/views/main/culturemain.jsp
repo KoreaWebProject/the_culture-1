@@ -138,6 +138,7 @@
 						<a href="#" onclick="info('${vo.play_id }');">
 						<form action="info.do" id="info${vo.play_id }">
 								<input type="hidden" name="play_id" value="${vo.play_id }">
+								<input type="hidden" name="num" value=1>
 								<img src="${vo.play_poster}" width="250px"  style="position: relative;"/>
 								<div class="" style="position: absolute; top: -80px; left:100px; font-size: 30px; font-family: 'Cooper';">NO.${status.count}</div>
 							</form></a>

@@ -59,4 +59,9 @@ public class PlayDAO {
 		return res;
 	}
 	
+	public List<PlayVO> getmyPrf(String user_id) {
+		List<PlayVO> list = sqlSession.selectList("p.getmyPrf",user_id);
+		return list;
+	}
+	
 }
