@@ -104,7 +104,7 @@
 							<th>내용</th>
 							<td class="row">
 							<%-- <textarea class="col-11" name="qna_contents" id="qna_contents">${ vo.qna_contents }</textarea> --%>
-							<div class="col-11 " style="white-space: pre-line;">${ vo.qna_contents }</div>
+							<div class="col-11 " style="white-space: pre-line;  font-weight: bold; font-size: 20px;">${ vo.qna_contents }</div>
 							</td>
 						</tr>
 
@@ -159,7 +159,7 @@
 									<tr>
 										<th>내용</th>
 										<td colspan="3">
-											<div class="col-11 " style="white-space: pre-line;">${ list.qna_re_contents }</div>
+											<div class="col-11 " style="white-space: pre-line;  font-weight: bold; font-size: 20px;">${ list.qna_re_contents }</div>
 										</td>
 
 									</tr>

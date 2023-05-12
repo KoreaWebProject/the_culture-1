@@ -29,7 +29,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefixOverrides="or|and" prefix="where">
 
 			<!-- 필요없는 or과 and를 없애줌 -->
-			<if test="genrenm != null">play_genrenm = #{genrenm} </if>
+			<if test="genrenm != null">play_genrenm Like '%'||#{genrenm}||'%' </if>
 
 			<if test="prfnm != null">and play_prfnm Like '%'||#{prfnm}||'%' </if>
 			<if test="locnm != null"> and play_locnm Like '%'||#{locnm}||'%' </if>
@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from play
 
 		<trim prefixOverrides="or | and" prefix="where">
-			<if test="genrenm != null"> play_genrenm = #{genrenm} </if>
+			<if test="genrenm != null"> play_genrenm Like '%'||#{genrenm}||'%' </if>
 			<if test="prfnm != null">and play_prfnm Like '%'||#{prfnm}||'%' </if>
 			<if test="locnm != null"> and play_locnm Like '%'||#{locnm}||'%' </if>
 			<if test="fromto != null"> and (play_from Like '%'||#{fromto}||'%' or play_to Like

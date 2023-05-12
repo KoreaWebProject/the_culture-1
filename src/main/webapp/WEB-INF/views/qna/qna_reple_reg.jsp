@@ -136,7 +136,7 @@
 						<tr>
 							<th class="col-2">문의내용</th>
 							<td >
-								<div class="col-11 " style="white-space: pre-line;">${ qna.qna_contents }</div>
+								<div class="col-11 " style="white-space: pre-line; font-weight: bold; font-size: 20px;">${ qna.qna_contents }</div>
 							</td>
 
 						</tr>

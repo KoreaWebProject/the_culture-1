@@ -26,6 +26,7 @@
 <link href="./resources/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 <link href="./resources/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+</script>
 <!-- Template Main CSS File -->
 <link href="./resources/assets/css/style.css?ver=1" rel="stylesheet">
 
@@ -77,6 +78,7 @@
 </style>
 </head>
 <body>
+
 	<!-- ======= Top Bar ======= -->
 	<section id="topbar" class="d-flex align-items-center">
 		<div class="container d-flex justify-content-end">
@@ -153,28 +155,11 @@
 
 								<li data-filter=".filter-w" id="5"><img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a class="col-8"
 									href="#" style="margin-left: 10px;">회원탈퇴</a></li>
+
 							</ul>
 						</div>
 					</div>
-					<!-- <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/user.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">정보수정</a>
-				</div>
 
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/comment.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">후기내역</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/star.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">즐겨찾기</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/qna.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">문의내역</a>
-				</div>
-
-				<div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-					<img src="./resources/assets/img/clients/unsub.png" class="img-fluid" alt=""><a href="#" style="margin-left: 10px;">회원탈퇴</a>
-				</div> -->
 				</div>
 
 			</div>
@@ -185,38 +170,48 @@
 		<div class="container" data-aos="fade-up">
 
 
-			<!-- 	<div class="row" data-aos="fade-up" data-aos-delay="100">
-				<div class="col-lg-12 d-flex justify-content-center">
-					<ul id="portfolio-flters">
-						<li data-filter="*" class="filter-active">All</li>
-						<li data-filter=".filter-app">App</li>
-						<li data-filter=".filter-card">Card</li>
-						<li data-filter=".filter-web">Web</li>
-					</ul>
-				</div>
-			</div> -->
-
 			<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-				<div class="col-12 portfolio-item filter-app">
+				<div class="col-12 portfolio-item filter-app" style="position: relative;">
 					<hr>
 					<p id="up">정보수정</p>
-					<div class="portfolio-info" id="modify">
-						<form class="col-12 d-flex justify-content-center">
+					<div class="portfolio-info position-absolute top-50 start-50 translate-middle" id="modify">
+						<div class="col-12 d-flex justify-content-center">
 							<div class="content row  d-flex justify-content-center ">
 								<div class="col container d-flex justify-content-center row">
 									<div class="col-12" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px; width: 400px;">
+
 										<form>
 											<input class="form-control col-12" name="user_id" type="text" placeholder="아이디" style="margin-top: 20px;" value="${ login.user_id }"
 												disabled> <input class="form-control col-12" name="user_pw" type="password" placeholder="비밀번호" style="margin-top: 20px;">
 
-											<input type="button" class="btn btn-primary col-12" style="margin-top: 20px;" onclick="send(this.form);" value="확인">
+											
+										<div class="captcha_member">
+											<!-- [D]이미지캡차시 display:block -->
+											<div id="captcha_image_legend" style="display: block">
+												<p class="captcha_txt" style="margin-top: 10px;">아래 이미지를 보이는 대로 입력해주세요.</p>
+												<div id="image_captcha_div" class="captcha_box">
+													<span class="captcha_img"><img name='captchaImage' id='chptchaimg'
+														src='https://nid.naver.com/login/image/captcha/nhncaptchav4.gif?key=T0DMVfILwbYnZW4O&1' width='100%' height='87' alt='자동입력 방지문자'></span>
+				
+												</div>
+											</div>
+									
+											<!-- 자동 입력 방지 문자 -->
+											<div id="bdr_autoValue" class="spc_row">
+												<label id="lbCapcha"  style="margin-top: 10px;" for="autoValue" class="lbl_in" style="display: block ;margin-top: 10px;"">자동입력 방지문자</label> <span class="int_box"> <!-- 캡챠 어뷰징 방지를 위해 maxlength는 제거함 : 2014-02-11- euli0912 -->
+													<input type="text" id="autoValue" class="int form-control" title="자동입력 방지문자" style="width: 336px" ">
+													
+												</span>
+											</div>
+										</div>
+										<input type="button" class="btn btn-primary col-12 " style="margin-top: 20px;" onclick="send(this.form);" value="확인">
 										</form>
 									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
-					<div class="portfolio-info" id="modifyab" style="display: none;">
+					<div class="portfolio-info invisible " id="modifyab">
 						<div class="content row  d-flex justify-content-center">
 							<div class="col-12 container d-flex justify-content-center row">
 								<div class="col-12 row" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px; width: 350px">
@@ -234,11 +229,11 @@
 										</div>
 										<div class="pw_wrap">
 											<div class="pw_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">비밀번호</div>
-											<input type="password" name="user_pw" class="form-control col" id="user_pw" placeholder="비밀번호">
+											<input type="password" name="user_pw" class="form-control col" id="user_pw" placeholder="새 비밀번호">
 										</div>
 										<div class="pwck_wrap">
 											<div class="pwck_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">비밀번호 확인</div>
-											<input type="password" name="user_pwck" class="form-control col" id="user_pwck" placeholder="비밀번호 확인">
+											<input type="password" name="user_pwck" class="form-control col" id="user_pwck" placeholder="새 비밀번호 확인">
 										</div>
 										<div class="user_wrap">
 											<div class="user_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">이름</div>
@@ -287,11 +282,11 @@
 											<div class="gender_name" style="font-weight: bold; font-size: 12px; margin-top: 10px;">성별</div>
 											<div class="form-check form-check-inline">
 												<input type="radio" id="gender_male" name="contact" class="contact" value="M"
-												<c:if test="${login.user_gender eq 'M'}">checked="checked"</c:if>>남자
+													<c:if test="${login.user_gender eq 'M'}">checked="checked"</c:if>>남자
 											</div>
 											<div class="form-check form-check-inline">
 												<input type="radio" id="gender_female" name="contact" class="contact" value="F"
-												<c:if test="${login.user_gender eq 'F'}">checked="checked"</c:if>>여자
+													<c:if test="${login.user_gender eq 'F'}">checked="checked"</c:if>>여자
 											</div>
 										</div>
 
@@ -322,8 +317,9 @@
 										</div>
 
 										<div class="d-flex justify-content-evenly">
-											<input type="button" class="btn btn-primary col" style="margin-top: 10px;" value="수정하기" onclick="send(this.form);"> <input
-												type="button" class="btn btn-danger col" style="margin-top: 10px; margin-left: 10px;" value="취소" onclick='history.go(-1)'>
+											<input type="button" class="btn btn-primary col" style="margin-top: 10px;" value="수정하기" onclick="correction(this.form);"> <input
+												type="button" class="btn btn-danger col" style="margin-top: 10px; margin-left: 10px;" value="취소"
+												onclick="location.href='mypage.do?user_id=${login.user_id}'">
 										</div>
 									</form>
 								</div>
@@ -430,63 +426,41 @@
 				</div>
 
 				<div class="col-12 portfolio-item filter-web">
-				<hr>
+					<hr>
 					<p id="up">즐겨찾기</p>
 					<div class="portfolio-info">
-					<div class="row justify-content-center">
-			<div class="container d-flex justify-content-between">
-				<p id="up" style="position: relative;">${genrenm}</p>
-			</div>
-			
-			<div class="wrapper row justify-content-center">
-				<c:forEach var="vo" items="${ prf_list }" varStatus="status">
-					<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&num=2'" class="card col-3">
-					
-							<div>
-								<img style="z-index: 0; " src="${vo.play_poster}" />
-								
-								
-								<div style=" font-size:35px;  ; color:#e9d023; z-index: 1; position:absolute; bottom: 210px; left: 0">★</div>
-							
-							
-								<div class="info">
-									<span>${vo.play_prfnm}<span>
-											<p></p>
-											<p>장소 : ${vo.play_locnm}</p>
-											<p>시작날짜 : ${vo.play_from}</p>
-											<p>종료날짜 : ${vo.play_to}</p>
-								</div>
+						<div class="row justify-content-center">
+							<div class="container d-flex justify-content-between">
+								<p id="up" style="position: relative;">${genrenm}</p>
 							</div>
 
-					</a>
-				</c:forEach>
-				<hr>
-				
-			</div>
-		</div>
-				<%-- 	<div class=" container row d-flex justify-content-center">
-						<c:forEach var="vo" items="${ prf_list }" varStatus="status">
-					<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&page=${param.page}&genrenm=${genrenm}&search=${param.search}&search_text=${param.search_text}'"class="card col-3">
-					
-							<div>
-								<img style="z-index: 0; " src="${vo.play_poster}" />
-								<c:forEach var="favorite" items="${ favorite }">
-								<c:if test="${vo.play_id eq favorite.play_id}">
-								<div style=" font-size:35px;  ; color:#e9d023; z-index: 1; position:absolute; bottom: 210px; left: 0">★</div>
-								</c:if>
+							<div class="wrapper row justify-content-center">
+								<c:forEach var="vo" items="${ prf_list }" varStatus="status">
+									<a href="#" onclick="location.href='info.do?play_id=${vo.play_id}&num=2'" class="card col-3">
+
+										<div>
+											<img style="z-index: 0;" src="${vo.play_poster}" />
+
+
+											<div style="font-size: 35px;; color: #e9d023; z-index: 1; position: absolute; bottom: 210px; left: 0">★</div>
+
+
+											<div class="info">
+												<span>${vo.play_prfnm}<span>
+														<p></p>
+														<p>장소 : ${vo.play_locnm}</p>
+														<p>시작날짜 : ${vo.play_from}</p>
+														<p>종료날짜 : ${vo.play_to}</p>
+											</div>
+										</div>
+
+									</a>
 								</c:forEach>
-								<div class="info">
-									<span>${vo.play_prfnm}<span>
-											<p></p>
-											<p>장소 : ${vo.play_locnm}</p>
-											<p>시작날짜 : ${vo.play_from}</p>
-											<p>종료날짜 : ${vo.play_to}</p>
-								</div>
+								<hr>
+
 							</div>
-						<!-- </form> -->
-					</a>
-				</c:forEach>
-				</div> --%>
+						</div>
+
 					</div>
 				</div>
 
@@ -499,7 +473,7 @@
 
 
 				<div class="col-12 portfolio-item filter-we">
-				<hr>
+					<hr>
 					<p id="up">문의내역</p>
 					<div class="portfolio-info">
 						<table>
@@ -546,12 +520,11 @@
 							</tbody>
 						</table>
 
-						<div align="center" style="font-size: 20px; margin-top: 20px;">${ pageMenu }</div>
 					</div>
 				</div>
 
 				<div class="col-12 portfolio-item filter-w row">
-				<hr>
+					<hr>
 					<p id="up">회원탈퇴</p>
 					<div class="portfolio-info d-flex justify-content-center ">
 						<div class="col-9 ">
@@ -570,7 +543,7 @@
 									시 해당 아이디는 영구적으로 삭제되어 재가입이 불가합니다.</div>
 								<form action="userDel.do">
 									<div style="font-size: 14px; margin-bottom: 20px;">
-										<input type="checkbox" name="agree" value="agree"> 해당내용을 모두 확인했으며, 회원탈퇴에 동의합니다.
+										<input type="radio" name="agree" value="agree" > 해당내용을 모두 확인했으며, 회원탈퇴에 동의합니다.
 									</div>
 									<div>
 										<input type="hidden" name="user_id" value="${ login.user_id }">
@@ -596,8 +569,7 @@
 
 		</div>
 
-		<!-- End Portfolio Section -->
-		
+
 
 	</main>
 
@@ -655,6 +627,9 @@
 			let user_id = f.user_id.value;
 			let user_pw = f.user_pw.value;
 
+			alert(user_id);
+			alert(user_pw);
+
 			var url = "checkInfo.do";
 
 			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
@@ -669,22 +644,22 @@
 			if (xhr.readyState == 4 && xhr.status == 200) {
 
 				var data = xhr.responseText;
-
-				if (data == 'no_user_pw') {
+				alert(data);
+				if (data == "no_user_pwd") {
+					console.log(data);
 					alert("비밀번호가 일치하지 않습니다");
 				} else {
-					/* location.href = "editInfo.do"; */
 
 					const modify = document.getElementById("modify");
 					const modifyab = document.getElementById("modifyab");
 
-					modifyab.style.display = "block";
 					modify.style.display = "none";
+					modifyab.classList.remove('invisible');
+					modifyab.classList.add('visible');
+
 				}
 			}
 		}
-
-	
 	</script>
 	<script type="text/javascript">
 		function good(go, id) {
@@ -714,6 +689,163 @@
 
 				}
 
+			}
+		}
+	</script>
+
+	<!-- 회원정보 수정 스크립트 -->
+	<script src="./resources/js/httpRequest.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+	<script>
+		function kakao_addr() {
+			daum.postcode.load(function() {
+				new daum.Postcode({
+					oncomplete : function(data) {
+
+						console.log(data); //뭐가 오는지 궁금하시나용
+
+						let fullAddr = '';
+						let extraAddr = '';
+
+						//도로명 주소를 선택 시
+						if (data.userSelectedType === 'R') {
+							fullAddr = data.roadAddress;
+
+							//법정동 명이 있을 시
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+						} else {
+							fullAddr = data.jibunAddress;
+						}
+
+						//건물이름 있을 시
+						if (data.buildingName !== '') {
+							//빈값이 아니라면 즉,법정동명이 있으면 ',' + buildingName ,,,,, 빈값이라면 buildingName
+							extraAddr += (extraAddr !== '' ? ', '
+									+ data.buildingName : data.buildingName);
+						}
+
+						fullAddr += (extraAddr !== '' ? '(' + extraAddr + ')'
+								: '');
+
+						$('#user_zip_code').val(data.zonecode);
+						$('#user_addr1').val(fullAddr);
+						console.log('#user_zip_code');
+						console.log(data.zonecode);
+						console.log('#user_addr1');
+						console.log(fullAddr);
+					}
+				}).open();
+			})
+		}
+
+		function correction(f) {
+
+			let user_id = f.user_id.value;
+			let user_pw = f.user_pw.value;
+			let user_pwck = f.user_pwck.value;
+			let user_name = f.user_name.value.trim();
+			let birth_year = f.birth_year.value;
+			let birth_month = f.birth_month.value;
+			let birth_day = f.birth_day.value;
+			let user_birth = birth_year + birth_month + birth_day;
+			let user_mail = f.user_mail.value;
+			let user_zip_code = f.user_zip_code.value;
+			let user_addr1 = f.user_addr1.value.trim();
+			let user_addr2 = f.user_addr2.value.trim();
+
+			//pw유효성
+			if (user_pw !== user_pwck || user_pw == null) {
+				alert("비밀번호가 일치하지 않습니다");
+				return;
+			}
+			
+			if(user_pw == "" || user_pwck == ""){
+				user_pw = "${login.user_pw}";
+			}
+			
+			//빈칸 존재 확인
+			if ( user_name == null || user_birth.trim() == null
+					|| user_mail.trim() == null || user_zip_code.trim() == null
+					|| user_addr1.trim() == null) {
+				alert("빈칸을 채워주세요");
+				return;
+			}
+
+			//라디오버튼 유효성
+			var user_gender = $('input:radio[name="contact"]:checked').val();
+			if (user_gender == null) {
+				alert("성별을 선택하세요");
+				return;
+			}
+
+			var url = "updateInfo.do";
+			var param = "user_id=" + user_id + "&user_pw=" + encodeURIComponent(user_pw)
+					+ "&user_name=" + user_name + "&user_birth=" + user_birth
+					+ "&user_gender=" + user_gender + "&user_mail=" + user_mail
+					+ "&user_zip_code=" + user_zip_code + "&user_addr1="
+					+ user_addr1 + "&user_addr2=" + user_addr2;
+			sendRequest(url, param, resCorrection, "get");
+		}
+
+		function resCorrection() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				//data = "fail" 또는 data = "success"
+				var data = xhr.responseText;
+
+				if (data == 'success') {
+					alert("회원 정보 수정 성공");
+				}
+				location.href = "mypage.do?user_id=${login.user_id}";//되돌아오기
+			}
+		}
+	</script>
+	<script>
+		function del(f) {
+			let user_id = f.user_id.value;
+			let ori_user_pw = f.ori_user_pw.value;
+			let user_pw = f.user_pw.value;
+			let agree = $('input:radio[name="agree"]:checked').val();
+			
+			
+			if(ori_user_pw !== user_pw  || user_pw === ""){
+				alert("비밀번호가 다르거나 입력하셔야 합니다.");
+				return;
+			}
+			
+			if (agree == null){
+				alert("탈퇴동의를 체크해주십시오.");
+				return;
+			}
+			
+			
+
+			var url = "userDel.do";
+
+			//encodeURIComponent : 특수문자가 섞여있는 데이터를 파라미터로 보내려면 필요한 함수
+			var param = "user_id=" + user_id;
+
+			sendRequest(url, param, resDel, "Post");
+		}
+
+		//콜백메서드
+		function resDel() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+
+				var data = xhr.responseText;
+				alert(data);
+				if (data == "success") {
+
+					location.href="culture.do";
+				} else {
+
+					alert("오류 발생!!");
+
+				}
 			}
 		}
 	</script>
