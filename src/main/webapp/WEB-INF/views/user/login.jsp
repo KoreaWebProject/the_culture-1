@@ -138,9 +138,15 @@
 					// location.href="culture.do";
 					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
 					// history.back();
-					console.log(document.referrer);
-					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
+					console.log('${backURL}')
+					if('${backURL}'.includes("join.do")){
+						alert("이전 페이지가 회원가입입니다. 메인으로 돌아갑니다.")
+						location.href = 'culture.do'
+					}else{
+						alert("조인 두 가 포함되어있지 않습니다.")
+					window.location = '${backURL}';	//이전 페이지  url이동 후 새로고침
 					alert(document.referrer);
+					}
 				}
 			}
 		}
