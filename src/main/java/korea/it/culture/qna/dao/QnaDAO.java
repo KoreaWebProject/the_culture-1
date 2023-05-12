@@ -64,15 +64,11 @@ public class QnaDAO {
 	}
 	
 	// myQNA 목록 출력
-	public List<QnaVO> selectMyList(HashMap<String, Object> map) {
-		List<QnaVO> list = sqlSession.selectList("q.qna_u_list", map);
+	public List<QnaVO> selectMyList(String user_id) {
+		List<QnaVO> list = sqlSession.selectList("q.qna_u_list", user_id);
 		return list;
 	}
 	
-	// 동일 아이디의 게시글 수 알아내기
-	public int getRowID(String user_id) {
-		int res = sqlSession.selectOne("q.qna_u_count", user_id);
-		return res;
-	}
+
 }
 
