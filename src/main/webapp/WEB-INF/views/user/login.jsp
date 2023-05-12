@@ -60,7 +60,7 @@
 		
 		<main>
 			<div class="content row  d-flex justify-content-center ">
-				<div class="col-5 container d-flex justify-content-center row">
+				<div class="col-4 container d-flex justify-content-center row">
 					<div class="col-7" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px;">
 						<form>
 							<input class="form-control col" name="user_id" type="text"
@@ -128,7 +128,6 @@
 			if(xhr.readyState == 4 && xhr.status == 200){
 				var data = xhr.responseText;
 				if(data == 'no_user_id'){
-					console.log(data);
 					alert("아이디가 존재하지 않습니다");
 					$('#userId').focus();
 				}else if(data == 'no_user_pwd'){
@@ -136,7 +135,6 @@
 					alert("비밀번호가 일치하지 않습니다");
 					$('#userPwd').focus();
 				}else if(data == 'joined_out'){
-					console.log(data);
 					alert("이미 탈퇴한 회원입니다");
 				}else{
 					// 목록을 보다가 로그인 시 메인으로 가버림
@@ -157,7 +155,7 @@
 
 
 		}
-		
-		
+
+
 	</script>
 </html>

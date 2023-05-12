@@ -122,7 +122,7 @@
 					<tr>
 						<th>내용</th>
 						<td>
-							<div class="col-11 " style="white-space: pre-line;">${ vo.qna_contents }</div>
+							<div  class="col-11 " style="white-space: pre-line; font-weight: bold; font-size: 20px;">${ vo.qna_contents }</div>
 						</td>
 
 					</tr>
@@ -172,7 +172,7 @@
 
 				<c:forEach var="list" items="${ list }">
 					<c:if test="${ list.qna_re_remove_lev eq 0}">
-						<div class="col-11 d-flex justify-content-right row">
+						<div class="col-10 d-flex justify-content-right row">
 
 							<table class="col-12" style="margin-top: 20px; word-wrap:break-word; table-layout: fixed;">
 								<tr>
@@ -190,7 +190,7 @@
 								<tr>
 									<th>내용</th>
 									<td colspan="3">
-										<div class="col-11 " style="white-space: pre-line; ">${ list.qna_re_contents }</div>
+										<div class="col-11 " style="white-space: pre-line; font-weight: bold; font-size: 20px;">${ list.qna_re_contents }</div>
 									</td>
 
 								</tr>

@@ -201,7 +201,7 @@
 
 							<table class="col-12" style="margin-top: 20px; word-wrap: break-word; table-layout: fixed;">
 								<tr>
-									<th>작성자</th>
+									<th class="col-3">작성자</th>
 									<td colspan="3">${login.user_id}</td>
 
 								</tr>
@@ -215,7 +215,7 @@
 								<tr>
 									<th>내용</th>
 									<td colspan="3">
-										<div class="col-11 " style="white-space: pre-line;">${ list.qna_re_contents }</div>
+										<div class="col-11 " style="white-space: pre-line; font-weight: bold; font-size: 20px;">${ list.qna_re_contents }</div>
 									</td>
 
 								</tr>

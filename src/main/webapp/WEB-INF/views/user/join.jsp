@@ -37,7 +37,7 @@
 
 	<main>
 		<div class="content row  d-flex justify-content-center ">
-			<div class="col-5 container d-flex justify-content-center row">
+			<div class="col-4 container d-flex justify-content-center row">
 				<div class="col-7 row" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px;">
 					<div class="d-flex justify-content-center" style="margin-top: 10px; font-weight: bold; font-size: 20px; color: #3b8af2;">회원가입</div>
 					<form method="post">
