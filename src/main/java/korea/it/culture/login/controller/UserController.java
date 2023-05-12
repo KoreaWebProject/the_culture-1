@@ -222,6 +222,8 @@ public class UserController {
 
 			session = request.getSession();
 			session.removeAttribute("result");//세션에 네이버 정보가 들어있기 때문에 삭제 후 필요한 vo만 넣기
+			System.out.println(session.getAttribute("backURL"));
+			//todo  url확인 후 소셜로그인할 시에 이전 url 로 돌아가게 하기
 			session.setAttribute("login", vo);
 			return "redirect:culture.do";
 		}
