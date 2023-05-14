@@ -167,6 +167,11 @@
 <script>
 	//소셜 로그인 세션에 대한 정보 불러온 상태에서 가입
     //가져온 값에 대해서는 변경 불가
+    if("${result.name}"){
+			//이름
+      $('#user_name').val('${result.name}');
+      $('#user_name').prop('disabled',true);
+    }
     if('${result.birthyear}'){
 			//생년
       $('.birth_year').val(${result.birthyear}).prop("selected",true);
@@ -306,6 +311,7 @@
 
 			/* $("input[name='user_name']").prop("disabled", false); */
 			$("input[name='user_mail']").prop("disabled", false);
+			$('#user_name').prop('disabled',false);
 			$(".birth_year").prop('disabled',false);
 			$(".birth_month").prop('disabled',false);
 			$(".birth_day").prop('disabled',false);

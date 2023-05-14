@@ -48,7 +48,13 @@ public class UserController {
 		//로그인 화면 이동 시 이전 화면  url 불러서 확인 후
 		System.out.println("레퍼럴   "+request.getHeader("Referer"));
 		// 이전 url을 세션에 저장
-		session.setAttribute("backURL", request.getHeader("Referer"));
+		//근데 이제 callback.do and join.do가 아니믄~
+		if(!request.getHeader("Referer").contains("callback.do") && !request.getHeader("Referer").contains("join.do")){
+			//로그인화면에 온 이상 무조건 한 번 session에 backURL이 저장되기 때문에 null일 걱정은 안하고 써도 됨
+			session.setAttribute("backURL", request.getHeader("Referer"));
+			System.out.println("저장한 url" +request.getHeader("Referer"));
+
+		}
 
 
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
@@ -222,10 +228,9 @@ public class UserController {
 
 			session = request.getSession();
 			session.removeAttribute("result");//세션에 네이버 정보가 들어있기 때문에 삭제 후 필요한 vo만 넣기
-			System.out.println(session.getAttribute("backURL"));
 			//todo  url확인 후 소셜로그인할 시에 이전 url 로 돌아가게 하기
 			session.setAttribute("login", vo);
-			return "redirect:culture.do";
+			return "redirect:" + session.getAttribute("backURL");
 		}
 
 	}
@@ -267,7 +272,7 @@ public class UserController {
 			session = request.getSession();
 			session.removeAttribute("result");//세션에 카카오 정보가 들어있기 때문에 삭제 후 필요한 vo만 넣기
 			session.setAttribute("login", vo);
-			return "redirect:culture.do";
+			return "redirect:" + session.getAttribute("backURL");
 		}
 	}
 }
