@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u">
+	
+	<!-- 회원가입 -->
+	<insert id="user_insert" parameterType="user">
+		insert into userinfo values(
+			#{user_id},
+			#{user_pw},
+			#{user_name},
+			#{user_birth},
+			#{user_gender},
+			#{user_mail},
+			#{user_zip_code},
+			#{user_addr1},
+			#{user_addr2},
+			#{user_role_id},
+			sysdate
+		)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="user_login" parameterType="String" resultType="user">
+		select * from userinfo where user_id = #{user_id}
+	</select>
+	
+	<!-- 회원정보 업데이트 -->
+	<update id="user_update" parameterType="user">
+		update userinfo set 
+			user_pw = #{user_pw},
+			user_name = #{user_name},
+			user_birth = #{user_birth},
+			user_gender = #{user_gender},
+			user_mail = #{user_mail},
+			user_zip_code = #{user_zip_code},
+			user_addr1 = #{user_addr1},
+			user_addr2 = #{user_addr2}
+		where user_id = #{user_id}
+	</update>
+
+	<!-- 회원 탈퇴 정보 업데이트 -->
+	<update id="user_del_up" parameterType="String">
+		update userinfo set 
+			user_role_id = 1
+		where user_id = #{user_id}
+	</update>
+
+	<!-- 아이디 중복검사 -->
+  	<select id="idCheck" resultType="user" parameterType="String">
+  		select * from userinfo where user_id = #{user_id}
+  	</select>
+
+	<!-- 받은 이메일로 가입된 아이디가 있는지 조회-->
+  	<select id="emailCheck" resultType="user" parameterType="String">
+  		select * from userinfo where user_mail = #{email}
+  	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
