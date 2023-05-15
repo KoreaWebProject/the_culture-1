@@ -87,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="qna_u_list" resultType="qna" parameterType="String">
 		select * from qna
 		where qna_remove_lev = 0 and user_id = #{user_id}
+		order by qna_id desc
 		
 	</select>
 	
