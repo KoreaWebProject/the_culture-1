@@ -36,9 +36,9 @@ public class Paging {
 		
 		//마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
 		//boolean형 변수의 값을 설정
-		if(endPage < totalPage) isNextPage = true;
+		if(nowPage < totalPage) isNextPage = true;
 		//시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
-		if(startPage > 1)isPrevPage = true;
+		if(nowPage > 1)isPrevPage = true;
 		
 		//HTML코드를 저장할 StringBuffer생성=>코드생성
 		sb = new StringBuffer();
@@ -46,7 +46,7 @@ public class Paging {
 		if(isPrevPage){
 			sb.append("<a href ='"+pageURL+"?page=");
 			//sb.append(nowPage - blockPage);
-			sb.append( startPage-1 );
+			sb.append( nowPage-1 );
 			sb.append("&"+search_param);
 			sb.append("'>◀</a>");
 		}
@@ -78,7 +78,7 @@ public class Paging {
 		if(isNextPage){
 			sb.append("<a href='"+pageURL+"?page=");
 			
-			sb.append(endPage + 1);
+			sb.append(nowPage + 1);
 			sb.append("&"+search_param);
 			sb.append("'>▶</a>");
 		}

@@ -283,8 +283,8 @@ String root = request.getContextPath();
 							</div>
 
 							<div style="font-weight: bold; margin-left: 10px;">${login.user_id}</div>
-							<div style="top: 15px; left: 10px; position: relative;">
-								<textarea rows="3" cols="92" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px;"></textarea>
+							<div class ="d-flex justify-content-center"style="top: 15px;  position: relative;">
+								<textarea class="col-11" placeholder="후기를 입력해 주세요" name="reple_contents" style="resize: none; margin-bottom: 20px; height: 80px;"></textarea>
 							</div>
 							<c:if test="${param.num eq 1 }">
 								<div class="d-flex justify-content-center" style="margin-top: 10px;">

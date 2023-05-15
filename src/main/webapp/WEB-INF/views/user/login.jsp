@@ -60,13 +60,13 @@
 		
 		<main>
 			<div class="content row  d-flex justify-content-center ">
-				<div class="col-5 container d-flex justify-content-center row">
+				<div class="col-4 container d-flex justify-content-center row">
 					<div class="col-7" style="border: 2px solid #e2e2e2; padding: 20px 20px; margin-top: 25px; border-radius: 20px;">
 						<form>
 							<input class="form-control col" name="user_id" type="text"
-							placeholder="아이디" style="margin-top: 20px;"> <input
+							placeholder="아이디" style="margin-top: 20px;" id="userId"> <input
 							class="form-control col" name="user_pw" type="password"
-							placeholder="비밀번호" style="margin-top: 20px;">
+							placeholder="비밀번호" style="margin-top: 20px;" id="userPwd">
 
 							<button type="button" class="btn btn-primary col-12"
 							style="margin-top: 20px;" onclick="login(this.form);">로그인</button>
@@ -81,7 +81,7 @@
 							style="font-size: 13px; margin-top: 20px;">
 							 <a href="#">비밀번호 찾기 |</a> 
 								<a href="#">아이디 찾기 |</a>  
-								<a href="#" onclick="location.href='join.do'">회원가입</a>
+								<a href="#" onclick="location.replace('join.do')">회원가입</a>
 							</div>
 						</form>
 					</div>
@@ -129,8 +129,11 @@
 				var data = xhr.responseText;
 				if(data == 'no_user_id'){
 					alert("아이디가 존재하지 않습니다");
-				}else if(data == 'no_user_pw'){
+					$('#userId').focus();
+				}else if(data == 'no_user_pwd'){
+					console.log(data);
 					alert("비밀번호가 일치하지 않습니다");
+					$('#userPwd').focus();
 				}else if(data == 'joined_out'){
 					alert("이미 탈퇴한 회원입니다");
 				}else{
@@ -138,44 +141,21 @@
 					// location.href="culture.do";
 					// 단순 뒤로가기 . 세션 갱신이 안되어서 로그인이 되어도 안되어있는거처럼 나옴 새로고침하면 정상출력
 					// history.back();
-					console.log(document.referrer);
-					window.location = document.referrer;	//이전 페이지  url이동 후 새로고침
+					console.log('${backURL}')
+					if('${backURL}'.includes("join.do") || '${backURL}'.includes("callback.do")){
+						alert("이전 페이지가 회원가입입니다. 메인으로 돌아갑니다.")
+						location.href = 'culture.do'
+					}else{
+						alert("조인 두 가 포함되어있지 않습니다.")
+					window.location = '${backURL}';	//이전 페이지  url이동 후 새로고침
 					alert(document.referrer);
+					}
 				}
 			}
+
+
 		}
-		
-		
-		//카카오로그인
-		  function KakaoLogin() {
-		    $.ajax({
-		        url: 'logintest.do',
-		        type: 'get',
-		        async: false,
-		        dataType: 'text',
-		        success: function (res) {
-		            location.href = res;
-		        },fail: function (error) {
-		            alert(error);
-		        }
-		    });
 
-		  }
 
-		  $(document).ready(function() {
-				
-		      var kakaoInfo = '${kakaoInfo}';
-
-		      if(kakaoInfo != ""){
-		          var data = JSON.parse(kakaoInfo);
-
-		          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
-		          alert(
-		          "user : \n" + "email : "
-		          + data['email']  
-		          + "\n nickname : " 
-		          + data['nickname']);
-		      }
-		  });  
 	</script>
 </html>

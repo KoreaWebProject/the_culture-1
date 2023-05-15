@@ -52,42 +52,17 @@ public class MyPageController {
 
 	// 마이페이지 첫 화면으로 이동(회원정보 수정 창)
 	@RequestMapping("/mypage.do")
-	public String moveMyPage(Model model, String cateogy) {
-		int nowPage = 1; // 1로 첫페이지 번호를 가정
-		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
-		// 1~ 5;
-		if(cateogy == null) {
-			cateogy = "1";
-		}
-		if (page != null && !page.isEmpty()) {// 올바른 값을 받았다면
-			nowPage = Integer.parseInt(page);
-		}
+	public String moveMyPage(Model model) {
+		
 
 		String user_id = request.getParameter("user_id");
 		
-		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산
-		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
-		int end = nowPage * Common.Board.BLOCKLIST;
+		
 
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("end", end);
-		map.put("user_id", user_id);
-
-		List<QnaVO> list = qna_dao.selectMyList(map);
 		
-		System.out.println(list.size());
-		
-		// 페이지 메뉴 생성
-		int row_id = qna_dao.getRowID(user_id);
-		System.out.println(row_id);
-		// 하단 페이지 메뉴 생성
-		String pageMenu = Paging.getPaging("mypage.do", nowPage, // 현재페이지
-				row_id, // 전체 게시글 수
-				user_id, Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
-				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
-		
-		
+;
+		List<QnaVO> list = qna_dao.selectMyList(user_id);
+	
 		List<MyrepleVO> reple_list = infoService.getmyReple(user_id);
 		List<User_goodVO> good_list = infoService.getmyGood(user_id);
 		HttpSession session = request.getSession();
@@ -106,11 +81,6 @@ public class MyPageController {
 			}
 		}
 		
-		for(int i =0; i<reple_list.size(); i++) {
-			System.out.println(reple_list.get(i).getPlay_prfnm());
-			System.out.println(reple_list.get(i).getPlay_poster());
-			System.out.println(reple_list.get(i).getGood_check());
-		}
 		
 		
 		List<PlayVO> prf_list = play_dao.getmyPrf(user_id);
@@ -118,8 +88,6 @@ public class MyPageController {
 		model.addAttribute("prf_list", prf_list);
 		model.addAttribute("reple_list", reple_list);
 		model.addAttribute("good_list", good_list);
-		model.addAttribute("category", cateogy);
-		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("list", list);
 		
 		
@@ -133,25 +101,22 @@ public class MyPageController {
 	public String selectInfo(Model model) {
 		String user_id = request.getParameter("user_id");
 		String user_pw = request.getParameter("user_pw");
+		
 
 		UserVO vo = user_dao.login(user_id);
 
+		
 		String param = "clear";
 
 		// 비밀번호 일치 여부 확인
 		if (!vo.getUser_pw().equals(user_pw)) {
 			param = "no_user_pwd";
-			return param;
+
 		}
 
 		return param;
 	}
 
-	// 비밀번호 확인 후 회원정보 수정 jsp로 이동
-	@RequestMapping("/editInfo.do")
-	public String moveEditPage() {
-		return MyCommon.MyPage.VIEW_PATH + "editInfo.jsp";
-	}
 
 	// 회원정보 수정
 	@ResponseBody
@@ -170,18 +135,17 @@ public class MyPageController {
 		return result;
 	}
 
-	// 회원 탈퇴 확인 페이지로 이동
-	@RequestMapping("/delInfo.do")
-	public String delPage() {
-		return MyCommon.MyPage.VIEW_PATH + "delPage.jsp";
-	}
 
-	// 회원 탈퇴 확인 페이지로 이동
+
+	// 회원 탈퇴 확인 
 	@ResponseBody
 	@RequestMapping("/userDel.do")
 	public String delUser(HttpSession session, String user_id) {
 		int res = user_dao.delUser(user_id);
-
+		
+		
+		
+		
 		String result = "fail";
 		if (res != 0) {
 			// 탈퇴 성공으로 인한 세션 삭제로 로그아웃
@@ -230,49 +194,24 @@ public class MyPageController {
 	
 	
 	
-	
-	
-	
-	
-	
-
-	// 나의 후기 jsp로 이동
-	@RequestMapping("/myReview.do")
-	public String moveMyReviewPage(Model model) {
+	// 나의 Qna 삭제를 위한 업데이트
+	@RequestMapping("/myqna_del.do")
+	public String myqna_del() {
+		
+		int qna_id = Integer.parseInt(request.getParameter("qna_id"));
 		String user_id = request.getParameter("user_id");
+		qna_dao.update(qna_id);
+		qna_re_dao.delete(qna_id);
 		
-		int nowPage = 1; // 1로 첫페이지 번호를 가정
-		String page = request.getParameter("page");// 기본자료형은 null값을 판단하지 못함
-		if (page != null && !page.isEmpty()) {// 올바른 값을 받았다면
-			nowPage = Integer.parseInt(page);
-		}
-
-		// 한페이지에 표시될 게시물의 시작과 끝 번호를 계산
-		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
-		int end = nowPage * Common.Board.BLOCKLIST;
-
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("start", start);
-		map.put("end", end);
-		map.put("user_id", user_id);
-
-		List<QnaVO> list = qna_dao.selectMyList(map);
-
-		// 페이지 메뉴 생성
-		int row_id = qna_dao.getRowID(user_id);
-
-		// 하단 페이지 메뉴 생성
-		String pageMenu = Paging.getPaging("myQna.do", nowPage, // 현재페이지
-				row_id, // 전체 게시글 수
-				"", Common.Board.BLOCKLIST, // 한 페이지에 보여줄 게시글 수
-				Common.Board.BLOCKPAGE); // 페이지 메뉴의 수
-
-		// pageMenu를 바인딩
-		model.addAttribute("pageMenu", pageMenu);
-
-		model.addAttribute("list", list);
-		
-		return MyCommon.MyPage.VIEW_PATH + "myReview.jsp";
+		return "redirect:mypage.do?user_id="+user_id;
+	}
+	
+	
+	@RequestMapping("/mymodify.do")
+	public String modify(Model model, QnaVO qna) {
+		String user_id = request.getParameter("user_id");
+		qna_dao.modify(qna);
+		return "redirect:mypage.do?user_id="+user_id;
 	}
 
 }
