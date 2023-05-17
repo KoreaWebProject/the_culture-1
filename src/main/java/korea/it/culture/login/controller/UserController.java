@@ -174,7 +174,7 @@ public class UserController {
 	@RequestMapping("/cancel.do")
 	public String cancel(HttpSession session) {
 		session = request.getSession();
-		session.invalidate();
+		session.removeAttribute("result");
 		return "redirect:login_main.do";
 	}
 
